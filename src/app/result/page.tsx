@@ -124,7 +124,7 @@ function ResultContent() {
           <div className="text-center">
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:bg-blue-50 px-6 py-3 rounded-full transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
               style={{ "@media print": { display: "none" } } as any}
             >
               <Printer size={20} />
