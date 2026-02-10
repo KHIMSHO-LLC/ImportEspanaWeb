@@ -150,7 +150,7 @@ export function VehicleAutocomplete({
           <div className="flex gap-2">
             <input
               type="number"
-              className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white"
               placeholder="Ej: 45000"
               value={manualValue}
               onChange={(e) => setManualValue(e.target.value)}
@@ -187,7 +187,7 @@ export function VehicleAutocomplete({
         </label>
         <input
           type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
           placeholder="Escribe la marca (ej: Mercedes, BMW)"
           value={brandQuery}
           onChange={(e) => {
@@ -221,7 +221,7 @@ export function VehicleAutocomplete({
           </label>
           <input
             type="number"
-            className="w-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
             placeholder="Ej: 2020"
             maxLength={4}
             value={yearFilter}
@@ -238,7 +238,7 @@ export function VehicleAutocomplete({
           </label>
           <input
             type="text"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
             placeholder="Escribe el modelo (ej: X5, Clase C)"
             value={modelQuery}
             onChange={(e) => {

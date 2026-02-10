@@ -123,7 +123,7 @@ export default function Home() {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder="25000"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
             />
           </div>
 
@@ -136,7 +136,7 @@ export default function Home() {
             <select
               value={carAge}
               onChange={(e) => setCarAge(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm"
             >
               <option value="new">New / Menos de 1 año</option>
               <option value="1_year">1-2 años</option>
@@ -165,7 +165,7 @@ export default function Home() {
               value={co2Emissions}
               onChange={(e) => setCo2Emissions(e.target.value)}
               placeholder="120"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
             />
           </div>
 
