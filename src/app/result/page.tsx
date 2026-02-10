@@ -60,7 +60,7 @@ function ResultContent() {
     <div className="max-w-4xl mx-auto p-4 md:py-10">
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors"
+        className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors print:hidden"
       >
         <ArrowLeft size={20} />
         {t("backToSearch")}
@@ -69,7 +69,7 @@ function ResultContent() {
       <div className="grid md:grid-cols-2 gap-8">
         {/* Left Col: Main Result */}
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-3xl p-8 text-white shadow-xl">
+          <div className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-3xl p-8 text-white shadow-xl print:bg-blue-600 print:text-white">
             <h2 className="text-blue-100 font-semibold tracking-wider text-sm uppercase mb-2">
               {t("estimatedTotal")}
             </h2>
@@ -121,11 +121,10 @@ function ResultContent() {
             </div>
           </div>
 
-          <div className="text-center">
+          <div className="text-center print:hidden">
             <button
               onClick={() => window.print()}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
-              style={{ "@media print": { display: "none" } } as any}
             >
               <Printer size={20} />
               Print Result / Guardar PDF
