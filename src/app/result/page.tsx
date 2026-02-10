@@ -59,7 +59,7 @@ function ResultContent() {
   return (
     <div className="max-w-4xl mx-auto p-4 md:py-10">
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push(`/?${searchParams.toString()}`)}
         className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors print:hidden"
       >
         <ArrowLeft size={20} />

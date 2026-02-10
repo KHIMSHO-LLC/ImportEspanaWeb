@@ -6,6 +6,13 @@ import boePrices from "@/data/boe_prices.json";
 import { Vehicle } from "@/types";
 
 interface VehicleAutocompleteProps {
+  initialData?: {
+    brand?: string;
+    model?: string;
+    value: number;
+    fuelType?: string;
+    isManual: boolean;
+  } | null;
   onVehicleSelected: (data: {
     value: number;
     brand?: string;
@@ -16,18 +23,41 @@ interface VehicleAutocompleteProps {
 }
 
 export function VehicleAutocomplete({
+  initialData,
   onVehicleSelected,
 }: VehicleAutocompleteProps) {
   const { t } = useLanguage();
-  const [brandQuery, setBrandQuery] = useState("");
-  const [modelQuery, setModelQuery] = useState("");
+  const [brandQuery, setBrandQuery] = useState(initialData?.brand || "");
+  const [modelQuery, setModelQuery] = useState(initialData?.model || "");
   const [yearFilter, setYearFilter] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(
+    initialData?.brand || null,
+  );
+
+  // We can't easily reconstruct the full Vehicle object without searching for it again,
+  // but for the UI purpose of showing what was selected, we can construct a partial one
+  // or just rely on manual mode visual if we don't have the full vehicle object.
+  // Actually, let's just use the passed data to set a "selectedVehicle" state if it's not manual.
+  const [selectedVehicle, setSelectedVehicle] = useState<any | null>(
+    initialData && !initialData.isManual && initialData.brand
+      ? {
+          brand: initialData.brand,
+          model: initialData.model,
+          value: initialData.value,
+          fuelType: initialData.fuelType,
+          // Missing other fields like startYear, but that's okay for the "Selected Vehicle" display
+        }
+      : null,
+  );
+
   const [showBrandSuggestions, setShowBrandSuggestions] = useState(false);
   const [showModelSuggestions, setShowModelSuggestions] = useState(false);
-  const [isManualMode, setIsManualMode] = useState(false);
-  const [manualValue, setManualValue] = useState("");
+  const [isManualMode, setIsManualMode] = useState(
+    initialData?.isManual || false,
+  );
+  const [manualValue, setManualValue] = useState(
+    initialData?.isManual ? initialData.value.toString() : "",
+  );
 
   const brandInputRef = useRef<HTMLInputElement>(null);
   const modelInputRef = useRef<HTMLInputElement>(null);
