@@ -4,7 +4,7 @@ import { AdBanner } from "@/components/AdBanner";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SidebarAd } from "@/components/SidebarAd";
 import { StickyAdFooter } from "@/components/StickyAdFooter";
-import { StickyAdFooter } from "@/components/StickyAdFooter";
+
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
 import SeoSchema from "@/components/SeoSchema";
