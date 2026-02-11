@@ -14,9 +14,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import { SEO_KEYWORDS } from "@/constants/SeoKeywords";
+
 export const metadata: Metadata = {
-  title: "ImportEspana - Calculadora Impuestos",
-  description: "Calculadora de impuestos de importación de vehículos en España",
+  title: {
+    default: "ImportEspana - Calculadora Impuestos Matriculación España",
+    template: "%s | ImportEspana",
+  },
+  description:
+    "Calculadora gratuita de impuestos de matriculación para coches importados en España. Calcula el coste de importar coche de Alemania, Francia o cualquier parte de la UE.",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "KHIMSHO LLC" }],
+  creator: "KHIMSHO LLC",
+  publisher: "ImportEspana",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "ImportEspana - Calculadora Impuesto Matriculación",
+    description:
+      "Calcula el coste exacto de importar y matricular tu coche en España. Datos oficiales del BOE.",
+    url: "https://importespana.com",
+    siteName: "ImportEspana",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ImportEspana - Calculadora Importación Coches",
+    description:
+      "Calcula cuánto cuesta matricular tu coche extranjero en España.",
+  },
   other: {
     "google-adsense-account": "ca-pub-8296385442547902",
   },
