@@ -58,18 +58,25 @@ export const metadata: Metadata = {
   },
 };
 
+import { Footer } from "@/components/Footer";
+
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 font-sans text-slate-900`}
       >
-        <LanguageProvider>{children}</LanguageProvider>
-        <AdSense pId="8296385442547902" />
+        <LanguageProvider>
+          <AdSense pId="8296385442547902" />
+          <div className="flex flex-col min-h-screen">
+            {children}
+            <Footer />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
