@@ -34,8 +34,11 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <Mail className="text-blue-600" size={20} />
-              <a href="mailto:giorgikhim@gmail.com" className="hover:underline">
-                giorgikhim@gmail.com
+              <a
+                href="mailto:info@importespana.com"
+                className="hover:underline"
+              >
+                info@importespana.com
               </a>
             </div>
             {/* Add more contact info if available */}

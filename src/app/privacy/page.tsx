@@ -108,10 +108,10 @@ export default function PrivacyPage() {
               <br />
               <strong>Email:</strong>{" "}
               <a
-                href="mailto:giorgikhim@gmail.com"
+                href="mailto:info@importespana.com"
                 className="text-blue-600 hover:underline"
               >
-                giorgikhim@gmail.com
+                info@importespana.com
               </a>
             </p>
           </section>
