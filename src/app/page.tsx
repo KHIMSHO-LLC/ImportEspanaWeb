@@ -126,6 +126,7 @@ function HomeContent() {
         dataAdSlot="1957145426"
         dataAdFormat="horizontal"
         dataFullWidthResponsive={true}
+        className="hidden md:block"
       />
 
       <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">

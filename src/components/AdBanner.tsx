@@ -6,12 +6,14 @@ type AdBannerProps = {
   dataAdSlot: string;
   dataAdFormat: string;
   dataFullWidthResponsive: boolean;
+  className?: string;
 };
 
 export const AdBanner = ({
   dataAdSlot,
   dataAdFormat,
   dataFullWidthResponsive,
+  className = "",
 }: AdBannerProps) => {
   useEffect(() => {
     try {
@@ -24,7 +26,9 @@ export const AdBanner = ({
   }, []);
 
   return (
-    <div className="my-8 text-center overflow-hidden print:hidden">
+    <div
+      className={`my-8 text-center overflow-hidden print:hidden ${className}`}
+    >
       {/* Visual Debug Placeholder for Development */}
       {process.env.NODE_ENV === "development" && (
         <div
