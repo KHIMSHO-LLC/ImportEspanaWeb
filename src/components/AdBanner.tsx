@@ -24,7 +24,7 @@ export const AdBanner = ({
   }, []);
 
   return (
-    <div className="my-8 text-center overflow-hidden">
+    <div className="my-8 text-center overflow-hidden print:hidden">
       {/* Visual Debug Placeholder for Development */}
       {process.env.NODE_ENV === "development" && (
         <div
