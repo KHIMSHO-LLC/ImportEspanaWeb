@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ImportEspana - Calculadora Impuestos",
   description: "Calculadora de impuestos de importación de vehículos en España",
+  other: {
+    "google-adsense-account": "ca-pub-8296385442547902",
+  },
 };
 
 export default function RootLayout({
