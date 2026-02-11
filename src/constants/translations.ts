@@ -44,6 +44,21 @@ export const translations = {
     saveDownload: "Save & Download PDF",
     watchAd: "📺 Watch a short ad to download",
     loadingAd: "(Loading...)",
+    // Tooltips
+    originCountryInfo:
+      "The country where the vehicle is currently registered or coming from.",
+    vehicleSearchInfo:
+      "Find your exact vehicle model to get the official tax value.",
+    yearInfo:
+      "Filter models by year to find the correct version. Does not affect tax directly.",
+    carPriceInfo:
+      "The price you paid or will pay for the car (Purchase Price).",
+    ageInfo:
+      "The age of the car today. Used to calculate the depreciation (tax discount).",
+    co2Info:
+      "CO2 emissions in g/km found on the datasheet (Ficha Técnica). Affects the Registration Tax.",
+    sellerTypeInfo:
+      "Buying from a Dealer avoids ITP tax. Buying from a Private Seller incurs 4% ITP.",
     // PDF
     pdfTitle: "Import Cost Estimate",
   },
@@ -90,6 +105,21 @@ export const translations = {
     saveDownload: "Guardar y Descargar PDF",
     watchAd: "📺 Mira un anuncio para descargar",
     loadingAd: "(Cargando...)",
+    // Tooltips
+    originCountryInfo:
+      "El país donde el vehículo está registrado actualmente o de donde proviene.",
+    vehicleSearchInfo:
+      "Encuentra tu modelo exacto para obtener el valor fiscal oficial.",
+    yearInfo:
+      "Filtra modelos por año. No afecta directamente al impuesto, solo a la búsqueda.",
+    carPriceInfo:
+      "El precio que pagaste o pagarás por el coche (Precio de Compra).",
+    ageInfo:
+      "La antigüedad del coche hoy. Se usa para calcular la depreciación (descuento fiscal).",
+    co2Info:
+      "Emisiones CO2 en g/km (ver Ficha Técnica). Afecta al Impuesto de Matriculación.",
+    sellerTypeInfo:
+      "Comprar a un Concesionario evita el ITP. Comprar a un Particular conlleva un 4% de ITP.",
     pdfTitle: "Presupuesto de Importación",
   },
   ru: {
@@ -132,6 +162,20 @@ export const translations = {
     saveDownload: "Сохранить и скачать PDF",
     watchAd: "📺 Посмотрите рекламу для скачивания",
     loadingAd: "(Загрузка...)",
+    // Tooltips
+    originCountryInfo:
+      "Страна, где автомобиль зарегистрирован или откуда он прибывает.",
+    vehicleSearchInfo:
+      "Найдите точную модель, чтобы получить официальную налоговую стоимость.",
+    yearInfo:
+      "Фильтр моделей по году. Не влияет на налог напрямую, помогает найти версию.",
+    carPriceInfo: "Цена, которую вы платите за автомобиль (Цена покупки).",
+    ageInfo:
+      "Возраст автомобиля на сегодня. Используется для расчета амортизации (скидки).",
+    co2Info:
+      "Выбросы CO2 в г/км (см. техпаспорт). Влияет на налог на регистрацию.",
+    sellerTypeInfo:
+      "Покупка у дилера освобождает от ITP. Покупка у частника облагается 4% ITP.",
     pdfTitle: "Смета импорта",
   },
   de: {
@@ -174,6 +218,20 @@ export const translations = {
     saveDownload: "Speichern & PDF herunterladen",
     watchAd: "📺 Werbung ansehen zum Herunterladen",
     loadingAd: "(Lädt...)",
+    // Tooltips
+    originCountryInfo:
+      "Das Land, in dem das Fahrzeug derzeit zugelassen ist oder herkommt.",
+    vehicleSearchInfo:
+      "Finden Sie Ihr genaues Modell, um den offiziellen Steuerwert zu erhalten.",
+    yearInfo:
+      "Modelle nach Jahr filtern. Beeinflusst die Steuer nicht direkt, hilft bei der Suche.",
+    carPriceInfo: "Der Preis, den Sie für das Auto zahlen (Kaufpreis).",
+    ageInfo:
+      "Das heutige Alter des Autos. Wird zur Berechnung der Abschreibung verwendet.",
+    co2Info:
+      "CO2-Emissionen in g/km (siehe Datenblatt). Beeinflusst die Zulassungssteuer.",
+    sellerTypeInfo:
+      "Kauf vom Händler vermeidet ITP-Steuer. Kauf von Privatperson: 4% ITP.",
     pdfTitle: "Importkostenvoranschlag",
   },
   fr: {
@@ -217,6 +275,20 @@ export const translations = {
     saveDownload: "Enregistrer et télécharger le PDF",
     watchAd: "📺 Regarder une pub pour télécharger",
     loadingAd: "(Chargement...)",
+    // Tooltips
+    originCountryInfo:
+      "Le pays où le véhicule est actuellement immatriculé ou d'où il provient.",
+    vehicleSearchInfo:
+      "Trouvez votre modèle exact pour obtenir la valeur fiscale officielle.",
+    yearInfo:
+      "Filtrer les modèles par année. N'affecte pas directement la taxe.",
+    carPriceInfo: "Le prix que vous payez pour la voiture (Prix d'achat).",
+    ageInfo:
+      "L'âge de la voiture aujourd'hui. Utilisé pour calculer la dépréciation.",
+    co2Info:
+      "Émissions de CO2 en g/km (voir fiche technique). Affecte la taxe d'immatriculation.",
+    sellerTypeInfo:
+      "L'achat chez un concessionnaire évite la taxe ITP. L'achat à un particulier encourt 4% d'ITP.",
     pdfTitle: "Devis d'importation",
   },
 };

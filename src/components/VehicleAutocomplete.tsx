@@ -4,6 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import React, { useMemo, useState, useRef, useEffect } from "react";
 import boePrices from "@/data/boe_prices.json";
 import { Vehicle } from "@/types";
+import { InfoTooltip } from "@/components/InfoTooltip";
 
 interface VehicleAutocompleteProps {
   initialData?: {
@@ -19,6 +20,7 @@ interface VehicleAutocompleteProps {
     model?: string;
     fuelType?: string;
     isManual: boolean;
+    year?: number;
   }) => void;
 }
 
@@ -34,10 +36,6 @@ export function VehicleAutocomplete({
     initialData?.brand || null,
   );
 
-  // We can't easily reconstruct the full Vehicle object without searching for it again,
-  // but for the UI purpose of showing what was selected, we can construct a partial one
-  // or just rely on manual mode visual if we don't have the full vehicle object.
-  // Actually, let's just use the passed data to set a "selectedVehicle" state if it's not manual.
   const [selectedVehicle, setSelectedVehicle] = useState<any | null>(
     initialData && !initialData.isManual && initialData.brand
       ? {
@@ -45,7 +43,6 @@ export function VehicleAutocomplete({
           model: initialData.model,
           value: initialData.value,
           fuelType: initialData.fuelType,
-          // Missing other fields like startYear, but that's okay for the "Selected Vehicle" display
         }
       : null,
   );
@@ -120,6 +117,7 @@ export function VehicleAutocomplete({
         if (year) {
           const startYear = parseInt(vehicle.startYear);
           const endYear = vehicle.endYear ? parseInt(vehicle.endYear) : 2026;
+          // Logic update: Ensure the model availability overlaps with the requested year
           if (year < startYear || year > endYear) return false;
         }
 
@@ -140,12 +138,17 @@ export function VehicleAutocomplete({
     setSelectedVehicle(vehicle);
     setModelQuery(vehicle.model);
     setShowModelSuggestions(false);
+
+    // Determine the year to pass.
+    const yearInput = yearFilter ? parseInt(yearFilter) : undefined;
+
     onVehicleSelected({
       value: vehicle.value,
       brand: vehicle.brand,
       model: vehicle.model,
       fuelType: vehicle.fuelType,
       isManual: false,
+      year: yearInput,
     });
   };
 
@@ -212,8 +215,9 @@ export function VehicleAutocomplete({
     <div className="mb-6">
       {/* Brand Search */}
       <div className="mb-4 relative" ref={brandInputRef}>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
+        <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
           🚗 {t("brand")}
+          <InfoTooltip text={t("vehicleSearchInfo")} />
         </label>
         <input
           type="text"
@@ -246,8 +250,9 @@ export function VehicleAutocomplete({
       {/* Year Filter (optional) */}
       {selectedBrand && (
         <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
+          <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
             📅 {t("yearOptional")}
+            <InfoTooltip text={t("yearInfo")} />
           </label>
           <input
             type="number"
@@ -263,8 +268,9 @@ export function VehicleAutocomplete({
       {/* Model Search */}
       {selectedBrand && (
         <div className="mb-4 relative" ref={modelInputRef}>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
+          <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
             🔧 {t("model")}
+            <InfoTooltip text={t("vehicleSearchInfo")} />
           </label>
           <input
             type="text"

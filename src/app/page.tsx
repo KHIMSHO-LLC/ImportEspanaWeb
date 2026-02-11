@@ -1,22 +1,23 @@
 "use client";
 
+import { AdBanner } from "@/components/AdBanner";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { SidebarAd } from "@/components/SidebarAd";
+import { StickyAdFooter } from "@/components/StickyAdFooter";
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import {
-  MapPin,
-  Euro,
-  Calendar,
-  Gauge,
-  User,
-  AlertTriangle,
-  RotateCcw,
-} from "lucide-react";
 import { Country } from "@/types";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import {
+  AlertTriangle,
+  Calendar,
+  Euro,
+  Gauge,
+  MapPin,
+  RotateCcw,
+  User,
+} from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 function HomeContent() {
   const { t } = useLanguage();
@@ -34,6 +35,7 @@ function HomeContent() {
     model?: string;
     fuelType?: string;
     isManual: boolean;
+    year?: number;
   } | null>(null);
 
   // Initialize from URL params
@@ -104,7 +106,7 @@ function HomeContent() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 md:pt-10">
+    <div className="w-full md:pt-4">
       <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">
         ImportEspana 🇪🇸
       </h1>
@@ -142,10 +144,6 @@ function HomeContent() {
         </div>
 
         {/* Vehicle Autocomplete with Initial Data */}
-        {/* We key it by date or something to force re-render on reset? 
-            Or rely on initialData only on mount? 
-            Actually, initialData is usually only read on mount. 
-            If we want to reset it, we might need to force remount. */}
         <VehicleAutocomplete
           key={vehicleData ? "loaded" : "empty"}
           initialData={vehicleData}
@@ -156,6 +154,15 @@ function HomeContent() {
             }
           }}
         />
+
+        {/* Mobile In-Feed Ad */}
+        <div className="md:hidden">
+          <AdBanner
+            dataAdSlot="MOBILE_INFEED_HOME_ID"
+            dataAdFormat="horizontal"
+            dataFullWidthResponsive={true}
+          />
+        </div>
 
         {/* Car Price */}
         <div>
@@ -268,6 +275,13 @@ function HomeContent() {
             Reset Search
           </button>
         </div>
+
+        {/* Ad Banner */}
+        <AdBanner
+          dataAdSlot="YYYYYYYYYY"
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+        />
       </div>
     </div>
   );
@@ -275,11 +289,27 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen pb-20">
+    <main className="min-h-screen pb-20 bg-gray-50">
       <LanguageSwitcher />
-      <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
-        <HomeContent />
-      </Suspense>
+
+      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 mt-6">
+        {/* Left Sidebar */}
+        <SidebarAd side="left" />
+
+        {/* Main Content */}
+        <div className="flex-1 max-w-md w-full">
+          <Suspense
+            fallback={<div className="p-10 text-center">Loading...</div>}
+          >
+            <HomeContent />
+          </Suspense>
+        </div>
+
+        {/* Right Sidebar */}
+        <SidebarAd side="right" />
+      </div>
+
+      <StickyAdFooter />
     </main>
   );
 }

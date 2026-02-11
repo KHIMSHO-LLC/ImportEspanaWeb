@@ -1,12 +1,14 @@
 "use client";
 
+import { AdBanner } from "@/components/AdBanner";
+import { SidebarAd } from "@/components/SidebarAd";
+import { Colors } from "@/constants/Colors";
 import { useLanguage } from "@/context/LanguageContext";
 import { CalculationInput } from "@/types";
 import { calculateImportCost } from "@/utils/taxCalculator";
+import { ArrowLeft, Car, CheckCircle, Printer } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { ArrowLeft, Printer, Car, CheckCircle } from "lucide-react";
-import { Colors } from "@/constants/Colors";
 
 function ResultContent() {
   const searchParams = useSearchParams();
@@ -57,7 +59,7 @@ function ResultContent() {
   const isElectric = input.co2Emissions === 0;
 
   return (
-    <div className="max-w-4xl mx-auto p-4 md:py-10">
+    <div className="w-full p-4 md:py-4">
       <button
         onClick={() => router.push(`/?${searchParams.toString()}`)}
         className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors print:hidden"
@@ -130,6 +132,15 @@ function ResultContent() {
               Print Result / Guardar PDF
             </button>
           </div>
+        </div>
+
+        {/* Mobile In-Feed Ad */}
+        <div className="md:hidden">
+          <AdBanner
+            dataAdSlot="MOBILE_INFEED_RESULT_ID"
+            dataAdFormat="rectangle"
+            dataFullWidthResponsive={true}
+          />
         </div>
 
         {/* Right Col: Breakdown */}
@@ -212,6 +223,12 @@ function ResultContent() {
               </span>
             </div>
           </div>
+
+          <AdBanner
+            dataAdSlot="ZZZZZZZZZZ"
+            dataAdFormat="rectangle"
+            dataFullWidthResponsive={true}
+          />
         </div>
       </div>
     </div>
@@ -243,10 +260,16 @@ function Row({
 
 export default function ResultPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
-        <ResultContent />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex justify-center items-start gap-6 max-w-[1600px] mx-auto px-4 mt-6">
+      <SidebarAd side="left" />
+
+      <div className="flex-1 w-full max-w-4xl">
+        <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+          <ResultContent />
+        </Suspense>
+      </div>
+
+      <SidebarAd side="right" />
     </main>
   );
 }
