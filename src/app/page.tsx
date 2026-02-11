@@ -83,6 +83,18 @@ function HomeContent() {
       return;
     }
 
+    // Track the calculation event
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "calculate_tax", {
+        origin_country: originCountry,
+        brand: vehicleData.brand,
+        model: vehicleData.model,
+        year: vehicleData.year,
+        price: price,
+        co2: co2Emissions,
+      });
+    }
+
     const params = new URLSearchParams({
       originCountry,
       // Pass carPrice for consistency, though currently just input
