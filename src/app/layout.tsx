@@ -72,9 +72,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 font-sans text-slate-900`}
       >
+        <GoogleAnalytics gaId="G-05KZ4XPMFR" />
+        <AdSense pId="8296385442547902" />
         <LanguageProvider>
-          <GoogleAnalytics gaId="G-05KZ4XPMFR" />
-          <AdSense pId="8296385442547902" />
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-1 pt-28 md:pt-28">{children}</main>

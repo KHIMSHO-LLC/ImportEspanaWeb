@@ -59,9 +59,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return translation;
   };
 
-  if (!isLoaded) {
-    return null; // or generic loading spinner
-  }
+  // Avoid returning null to allow SSR and SEO
+  // if (!isLoaded) {
+  //   return null;
+  // }
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
