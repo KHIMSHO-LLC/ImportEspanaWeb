@@ -19,8 +19,31 @@ body {
 }
 
 @media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    background: white;
+  }
+
+  /* Hide header/footer injected by browser */
+  header,
+  footer,
+  aside,
+  nav {
+    display: none !important;
+  }
+
+  /* Ensure content fits */
+  html,
+  body {
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
   }
 }
