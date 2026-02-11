@@ -2,19 +2,19 @@
 
 import Link from "next/link";
 import { Calculator, CheckCircle, FileText, Globe } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HowItWorksPage() {
+  const { t } = useLanguage();
+
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            How ImportEspana Works
+            {t("hiw_title")}
           </h1>
-          <p className="text-xl text-gray-600">
-            Understand the process of calculating import taxes for your vehicle
-            in Spain.
-          </p>
+          <p className="text-xl text-gray-600">{t("hiw_subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -23,13 +23,9 @@ export default function HowItWorksPage() {
               <Globe size={24} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              1. Select Origin
+              {t("hiw_step1_title")}
             </h3>
-            <p className="text-gray-600">
-              Choose the country where you are importing the car from (e.g.,
-              Germany, France). This helps us determine estimated transport
-              costs.
-            </p>
+            <p className="text-gray-600">{t("hiw_step1_text")}</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -37,13 +33,9 @@ export default function HowItWorksPage() {
               <FileText size={24} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              2. Enter Vehicle Details
+              {t("hiw_step2_title")}
             </h3>
-            <p className="text-gray-600">
-              Input the car's brand, model, age, and CO2 emissions. We use this
-              to find the official "Fiscal Value" from the BOE (Boletín Oficial
-              del Estado) tables.
-            </p>
+            <p className="text-gray-600">{t("hiw_step2_text")}</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -51,13 +43,9 @@ export default function HowItWorksPage() {
               <Calculator size={24} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              3. Instant Calculation
+              {t("hiw_step3_title")}
             </h3>
-            <p className="text-gray-600">
-              Our algorithm applies the depreciation rates based on age and
-              calculates the Registration Tax (Impuesto de Matriculación) based
-              on CO2 emissions.
-            </p>
+            <p className="text-gray-600">{t("hiw_step3_text")}</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
@@ -65,25 +53,20 @@ export default function HowItWorksPage() {
               <CheckCircle size={24} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              4. Get Total Cost
+              {t("hiw_step4_title")}
             </h3>
-            <p className="text-gray-600">
-              See a full breakdown including the Registration Tax, ITV fees, DGT
-              fees, License Plates, and estimated Agency fees.
-            </p>
+            <p className="text-gray-600">{t("hiw_step4_text")}</p>
           </div>
         </div>
 
         <div className="bg-blue-600 rounded-2xl p-8 text-center text-white">
-          <h2 className="text-2xl font-bold mb-4">Ready to calculate?</h2>
-          <p className="mb-6 opacity-90">
-            Get precise tax estimates in seconds.
-          </p>
+          <h2 className="text-2xl font-bold mb-4">{t("hiw_cta_title")}</h2>
+          <p className="mb-6 opacity-90">{t("hiw_cta_text")}</p>
           <Link
             href="/"
             className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-xl shadow-lg hover:bg-gray-100 transition-colors"
           >
-            Go to Calculator
+            {t("hiw_cta_button")}
           </Link>
         </div>
       </div>

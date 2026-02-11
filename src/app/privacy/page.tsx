@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
         <h1 className="text-3xl font-bold text-gray-900 mb-6">
-          Privacy Policy
+          {t("privacy_title")}
         </h1>
 
         <div className="prose prose-blue max-w-none text-gray-600 space-y-6">
@@ -18,37 +18,25 @@ export default function PrivacyPage() {
             Last updated: February 11, 2026
           </p>
 
-          <p>
-            We (ImportEspana) respect your privacy. This policy explains how we
-            handle your data.
-          </p>
+          <p>{t("privacy_intro")}</p>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              1. Data We Collect
+              {t("privacy_section1_title")}
             </h2>
-            <p>
-              We do not collect personal information like your name, email, or
-              phone number directly. We do not require you to create an account.
-              However, we use third-party services that may collect information
-              used to identify you, specifically for advertising purposes.
-            </p>
+            <p>{t("privacy_section1_text")}</p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              2. Third-Party Services
+              {t("privacy_section2_title")}
             </h2>
-            <p>
-              We use <strong>Google AdSense</strong> (for web) and{" "}
-              <strong>AdMob</strong> (for mobile) to display advertisements.
-              These services may collect and use:
-            </p>
+            <p>{t("privacy_section2_text")}</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Device identifiers (e.g., Advertising ID, IDFA)</li>
-              <li>Usage data (e.g., ad interactions, crash logs)</li>
-              <li>Approximate location</li>
-              <li>Cookies for personalized advertising</li>
+              <li>{t("privacy_list_id")}</li>
+              <li>{t("privacy_list_usage")}</li>
+              <li>{t("privacy_list_loc")}</li>
+              <li>{t("privacy_list_cookies")}</li>
             </ul>
             <p className="mt-2">
               For more information, please see the{" "}
@@ -66,52 +54,14 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              3. How We Use Data
-            </h2>
-            <p>The data collected by our partners is used to:</p>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>
-                Display relevant advertisements to you (Personalized Ads).
-              </li>
-              <li>Analyze app performance and stability.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
-              4. Children’s Privacy
+              {t("privacy_contact_title")}
             </h2>
             <p>
-              Our services do not address anyone under the age of 13. We do not
-              knowingly collect personally identifiable information from
-              children under 13.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
-              5. Changes to This Policy
-            </h2>
-            <p>
-              We may update our Privacy Policy from time to time. You are
-              advised to review this page periodically for any changes.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
-              6. Contact Us
-            </h2>
-            <p>
-              If you have any questions about this Privacy Policy, please
-              contact us at:
-              <br />
-              <strong>Email:</strong>{" "}
               <a
                 href="mailto:info@importespana.com"
                 className="text-blue-600 hover:underline"
               >
-                info@importespana.com
+                {t("privacy_contact_email")}
               </a>
             </p>
           </section>

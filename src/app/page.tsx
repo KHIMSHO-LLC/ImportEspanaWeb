@@ -129,10 +129,6 @@ function HomeContent() {
         className="hidden md:block"
       />
 
-      <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">
-        ImportEspana 🇪🇸
-      </h1>
-
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-6">
         {/* Origin Country */}
         <div>
@@ -311,9 +307,7 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen pb-20 bg-gray-50">
-      <LanguageSwitcher />
-
+    <div className="pb-20 bg-gray-50">
       <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 mt-6">
         {/* Left Sidebar */}
         <SidebarAd side="left" />
@@ -332,6 +326,6 @@ export default function Home() {
       </div>
 
       <StickyAdFooter />
-    </main>
+    </div>
   );
 }

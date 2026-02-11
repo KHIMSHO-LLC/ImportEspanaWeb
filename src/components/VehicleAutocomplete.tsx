@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import boePrices from "@/data/boe_prices.json";
+import { searchBrands, searchModels } from "@/actions/vehicleSearch";
 import { Vehicle } from "@/types";
 import { InfoTooltip } from "@/components/InfoTooltip";
 
@@ -47,6 +47,9 @@ export function VehicleAutocomplete({
       : null,
   );
 
+  const [filteredBrands, setFilteredBrands] = useState<string[]>([]);
+  const [filteredModels, setFilteredModels] = useState<Vehicle[]>([]);
+
   const [showBrandSuggestions, setShowBrandSuggestions] = useState(false);
   const [showModelSuggestions, setShowModelSuggestions] = useState(false);
   const [isManualMode, setIsManualMode] = useState(
@@ -79,51 +82,33 @@ export function VehicleAutocomplete({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Get unique brands
-  const allBrands = useMemo(() => {
-    const brandSet = new Set<string>();
-    (boePrices as unknown as Vehicle[]).forEach((vehicle) =>
-      brandSet.add(vehicle.brand),
-    );
-    return Array.from(brandSet).sort();
-  }, []);
+  // Fetch brands
+  useEffect(() => {
+    const fetchBrands = async () => {
+      if (brandQuery.trim().length < 1) {
+        setFilteredBrands([]);
+        return;
+      }
+      const results = await searchBrands(brandQuery);
+      setFilteredBrands(results);
+    };
+    const timeoutId = setTimeout(fetchBrands, 300); // 300ms debounce
+    return () => clearTimeout(timeoutId);
+  }, [brandQuery]);
 
-  // Filter brands based on query
-  const filteredBrands = useMemo(() => {
-    if (!brandQuery.trim()) return [];
-
-    const query = brandQuery.toLowerCase();
-    return allBrands
-      .filter((brand) => brand.toLowerCase().includes(query))
-      .slice(0, 10);
-  }, [brandQuery, allBrands]);
-
-  // Filter models based on selected brand, model query, and year
-  const filteredModels = useMemo(() => {
-    if (!selectedBrand || !modelQuery.trim()) return [];
-
-    const query = modelQuery.toLowerCase();
-    const year = yearFilter ? parseInt(yearFilter) : null;
-
-    return (boePrices as unknown as Vehicle[])
-      .filter((vehicle) => {
-        // Brand match
-        if (vehicle.brand !== selectedBrand) return false;
-
-        // Model match
-        if (!vehicle.model.toLowerCase().includes(query)) return false;
-
-        // Year filter (if provided)
-        if (year) {
-          const startYear = parseInt(vehicle.startYear);
-          const endYear = vehicle.endYear ? parseInt(vehicle.endYear) : 2026;
-          // Logic update: Ensure the model availability overlaps with the requested year
-          if (year < startYear || year > endYear) return false;
-        }
-
-        return true;
-      })
-      .slice(0, 15);
+  // Fetch models
+  useEffect(() => {
+    const fetchModels = async () => {
+      if (!selectedBrand || modelQuery.trim().length < 1) {
+        setFilteredModels([]);
+        return;
+      }
+      const year = yearFilter ? parseInt(yearFilter) : undefined;
+      const results = await searchModels(selectedBrand, modelQuery, year);
+      setFilteredModels(results);
+    };
+    const timeoutId = setTimeout(fetchModels, 300); // 300ms debounce
+    return () => clearTimeout(timeoutId);
   }, [selectedBrand, modelQuery, yearFilter]);
 
   const handleBrandSelect = (brand: string) => {
@@ -256,8 +241,8 @@ export function VehicleAutocomplete({
           </label>
           <input
             type="number"
-            className="w-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
-            placeholder="Ej: 2020"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
+            placeholder="2020"
             maxLength={4}
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}

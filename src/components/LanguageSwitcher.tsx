@@ -15,14 +15,14 @@ export function LanguageSwitcher() {
   ];
 
   return (
-    <div className="bg-white py-3 border-b border-gray-200">
-      <div className="flex gap-3 overflow-x-auto px-4 no-scrollbar">
+    <div className="bg-transparent py-0 md:bg-white md:py-3 md:border-b md:border-gray-200">
+      <div className="flex gap-1.5 md:gap-3 px-0 md:px-4">
         {languages.map((lang) => (
           <button
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
             className={`
-              flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors whitespace-nowrap
+              flex items-center gap-1 md:gap-2 px-2 py-1 md:px-3 md:py-1.5 rounded-full border transition-colors whitespace-nowrap
               ${
                 language === lang.code
                   ? "bg-blue-50 border-blue-600 shadow-sm"
@@ -30,9 +30,9 @@ export function LanguageSwitcher() {
               }
             `}
           >
-            <span className="text-lg">{lang.flag}</span>
+            <span className="text-sm md:text-lg">{lang.flag}</span>
             <span
-              className={`text-sm font-semibold ${
+              className={`text-xs md:text-sm font-semibold ${
                 language === lang.code ? "text-blue-600" : "text-gray-500"
               }`}
             >

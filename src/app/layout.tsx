@@ -60,6 +60,7 @@ export const metadata: Metadata = {
 };
 
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 
 export default function RootLayout({
   children,
@@ -67,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 font-sans text-slate-900`}
       >
@@ -75,7 +76,8 @@ export default function RootLayout({
           <GoogleAnalytics gaId="G-05KZ4XPMFR" />
           <AdSense pId="8296385442547902" />
           <div className="flex flex-col min-h-screen">
-            {children}
+            <Header />
+            <main className="flex-1 pt-28 md:pt-28">{children}</main>
             <Footer />
           </div>
         </LanguageProvider>

@@ -1,73 +1,53 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function TermsPage() {
+  const { t } = useLanguage();
+
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Terms of Use</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">
+          {t("terms_title")}
+        </h1>
 
         <div className="prose prose-blue max-w-none text-gray-600 space-y-6">
-          <p className="font-medium text-gray-500">
-            Last updated: February 11, 2026
-          </p>
+          <p className="font-medium text-gray-500">{t("terms_last_updated")}</p>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              1. Acceptance of Terms
+              {t("terms_section1_title")}
             </h2>
-            <p>
-              By accessing and using ImportEspana, you accept and agree to be
-              bound by the terms and provision of this agreement.
-            </p>
+            <p>{t("terms_section1_text")}</p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              2. Disclaimer
+              {t("terms_section2_title")}
             </h2>
-            <p>
-              ImportEspana is a calculator tool designed to provide estimates of
-              vehicle import taxes in Spain based on official BOE data. While we
-              strive for accuracy,{" "}
-              <strong>we cannot guarantee 100% precision</strong> due to changes
-              in legislation, local variations, or data errors.
-            </p>
-            <p>
-              The results provided by this tool are for informational purposes
-              only and should not be considered legal or financial advice.
-              Always consult with a professional gestoría or the DGT/Hacienda
-              directly before making any financial decisions.
-            </p>
+            <p>{t("terms_section2_text")}</p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              3. Intellectual Property
+              {t("privacy_contact_title")}
             </h2>
             <p>
-              The content, design, and code of this website are the property of
-              ImportEspana and are protected by copyright laws.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
-              4. Limitation of Liability
-            </h2>
-            <p>
-              In no event shall ImportEspana or its owners be liable for any
-              damages (including, without limitation, damages for loss of data
-              or profit, or due to business interruption) arising out of the use
-              or inability to use the materials on ImportEspana's website.
+              <a
+                href="mailto:info@importespana.com"
+                className="text-blue-600 hover:underline"
+              >
+                info@importespana.com
+              </a>
             </p>
           </section>
         </div>
 
         <div className="mt-8 pt-6 border-t border-gray-100">
           <Link href="/" className="text-blue-600 font-medium hover:underline">
-            ← Back to Home
+            {t("back_to_home")}
           </Link>
         </div>
       </div>

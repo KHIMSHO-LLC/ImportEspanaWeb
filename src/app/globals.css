@@ -28,6 +28,14 @@ body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     background: white;
+    font-size: 12px; /* Base font size reduction */
+  }
+
+  /* Scale down the entire page content */
+  /* Remove scale down to fill page */
+  main {
+    transform: none;
+    width: 100%;
   }
 
   /* Hide header/footer injected by browser */
