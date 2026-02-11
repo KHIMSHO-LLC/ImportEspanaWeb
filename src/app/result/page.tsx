@@ -61,7 +61,7 @@ function ResultContent() {
   return (
     <div className="w-full p-4 md:py-4">
       <AdBanner
-        dataAdSlot="RESULT_TOP_BANNER"
+        dataAdSlot="8470582888"
         dataAdFormat="horizontal"
         dataFullWidthResponsive={true}
       />
@@ -100,7 +100,7 @@ function ResultContent() {
           </div>
 
           <AdBanner
-            dataAdSlot="RESULT_MIDDLE_BANNER"
+            dataAdSlot="5939896116"
             dataAdFormat="horizontal"
             dataFullWidthResponsive={true}
           />
@@ -149,7 +149,7 @@ function ResultContent() {
         {/* Mobile In-Feed Ad */}
         <div className="md:hidden">
           <AdBanner
-            dataAdSlot="MOBILE_INFEED_RESULT_ID"
+            dataAdSlot="2048644761"
             dataAdFormat="rectangle"
             dataFullWidthResponsive={true}
           />
@@ -237,7 +237,7 @@ function ResultContent() {
           </div>
 
           <AdBanner
-            dataAdSlot="ZZZZZZZZZZ"
+            dataAdSlot="5089848873"
             dataAdFormat="rectangle"
             dataFullWidthResponsive={true}
           />

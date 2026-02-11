@@ -24,7 +24,7 @@ export const StickyAdFooter = () => {
       <div className="bg-white border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] pb-safe pt-2">
         <div className="flex justify-center items-center min-h-[60px]">
           <AdBanner
-            dataAdSlot="STICKY_FOOTER_ID"
+            dataAdSlot="4722909566"
             dataAdFormat="horizontal"
             dataFullWidthResponsive={true}
           />

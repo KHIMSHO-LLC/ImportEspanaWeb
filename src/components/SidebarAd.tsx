@@ -9,7 +9,7 @@ export const SidebarAd = ({ side }: { side: "left" | "right" }) => {
           Advertisement
         </div>
         <AdBanner
-          dataAdSlot={side === "left" ? "LEFT_SIDEBAR_ID" : "RIGHT_SIDEBAR_ID"}
+          dataAdSlot={side === "left" ? "8566059459" : "7252977786"}
           dataAdFormat="vertical"
           dataFullWidthResponsive={true}
         />

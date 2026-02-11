@@ -107,6 +107,12 @@ function HomeContent() {
 
   return (
     <div className="w-full md:pt-4">
+      <AdBanner
+        dataAdSlot="1957145426"
+        dataAdFormat="horizontal"
+        dataFullWidthResponsive={true}
+      />
+
       <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">
         ImportEspana 🇪🇸
       </h1>
@@ -158,7 +164,7 @@ function HomeContent() {
         {/* Mobile In-Feed Ad */}
         <div className="md:hidden">
           <AdBanner
-            dataAdSlot="MOBILE_INFEED_HOME_ID"
+            dataAdSlot="6734103034"
             dataAdFormat="horizontal"
             dataFullWidthResponsive={true}
           />
@@ -278,7 +284,7 @@ function HomeContent() {
 
         {/* Ad Banner */}
         <AdBanner
-          dataAdSlot="YYYYYYYYYY"
+          dataAdSlot="2479889603"
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
         />
