@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
         <LanguageProvider>{children}</LanguageProvider>
-        <AdSense pId="XXXXXXXXXXXXXXXX" />
+        <AdSense pId="8296385442547902" />
       </body>
     </html>
   );

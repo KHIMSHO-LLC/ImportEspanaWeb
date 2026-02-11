@@ -14,20 +14,6 @@ export const SidebarAd = ({ side }: { side: "left" | "right" }) => {
           dataFullWidthResponsive={true}
         />
       </div>
-
-      {/* Affiliate Placeholder */}
-      <div className="bg-blue-50/50 rounded-xl border border-blue-100 p-4 text-center">
-        <h3 className="text-gray-900 font-semibold text-sm mb-2">
-          Import Services
-        </h3>
-        <p className="text-xs text-gray-500 mb-3">
-          Need help importing your car? Check our recommended partners.
-        </p>
-        <div className="space-y-2 opacity-50">
-          <div className="h-8 bg-blue-100 rounded animate-pulse" />
-          <div className="h-8 bg-blue-100 rounded animate-pulse" />
-        </div>
-      </div>
     </div>
   );
 };

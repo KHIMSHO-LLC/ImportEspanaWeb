@@ -60,6 +60,12 @@ function ResultContent() {
 
   return (
     <div className="w-full p-4 md:py-4">
+      <AdBanner
+        dataAdSlot="RESULT_TOP_BANNER"
+        dataAdFormat="horizontal"
+        dataFullWidthResponsive={true}
+      />
+
       <button
         onClick={() => router.push(`/?${searchParams.toString()}`)}
         className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors print:hidden"
@@ -92,6 +98,12 @@ function ResultContent() {
               </div>
             )}
           </div>
+
+          <AdBanner
+            dataAdSlot="RESULT_MIDDLE_BANNER"
+            dataAdFormat="horizontal"
+            dataFullWidthResponsive={true}
+          />
 
           {/* Vehicle Info Card */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">

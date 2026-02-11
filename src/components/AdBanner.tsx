@@ -46,7 +46,7 @@ export const AdBanner = ({
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Placeholder, will be replaced by user
+        data-ad-client="ca-pub-8296385442547902"
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}
         data-full-width-responsive={dataFullWidthResponsive.toString()}
