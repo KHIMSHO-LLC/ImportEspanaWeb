@@ -1,4 +1,4 @@
-import { Metadata, Route } from "next";
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://importespana.com";
