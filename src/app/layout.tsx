@@ -1,5 +1,6 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { AdSense } from "@/components/AdSense";
+import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -74,6 +75,7 @@ export default function RootLayout({
       >
         <GoogleAnalytics gaId="G-05KZ4XPMFR" />
         <AdSense pId="8296385442547902" />
+        <JsonLd />
         <LanguageProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
