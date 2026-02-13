@@ -32,6 +32,8 @@ function HomeContent() {
   const [co2Emissions, setCo2Emissions] = useState("");
   const [sellerType, setSellerType] = useState<"dealer" | "private">("dealer");
   const [price, setPrice] = useState("");
+  const [fiscalValue, setFiscalValue] = useState("");
+  const [isElectric, setIsElectric] = useState(false);
   const [vehicleData, setVehicleData] = useState<{
     value: number;
     brand?: string;
@@ -40,6 +42,48 @@ function HomeContent() {
     isManual: boolean;
     year?: number;
   } | null>(null);
+
+  // Validation state
+  const [touched, setTouched] = useState({
+    price: false,
+    co2: false,
+    fiscalValue: false,
+  });
+
+  // Validation helpers
+  const validatePrice = (value: string): string | null => {
+    const num = parseFloat(value);
+    if (!value || isNaN(num)) return t("priceError");
+    if (num <= 0) return t("priceError");
+    if (num > 10000000) return "Price too high";
+    return null;
+  };
+
+  const validateCO2 = (value: string): string | null => {
+    const num = parseFloat(value);
+    if (!value || isNaN(num)) return t("co2Error");
+    if (num < 0) return t("co2Error");
+    if (num > 500) return "Max 500 g/km";
+    return null;
+  };
+
+  const validateFiscalValue = (value: string): string | null => {
+    const num = parseFloat(value);
+    if (!value || isNaN(num)) return t("fiscalError");
+    if (num <= 0) return t("fiscalError");
+    return null;
+  };
+
+  const errors = {
+    price: touched.price ? validatePrice(price) : null,
+    co2: touched.co2 ? validateCO2(co2Emissions) : null,
+    fiscalValue: touched.fiscalValue ? validateFiscalValue(fiscalValue) : null,
+  };
+
+  const isValid =
+    !validatePrice(price) &&
+    !validateCO2(co2Emissions) &&
+    !validateFiscalValue(fiscalValue);
 
   // Initialize from URL params
   useEffect(() => {
@@ -54,7 +98,10 @@ function HomeContent() {
       if (pAge) setCarAge(pAge);
 
       const pCo2 = searchParams.get("co2Emissions");
-      if (pCo2) setCo2Emissions(pCo2);
+      if (pCo2) {
+        setCo2Emissions(pCo2);
+        if (pCo2 === "0") setIsElectric(true);
+      }
 
       const pSeller = searchParams.get("sellerType") as "dealer" | "private";
       if (pSeller) setSellerType(pSeller);
@@ -62,34 +109,38 @@ function HomeContent() {
       const pFiscal = searchParams.get("officialFiscalValue");
       const pBrand = searchParams.get("brand");
       const pModel = searchParams.get("model");
-      // We can't easily infer manual mode vs auto from params alone unless we add a param.
-      // But if we have brand/model it's likely auto. If we have just value, maybe manual?
-      // For now, let's assume if brand/model exist, it's auto.
+
       if (pFiscal) {
+        const val = parseFloat(pFiscal);
+        setFiscalValue(pFiscal);
         setVehicleData({
-          value: parseFloat(pFiscal),
+          value: val,
           brand: pBrand || undefined,
           model: pModel || undefined,
-          fuelType: undefined, // Lost in transit
-          isManual: !pBrand && !pModel, // If no brand/model, assume manual
+          fuelType: undefined,
+          isManual: !pBrand && !pModel,
         });
       }
     }
   }, [searchParams]);
 
   const calculate = () => {
-    if (!vehicleData) {
-      alert(t("fiscalError"));
+    setTouched({ price: true, co2: true, fiscalValue: true });
+
+    if (!vehicleData && !fiscalValue) {
+      // Should be covered by isValid but double check
       return;
     }
+
+    if (!isValid) return;
 
     // Track the calculation event
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "calculate_tax", {
         origin_country: originCountry,
-        brand: vehicleData.brand,
-        model: vehicleData.model,
-        year: vehicleData.year,
+        brand: vehicleData?.brand,
+        model: vehicleData?.model,
+        year: vehicleData?.year,
         price: price,
         co2: co2Emissions,
       });
@@ -97,14 +148,13 @@ function HomeContent() {
 
     const params = new URLSearchParams({
       originCountry,
-      // Pass carPrice for consistency, though currently just input
       carPrice: price,
-      officialFiscalValue: vehicleData.value.toString(),
+      officialFiscalValue: fiscalValue,
       carAge,
       co2Emissions: co2Emissions || "0",
       sellerType,
-      brand: vehicleData.brand || "",
-      model: vehicleData.model || "",
+      brand: vehicleData?.brand || "",
+      model: vehicleData?.model || "",
     });
 
     router.push(`/result?${params.toString()}`);
@@ -116,7 +166,10 @@ function HomeContent() {
     setCo2Emissions("");
     setSellerType("dealer");
     setPrice("");
+    setFiscalValue("");
+    setIsElectric(false);
     setVehicleData(null);
+    setTouched({ price: false, co2: false, fiscalValue: false });
     router.replace("/");
   };
 
@@ -161,17 +214,50 @@ function HomeContent() {
           </div>
         </div>
 
-        {/* Vehicle Autocomplete with Initial Data */}
+        {/* Vehicle Autocomplete */}
         <VehicleAutocomplete
           key={vehicleData ? "loaded" : "empty"}
           initialData={vehicleData}
           onVehicleSelected={(data) => {
             setVehicleData(data);
+            setFiscalValue(data.value.toString());
+            setTouched((prev) => ({ ...prev, fiscalValue: true }));
+
             if (data.fuelType === "Elc") {
               setCo2Emissions("0");
+              setIsElectric(true);
+              setTouched((prev) => ({ ...prev, co2: true }));
+            } else {
+              setIsElectric(false);
+            }
+
+            if (data.year) {
+              const currentYear = new Date().getFullYear();
+              const diff = currentYear - data.year;
+              let calculatedAge = "new";
+              if (diff < 1) calculatedAge = "new";
+              else if (diff >= 1 && diff < 2) calculatedAge = "1_year";
+              else if (diff >= 2 && diff < 3) calculatedAge = "2_years";
+              else if (diff >= 3 && diff < 4) calculatedAge = "3_years";
+              else if (diff >= 4 && diff < 5) calculatedAge = "4_years";
+              else if (diff >= 5 && diff < 6) calculatedAge = "5_years";
+              else if (diff >= 6 && diff < 7) calculatedAge = "6_years";
+              else if (diff >= 7 && diff < 8) calculatedAge = "7_years";
+              else if (diff >= 8 && diff < 9) calculatedAge = "8_years";
+              else if (diff >= 9 && diff < 10) calculatedAge = "9_years";
+              else if (diff >= 10 && diff < 11) calculatedAge = "10_years";
+              else if (diff >= 11 && diff < 12) calculatedAge = "11_years";
+              else calculatedAge = "12_plus_years";
+              setCarAge(calculatedAge);
             }
           }}
         />
+        {errors.fiscalValue && (
+          <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+            <AlertTriangle size={14} />
+            <span>{errors.fiscalValue}</span>
+          </div>
+        )}
 
         {/* Mobile In-Feed Ad */}
         <div className="md:hidden">
@@ -192,9 +278,20 @@ function HomeContent() {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, price: true }))}
             placeholder="25000"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
+            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
+              errors.price
+                ? "border-red-500 focus:ring-red-200 bg-red-50"
+                : "border-gray-300 focus:ring-blue-500 bg-white"
+            }`}
           />
+          {errors.price && (
+            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+              <AlertTriangle size={14} />
+              <span>{errors.price}</span>
+            </div>
+          )}
         </div>
 
         {/* Car Age */}
@@ -230,13 +327,32 @@ function HomeContent() {
             <Gauge size={16} className="text-blue-600" />
             {t("co2")}
           </label>
+          {isElectric && (
+            <div className="mb-2 bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium border border-green-200">
+              {t("evDetected")}
+            </div>
+          )}
           <input
             type="number"
             value={co2Emissions}
-            onChange={(e) => setCo2Emissions(e.target.value)}
-            placeholder="120"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
+            onChange={(e) => {
+              setCo2Emissions(e.target.value);
+              if (e.target.value !== "0") setIsElectric(false);
+            }}
+            onBlur={() => setTouched((prev) => ({ ...prev, co2: true }))}
+            placeholder="145"
+            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
+              errors.co2
+                ? "border-red-500 focus:ring-red-200 bg-red-50"
+                : "border-gray-300 focus:ring-blue-500 bg-white"
+            }`}
           />
+          {errors.co2 && (
+            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+              <AlertTriangle size={14} />
+              <span>{errors.co2}</span>
+            </div>
+          )}
         </div>
 
         {/* Seller Type */}
@@ -279,7 +395,12 @@ function HomeContent() {
           {/* Calculate Button */}
           <button
             onClick={calculate}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform active:scale-95"
+            disabled={!isValid && touched.price}
+            className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95 ${
+              !isValid && touched.price
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
+                : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200"
+            }`}
           >
             {t("calculate")}
           </button>

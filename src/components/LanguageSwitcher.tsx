@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
   ];
 
   return (
-    <div className="bg-transparent py-0 md:bg-white md:py-3 md:border-b md:border-gray-200">
+    <div className="bg-transparent py-0 md:bg-white md:py-3 ">
       <div className="flex gap-1.5 md:gap-3 px-0 md:px-4">
         {languages.map((lang) => (
           <button

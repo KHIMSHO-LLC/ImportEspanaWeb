@@ -36,7 +36,7 @@ export async function searchModels(
       // Year filter (if provided)
       if (year) {
         const startYear = parseInt(vehicle.startYear);
-        const endYear = vehicle.endYear ? parseInt(vehicle.endYear) : 2030;
+        const endYear = vehicle.endYear ? parseInt(vehicle.endYear) : 2026;
         if (year < startYear || year > endYear) return false;
       }
 
