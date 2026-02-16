@@ -27,7 +27,7 @@ export const AdBanner = ({
 
   return (
     <div
-      className={`my-8 text-center overflow-hidden print:hidden ${className}`}
+      className={`my-4 md:my-8 text-center overflow-hidden print:hidden ${className}`}
     >
       {/* Visual Debug Placeholder for Development */}
       {process.env.NODE_ENV === "development" && (
