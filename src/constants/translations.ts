@@ -16,7 +16,8 @@ export const translations = {
     private: "Private",
     calculate: "Calculate Total Cost",
     // Hints & Errors
-    privateSaleWarning: "⚠️ Private sales may incur 4% ITP tax.",
+    privateSaleWarning:
+      "⚠️ Private sales incur ITP tax (rate varies by region).",
     evDetected: "⚡ Electric Vehicle Detected - CO2 = 0",
     priceError: "Enter a valid price",
     co2Error: "Enter CO2 emissions",
@@ -118,6 +119,7 @@ export const translations = {
     hiw_cta_title: "Ready to calculate?",
     hiw_cta_text: "Get precise tax estimates in seconds.",
     hiw_cta_button: "Go to Calculator",
+    selectRegion: "Region (Comunidad Autónoma)",
   },
   es: {
     originCountry: "País de Origen",
@@ -133,7 +135,7 @@ export const translations = {
     private: "Particular",
     calculate: "Calcular Coste Total",
     privateSaleWarning:
-      "⚠️ Las ventas entre particulares pueden estar sujetas a 4% de ITP.",
+      "⚠️ Las ventas entre particulares están sujetas al ITP (porcentaje según comunidad).",
     evDetected: "⚡ Vehículo eléctrico detectado - CO2 = 0",
     priceError: "Introduce un precio válido",
     co2Error: "Introduce las emisiones de CO2",
@@ -235,6 +237,7 @@ export const translations = {
     hiw_cta_title: "¿Listo para calcular?",
     hiw_cta_text: "Obtén estimaciones precisas en segundos.",
     hiw_cta_button: "Ir a la Calculadora",
+    selectRegion: "Región (Comunidad Autónoma)",
   },
   ru: {
     originCountry: "Страна происхождения",
@@ -249,7 +252,8 @@ export const translations = {
     dealer: "Дилер",
     private: "Частник",
     calculate: "Рассчитать стоимость",
-    privateSaleWarning: "⚠️ Частные продажи могут облагаться налогом 4% ITP.",
+    privateSaleWarning:
+      "⚠️ Частные продажи облагаются налогом ITP (ставка зависит от региона).",
     evDetected: "⚡ Электромобиль обнаружен - CO2 = 0",
     priceError: "Введите корректную цену",
     co2Error: "Введите выбросы CO2",
@@ -345,6 +349,7 @@ export const translations = {
     hiw_cta_title: "Готовы рассчитать?",
     hiw_cta_text: "Получите точную оценку за секунды.",
     hiw_cta_button: "Перейти к калькулятору",
+    selectRegion: "Регион (автономное сообщество)",
   },
   de: {
     originCountry: "Herkunftsland",
@@ -359,7 +364,8 @@ export const translations = {
     dealer: "Händler",
     private: "Privat",
     calculate: "Gesamtkosten berechnen",
-    privateSaleWarning: "⚠️ Bei Privatverkauf können 4% ITP anfallen.",
+    privateSaleWarning:
+      "⚠️ Bei Privatverkauf fällt ITP an (Satz je nach Region).",
     evDetected: "⚡ Elektrofahrzeug erkannt - CO2 = 0",
     priceError: "Gültigen Preis eingeben",
     co2Error: "CO2-Emissionen eingeben",
@@ -453,6 +459,7 @@ export const translations = {
     hiw_cta_title: "Bereit?",
     hiw_cta_text: "Erhalten Sie präzise Schätzungen in Sekunden.",
     hiw_cta_button: "Zum Rechner",
+    selectRegion: "Region (Autonome Gemeinschaft)",
   },
   fr: {
     originCountry: "Pays d'origine",
@@ -468,7 +475,7 @@ export const translations = {
     private: "Particulier",
     calculate: "Calculer le coût total",
     privateSaleWarning:
-      "⚠️ Les ventes privées peuvent encourir 4% de taxe ITP.",
+      "⚠️ Les ventes privées sont soumises à la taxe ITP (taux selon la région).",
     evDetected: "⚡ Véhicule électrique détecté - CO2 = 0",
     priceError: "Entrez un prix valide",
     co2Error: "Entrez les émissions de CO2",
@@ -561,5 +568,6 @@ export const translations = {
     hiw_cta_title: "Prêt ?",
     hiw_cta_text: "Obtenez des estimations précises.",
     hiw_cta_button: "Aller à la calculatrice",
+    selectRegion: "Région (Communauté autonome)",
   },
 };

@@ -28,6 +28,7 @@ function ResultContent() {
     const sellerType = searchParams.get("sellerType") as any;
     const brand = searchParams.get("brand");
     const model = searchParams.get("model");
+    const itpRateParam = searchParams.get("itpRate");
 
     if (!originCountry || !officialFiscalValue) {
       // router.push("/"); // Redirect if missing params? Or just show empty state.
@@ -41,6 +42,7 @@ function ResultContent() {
       carAge,
       co2Emissions,
       sellerType,
+      itpRate: itpRateParam ? parseFloat(itpRateParam) : undefined,
     };
 
     const res = calculateImportCost(calculatedInput);

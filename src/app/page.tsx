@@ -9,6 +9,7 @@ import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
 import SeoSchema from "@/components/SeoSchema";
 import { useLanguage } from "@/context/LanguageContext";
+import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
 import { Country } from "@/types";
 import {
   AlertTriangle,
@@ -34,6 +35,7 @@ function HomeContent() {
   const [price, setPrice] = useState("");
   const [fiscalValue, setFiscalValue] = useState("");
   const [isElectric, setIsElectric] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState("Madrid");
   const [vehicleData, setVehicleData] = useState<{
     value: number;
     brand?: string;
@@ -153,6 +155,13 @@ function HomeContent() {
       carAge,
       co2Emissions: co2Emissions || "0",
       sellerType,
+      itpRate:
+        sellerType === "private"
+          ? (
+              SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ??
+              DEFAULT_ITP_RATE
+            ).toString()
+          : "",
       brand: vehicleData?.brand || "",
       model: vehicleData?.model || "",
     });
@@ -165,6 +174,7 @@ function HomeContent() {
     setCarAge("new");
     setCo2Emissions("");
     setSellerType("dealer");
+    setSelectedRegion("Madrid");
     setPrice("");
     setFiscalValue("");
     setIsElectric(false);
@@ -387,6 +397,29 @@ function HomeContent() {
             <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex items-start gap-2">
               <AlertTriangle size={14} className="mt-0.5 shrink-0" />
               {t("privateSaleWarning")}
+            </div>
+          )}
+          {sellerType === "private" && (
+            <div className="mt-3">
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                <MapPin size={16} className="text-blue-600" />
+                {t("selectRegion")}
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {SPANISH_REGIONS.map((region) => (
+                  <button
+                    key={region.name}
+                    onClick={() => setSelectedRegion(region.name)}
+                    className={`p-2 rounded-lg border text-xs font-medium transition-all ${
+                      selectedRegion === region.name
+                        ? "bg-blue-50 border-blue-500 text-blue-700 ring-1 ring-blue-300"
+                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    {region.label}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>
