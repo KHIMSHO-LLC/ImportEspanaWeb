@@ -7,17 +7,23 @@ import { StickyAdFooter } from "@/components/StickyAdFooter";
 
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
+import { SeoContent } from "@/components/SeoContent";
 import SeoSchema from "@/components/SeoSchema";
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
-import { Country } from "@/types";
+import { Country, ImportType } from "@/types";
 import {
   AlertTriangle,
+  Anchor,
   Calendar,
+  CheckCircle,
   Euro,
+  FileCheck,
   Gauge,
+  Globe,
   MapPin,
   RotateCcw,
+  Truck,
   User,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -28,6 +34,7 @@ function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [importType, setImportType] = useState<ImportType>("EU");
   const [originCountry, setOriginCountry] = useState<Country>("Germany");
   const [carAge, setCarAge] = useState("new");
   const [co2Emissions, setCo2Emissions] = useState("");
@@ -35,6 +42,8 @@ function HomeContent() {
   const [price, setPrice] = useState("");
   const [fiscalValue, setFiscalValue] = useState("");
   const [isElectric, setIsElectric] = useState(false);
+  const [transportCost, setTransportCost] = useState("");
+  const [needsHomologation, setNeedsHomologation] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("Madrid");
   const [vehicleData, setVehicleData] = useState<{
     value: number;
@@ -90,11 +99,20 @@ function HomeContent() {
   // Initialize from URL params
   useEffect(() => {
     if (searchParams.size > 0) {
+      const pImportType = searchParams.get("importType") as ImportType;
+      if (pImportType) setImportType(pImportType);
+
       const pOrigin = searchParams.get("originCountry") as Country;
       if (pOrigin) setOriginCountry(pOrigin);
 
       const pPrice = searchParams.get("carPrice");
       if (pPrice) setPrice(pPrice);
+
+      const pTransport = searchParams.get("transportCost");
+      if (pTransport) setTransportCost(pTransport);
+
+      const pHomologation = searchParams.get("needsHomologation");
+      if (pHomologation === "true") setNeedsHomologation(true);
 
       const pAge = searchParams.get("carAge");
       if (pAge) setCarAge(pAge);
@@ -121,6 +139,7 @@ function HomeContent() {
           model: pModel || undefined,
           fuelType: undefined,
           isManual: !pBrand && !pModel,
+          year: undefined,
         });
       }
     }
@@ -149,14 +168,17 @@ function HomeContent() {
     }
 
     const params = new URLSearchParams({
+      importType,
       originCountry,
       carPrice: price,
       officialFiscalValue: fiscalValue,
       carAge,
       co2Emissions: co2Emissions || "0",
       sellerType,
+      transportCost: transportCost,
+      needsHomologation: needsHomologation.toString(),
       itpRate:
-        sellerType === "private"
+        sellerType === "private" && importType === "EU"
           ? (
               SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ??
               DEFAULT_ITP_RATE
@@ -170,6 +192,7 @@ function HomeContent() {
   };
 
   const resetSearch = () => {
+    setImportType("EU");
     setOriginCountry("Germany");
     setCarAge("new");
     setCo2Emissions("");
@@ -178,6 +201,8 @@ function HomeContent() {
     setPrice("");
     setFiscalValue("");
     setIsElectric(false);
+    setTransportCost("");
+    setNeedsHomologation(false);
     setVehicleData(null);
     setTouched({ price: false, co2: false, fiscalValue: false });
     router.replace("/");
@@ -193,6 +218,39 @@ function HomeContent() {
       />
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-6">
+        {/* Import Type Toggle */}
+        <div className="flex bg-gray-100 p-1 rounded-xl">
+          <button
+            onClick={() => {
+              setImportType("EU");
+              setOriginCountry("Germany");
+            }}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
+              importType === "EU"
+                ? "bg-white text-blue-600 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            <Globe size={16} />
+            {t("EU")}
+          </button>
+          <button
+            onClick={() => {
+              setImportType("NonEU");
+              setOriginCountry("UAE");
+              setNeedsHomologation(true);
+            }}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
+              importType === "NonEU"
+                ? "bg-white text-blue-600 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            <Anchor size={16} />
+            {t("NonEU")}
+          </button>
+        </div>
+
         {/* Origin Country */}
         <div>
           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
@@ -200,18 +258,13 @@ function HomeContent() {
             {t("originCountry")}
           </label>
           <div className="grid grid-cols-2 gap-2">
-            {(
-              [
-                "Germany",
-                "France",
-                "Italy",
-                "Belgium",
-                "Netherlands",
-              ] as Country[]
+            {(importType === "EU"
+              ? ["Germany", "France", "Italy", "Belgium", "Netherlands"]
+              : ["UAE", "USA", "Japan", "Korea"]
             ).map((c) => (
               <button
                 key={c}
-                onClick={() => setOriginCountry(c)}
+                onClick={() => setOriginCountry(c as Country)}
                 className={`p-2 rounded-lg text-sm transition-colors border ${
                   originCountry === c
                     ? "bg-blue-50 border-blue-500 text-blue-700 font-medium"
@@ -365,64 +418,117 @@ function HomeContent() {
           )}
         </div>
 
-        {/* Seller Type */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <User size={16} className="text-blue-600" />
-            {t("sellerType")}
-          </label>
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => setSellerType("dealer")}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all ${
-                sellerType === "dealer"
-                  ? "bg-blue-50 border-blue-500 text-blue-700"
-                  : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-              }`}
-            >
-              🏢 {t("dealer")}
-            </button>
-            <button
-              onClick={() => setSellerType("private")}
-              className={`p-3 rounded-lg border text-sm font-medium transition-all ${
-                sellerType === "private"
-                  ? "bg-blue-50 border-blue-500 text-blue-700"
-                  : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-              }`}
-            >
-              👤 {t("private")}
-            </button>
-          </div>
-          {sellerType === "private" && (
-            <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex items-start gap-2">
-              <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-              {t("privateSaleWarning")}
+        {/* Seller Type (Only for EU) */}
+        {importType === "EU" && (
+          <div>
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+              <User size={16} className="text-blue-600" />
+              {t("sellerType")}
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => setSellerType("dealer")}
+                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
+                  sellerType === "dealer"
+                    ? "bg-blue-50 border-blue-500 text-blue-700"
+                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                }`}
+              >
+                🏢 {t("dealer")}
+              </button>
+              <button
+                onClick={() => setSellerType("private")}
+                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
+                  sellerType === "private"
+                    ? "bg-blue-50 border-blue-500 text-blue-700"
+                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                }`}
+              >
+                👤 {t("private")}
+              </button>
             </div>
-          )}
-          {sellerType === "private" && (
-            <div className="mt-3">
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-                <MapPin size={16} className="text-blue-600" />
-                {t("selectRegion")}
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {SPANISH_REGIONS.map((region) => (
-                  <button
-                    key={region.name}
-                    onClick={() => setSelectedRegion(region.name)}
-                    className={`p-2 rounded-lg border text-xs font-medium transition-all ${
-                      selectedRegion === region.name
-                        ? "bg-blue-50 border-blue-500 text-blue-700 ring-1 ring-blue-300"
-                        : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-                    }`}
-                  >
-                    {region.label}
-                  </button>
-                ))}
+            {sellerType === "private" && (
+              <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex items-start gap-2">
+                <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+                {t("privateSaleWarning")}
               </div>
+            )}
+            {sellerType === "private" && (
+              <div className="mt-3">
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                  <MapPin size={16} className="text-blue-600" />
+                  {t("selectRegion")}
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {SPANISH_REGIONS.map((region) => (
+                    <button
+                      key={region.name}
+                      onClick={() => setSelectedRegion(region.name)}
+                      className={`p-2 rounded-lg border text-xs font-medium transition-all ${
+                        selectedRegion === region.name
+                          ? "bg-blue-50 border-blue-500 text-blue-700 ring-1 ring-blue-300"
+                          : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      {region.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Non-EU Fields: Transport & Homologation */}
+        {importType === "NonEU" && (
+          <>
+            <div>
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                <Truck size={16} className="text-blue-600" />
+                {t("transportCost")}
+              </label>
+              <input
+                type="number"
+                value={transportCost}
+                onChange={(e) => setTransportCost(e.target.value)}
+                placeholder="1500"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm"
+              />
             </div>
-          )}
-        </div>
+
+            <div
+              className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex items-center gap-3 ${
+                needsHomologation
+                  ? "bg-blue-50 border-blue-500"
+                  : "bg-white border-gray-200 hover:border-gray-300"
+              }`}
+              onClick={() => setNeedsHomologation(!needsHomologation)}
+            >
+              <div
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                  needsHomologation
+                    ? "bg-blue-600 border-blue-600"
+                    : "border-gray-300"
+                }`}
+              >
+                {needsHomologation && <CheckCircle size={14} color="white" />}
+              </div>
+              <div className="flex-1">
+                <p
+                  className={`text-sm font-semibold ${
+                    needsHomologation ? "text-blue-800" : "text-gray-700"
+                  }`}
+                >
+                  {t("homologation")}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {t("homologationInfo")}
+                </p>
+              </div>
+              <FileCheck size={20} className="text-gray-400" />
+            </div>
+          </>
+        )}
 
         <div className="flex flex-col gap-3">
           {/* Calculate Button */}
@@ -455,6 +561,9 @@ function HomeContent() {
           dataFullWidthResponsive={true}
         />
       </div>
+
+      <SeoContent />
+      <FaqSection />
     </div>
   );
 }

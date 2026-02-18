@@ -5,6 +5,10 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SEO_KEYWORDS } from "@/constants/SeoKeywords";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +19,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-import { SEO_KEYWORDS } from "@/constants/SeoKeywords";
 
 export const metadata: Metadata = {
   title: {
@@ -60,9 +62,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-
 export default function RootLayout({
   children,
 }: {
@@ -77,10 +76,11 @@ export default function RootLayout({
         <AdSense pId="8296385442547902" />
         <JsonLd />
         <LanguageProvider>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block">
             <Header />
-            <main className="flex-1 pt-28 md:pt-28">{children}</main>
+            <main className="flex-1 pt-28 md:pt-28 print:pt-0">{children}</main>
             <Footer />
+            <CookieConsent />
           </div>
         </LanguageProvider>
       </body>

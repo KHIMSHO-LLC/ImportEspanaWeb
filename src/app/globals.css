@@ -47,11 +47,19 @@ body {
   }
 
   /* Ensure content fits */
+  /* Ensure content fits */
   html,
   body {
-    height: 100%;
+    height: auto !important;
+    min-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden;
+    overflow: visible !important;
+  }
+
+  /* Remove scale down, let it flow naturally */
+  main {
+    transform: none;
+    width: 100%;
   }
 }

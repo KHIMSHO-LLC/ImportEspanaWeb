@@ -54,6 +54,16 @@ export default function PrivacyContent() {
 
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
+              {t("privacy_section3_title")}
+            </h2>
+            <p>{t("privacy_section3_text")}</p>
+            <p className="mt-2 text-sm text-gray-500 italic">
+              {t("privacy_opt_out")}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
               {t("privacy_contact_title")}
             </h2>
             <p>

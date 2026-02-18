@@ -3,7 +3,13 @@ export type Country =
   | "France"
   | "Italy"
   | "Belgium"
-  | "Netherlands";
+  | "Netherlands"
+  | "USA"
+  | "UAE"
+  | "Japan"
+  | "Korea";
+
+export type ImportType = "EU" | "NonEU";
 
 export type CarAge =
   | "new"
@@ -21,6 +27,7 @@ export type CarAge =
   | "12_plus_years";
 
 export interface CalculationInput {
+  importType?: ImportType;
   originCountry: Country;
   carPrice: number; // Purchase Price (Market Value)
   officialFiscalValue: number; // BOE Value (Brand new value according to Hacienda)
@@ -29,6 +36,10 @@ export interface CalculationInput {
   sellerType: "dealer" | "private";
   transportCost?: number;
   itpRate?: number; // Regional Transfer Tax Rate (Default 0.04)
+  customsAgentFee?: number;
+  needsHomologation?: boolean;
+  brand?: string;
+  model?: string;
 }
 
 export interface CalculationResult {
@@ -36,6 +47,10 @@ export interface CalculationResult {
   taxBase: number; // Base Imponible (Fiscal Value * Depreciation)
   registrationTax: number; // IEDMT
   itpTax: number; // ITP (if private)
+  duty?: number; // Arancel (Non-EU)
+  vat?: number; // IVA (Non-EU)
+  customsAgentFee?: number;
+  homologationFee?: number;
   dgtFee: number;
   itvFee: number;
   platesFee: number;

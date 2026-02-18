@@ -4,7 +4,18 @@ export const translations = {
   en: {
     // Input Screen
     originCountry: "Origin Country",
+    importType: "Import To",
     carPrice: "Car Price (€)",
+    EU: "Spain (from EU)",
+    NonEU: "Outside EU",
+    transportCost: "Transport Cost (€)",
+    duty: "Duty (10%)",
+    vat: "VAT (21%)",
+    customsAgent: "Customs Agent / DUA",
+    homologation: "Individual Homologation",
+    homologationInfo:
+      "Required for vehicles from outside the EU that lack a European Certificate of Conformity (COC).",
+    invoicePrice: "Invoice Price (€)",
     vehicleSearch: "Vehicle Search",
     brand: "Brand",
     model: "Model",
@@ -84,6 +95,11 @@ export const translations = {
     privacy_list_cookies: "Cookies for personalized advertising",
     privacy_contact_title: "Contact Us",
     privacy_contact_email: "info@importespana.com",
+    privacy_section3_title: "3. Your Privacy Rights (GDPR & CPRA)",
+    privacy_section3_text:
+      "Depending on your location, you may have the right to access, correct, delete, or export your personal data. Residents of California (CPRA) have the right to opt-out of the sale or sharing of personal information. We do not sell your personal data directly, but our advertising partners may collect data for personalized ads.",
+    privacy_opt_out:
+      "To exert your rights or opt-out, please contact us or use the privacy settings on your device.",
     // Terms
     terms_title: "Terms of Use",
     terms_last_updated: "Last updated: February 11, 2026",
@@ -99,7 +115,7 @@ export const translations = {
     about_text1:
       "Welcome to ImportEspana, the leading tool for calculating vehicle import taxes in Spain.",
     about_text2:
-      "Our mission is to simplify the complex process of importing vehicles from Europe to Spain.",
+      "Our mission is to simplify the complex process of importing vehicles to Spain, whether from the European Union (Germany, France, etc.) or from outside the EU (USA, Japan, UAE, etc.).",
     // How It Works
     hiw_title: "How ImportEspana Works",
     hiw_subtitle:
@@ -120,10 +136,27 @@ export const translations = {
     hiw_cta_text: "Get precise tax estimates in seconds.",
     hiw_cta_button: "Go to Calculator",
     selectRegion: "Region (Comunidad Autónoma)",
+    // Cookie Consent
+    cookie_banner_text:
+      "We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our advertising and analytics partners.",
+    cookie_accept: "Accept",
+    cookie_decline: "Decline",
+    cookie_learn_more: "Learn More",
   },
   es: {
     originCountry: "País de Origen",
+    importType: "Importar a",
     carPrice: "Precio del Vehículo (€)",
+    EU: "España (desde UE)",
+    NonEU: "Fuera de la UE",
+    transportCost: "Coste de Transporte (€)",
+    duty: "Arancel (10%)",
+    vat: "IVA (21%)",
+    customsAgent: "Agente de Aduanas / DUA",
+    homologation: "Homologación Individual",
+    homologationInfo:
+      "Necesaria para vehículos de fuera de la UE que no tienen Certificado de Conformidad Europeo (COC).",
+    invoicePrice: "Precio de Factura (€)",
     vehicleSearch: "Búsqueda de Vehículo",
     brand: "Marca",
     model: "Modelo",
@@ -202,6 +235,11 @@ export const translations = {
     privacy_list_cookies: "Cookies para publicidad personalizada",
     privacy_contact_title: "Contáctanos",
     privacy_contact_email: "info@importespana.com",
+    privacy_section3_title: "3. Tus Derechos de Privacidad (GDPR y CPRA)",
+    privacy_section3_text:
+      "Dependiendo de tu ubicación, tienes derecho a acceder, corregir, eliminar o exportar tus datos. Los residentes de California (CPRA) tienen derecho a optar por no vender o compartir su información personal. No vendemos tus datos directamente, pero nuestros socios publicitarios pueden recopilar datos para anuncios personalizados.",
+    privacy_opt_out:
+      "Para ejercer tus derechos u optar por no participar, contáctanos o usa la configuración de privacidad de tu dispositivo.",
     // Terms
     terms_title: "Términos de Uso",
     terms_last_updated: "Última actualización: 11 de Febrero, 2026",
@@ -217,7 +255,7 @@ export const translations = {
     about_text1:
       "Bienvenido a ImportEspana, la herramienta líder para calcular impuestos de importación de vehículos en España.",
     about_text2:
-      "Nuestra misión es simplificar el complejo proceso de importar vehículos a España.",
+      "Nuestra misión es simplificar el complejo proceso de importar vehículos a España, ya sea desde la Unión Europea (Alemania, Francia, etc.) o desde fuera de la UE (EE. UU., Japón, EAU, etc.).",
     // How It Works
     hiw_title: "Cómo Funciona ImportEspana",
     hiw_subtitle:
@@ -238,10 +276,27 @@ export const translations = {
     hiw_cta_text: "Obtén estimaciones precisas en segundos.",
     hiw_cta_button: "Ir a la Calculadora",
     selectRegion: "Región (Comunidad Autónoma)",
+    // Cookie Consent
+    cookie_banner_text:
+      "Utilizamos cookies para personalizar contenido y anuncios, proporcionar funciones de redes sociales y analizar nuestro tráfico. También compartimos información sobre el uso de nuestro sitio con nuestros socios de publicidad y análisis.",
+    cookie_accept: "Aceptar",
+    cookie_decline: "Rechazar",
+    cookie_learn_more: "Más información",
   },
   ru: {
     originCountry: "Страна происхождения",
+    importType: "Импорт в",
     carPrice: "Цена автомобиля (€)",
+    EU: "Испания (из ЕС)",
+    NonEU: "Вне ЕС",
+    transportCost: "Стоимость транспорта (€)",
+    duty: "Пошлина (10%)",
+    vat: "НДС (21%)",
+    customsAgent: "Таможенный агент / DUA",
+    homologation: "Индивидуальная омологация",
+    homologationInfo:
+      "Необходима для автомобилей из-за пределов ЕС без европейского сертификата соответствия (COC).",
+    invoicePrice: "Цена по счету (€)",
     vehicleSearch: "Поиск автомобиля",
     brand: "Марка",
     model: "Модель",
@@ -316,6 +371,11 @@ export const translations = {
     privacy_list_cookies: "Cookies для рекламы",
     privacy_contact_title: "Связаться с нами",
     privacy_contact_email: "info@importespana.com",
+    privacy_section3_title: "3. Ваши права (GDPR и CPRA)",
+    privacy_section3_text:
+      "В зависимости от вашего местоположения, вы имеете право на доступ, исправление, удаление или экспорт ваших данных. Жители Калифорнии (CPRA) имеют право отказаться от продажи или передачи своей личной информации. Мы не продаем ваши данные, но наши партнеры могут собирать их для рекламы.",
+    privacy_opt_out:
+      "Чтобы воспользоваться своими правами, свяжитесь с нами или измените настройки конфиденциальности.",
     // Terms
     terms_title: "Условия использования",
     terms_last_updated: "Последнее обновление: 11 февраля 2026",
@@ -331,7 +391,7 @@ export const translations = {
     about_text1:
       "Добро пожаловать в ImportEspana — ведущий инструмент для расчета налогов на импорт авто в Испанию.",
     about_text2:
-      "Наша миссия — упростить сложный процесс импорта автомобилей из Европы.",
+      "Наша миссия — упростить сложный процесс импорта автомобилей в Испанию, будь то из Европейского Союза (Германия, Франция и т.д.) или из-за пределов ЕС (США, Япония, ОАЭ и т.д.).",
     // How It Works
     hiw_title: "Как работает ImportEspana",
     hiw_subtitle:
@@ -350,10 +410,27 @@ export const translations = {
     hiw_cta_text: "Получите точную оценку за секунды.",
     hiw_cta_button: "Перейти к калькулятору",
     selectRegion: "Регион (автономное сообщество)",
+    // Cookie Consent
+    cookie_banner_text:
+      "Мы используем файлы cookie для персонализации контента и рекламы, предоставления функций социальных сетей и анализа нашего трафика.",
+    cookie_accept: "Принять",
+    cookie_decline: "Отклонить",
+    cookie_learn_more: "Подробнее",
   },
   de: {
     originCountry: "Herkunftsland",
+    importType: "Import nach",
     carPrice: "Fahrzeugpreis (€)",
+    EU: "Spanien (aus EU)",
+    NonEU: "Außerhalb EU",
+    transportCost: "Transportkosten (€)",
+    duty: "Zoll (10%)",
+    vat: "MwSt (21%)",
+    customsAgent: "Zollagent / DUA",
+    homologation: "Einzelabnahme",
+    homologationInfo:
+      "Erforderlich für Fahrzeuge von außerhalb der EU ohne europäische Konformitätsbescheinigung (COC).",
+    invoicePrice: "Rechnungspreis (€)",
     vehicleSearch: "Fahrzeugsuche",
     brand: "Marke",
     model: "Modell",
@@ -428,6 +505,11 @@ export const translations = {
     privacy_list_cookies: "Cookies für Werbung",
     privacy_contact_title: "Kontakt",
     privacy_contact_email: "info@importespana.com",
+    privacy_section3_title: "3. Ihre Rechte (GDPR & CPRA)",
+    privacy_section3_text:
+      "Je nach Standort haben Sie das Recht auf Zugang, Korrektur, Löschung oder Export Ihrer Daten. Einwohner Kaliforniens (CPRA) können dem Verkauf oder der Weitergabe ihrer Daten widersprechen. Wir verkaufen Ihre Daten nicht, aber unsere Werbepartner können Daten sammeln.",
+    privacy_opt_out:
+      "Um Ihre Rechte auszuüben, kontaktieren Sie uns oder nutzen Sie die Datenschutzeinstellungen Ihres Geräts.",
     // Terms
     terms_title: "Nutzungsbedingungen",
     terms_last_updated: "Zuletzt aktualisiert: 11. Februar 2026",
@@ -442,7 +524,8 @@ export const translations = {
     about_title: "Über uns",
     about_text1:
       "Willkommen bei ImportEspana, dem führenden Tool zur Berechnung von Importsteuern in Spanien.",
-    about_text2: "Unsere Mission ist es, den Importprozess zu vereinfachen.",
+    about_text2:
+      "Unsere Mission ist es, den komplexen Prozess des Fahrzeugimports nach Spanien zu vereinfachen, egal ob aus der Europäischen Union (Deutschland, Frankreich usw.) oder von außerhalb der EU (USA, Japan, VAE usw.).",
     // How It Works
     hiw_title: "Wie ImportEspana funktioniert",
     hiw_subtitle: "Verstehen Sie den Steuerberechnungsprozess.",
@@ -460,10 +543,27 @@ export const translations = {
     hiw_cta_text: "Erhalten Sie präzise Schätzungen in Sekunden.",
     hiw_cta_button: "Zum Rechner",
     selectRegion: "Region (Autonome Gemeinschaft)",
+    // Cookie Consent
+    cookie_banner_text:
+      "Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren, Funktionen für soziale Medien anzubieten und unseren Datenverkehr zu analysieren.",
+    cookie_accept: "Akzeptieren",
+    cookie_decline: "Ablehnen",
+    cookie_learn_more: "Mehr erfahren",
   },
   fr: {
     originCountry: "Pays d'origine",
+    importType: "Importer vers",
     carPrice: "Prix du véhicule (€)",
+    EU: "Espagne (UE)",
+    NonEU: "Hors UE",
+    transportCost: "Coût de transport (€)",
+    duty: "Droits de douane (10%)",
+    vat: "TVA (21%)",
+    customsAgent: "Agent en douane / DUA",
+    homologation: "Homologation Individuelle",
+    homologationInfo:
+      "Requis pour les véhicules hors UE sans Certificat de Conformité Européen (COC).",
+    invoicePrice: "Prix de Facture (€)",
     vehicleSearch: "Recherche de véhicule",
     brand: "Marque",
     model: "Modèle",
@@ -538,6 +638,11 @@ export const translations = {
     privacy_list_cookies: "Cookies publicitaires",
     privacy_contact_title: "Contactez-nous",
     privacy_contact_email: "info@importespana.com",
+    privacy_section3_title: "3. Vos droits (GDPR & CPRA)",
+    privacy_section3_text:
+      "Selon votre localisation, vous avez le droit d'accéder, de corriger, de supprimer ou d'exporter vos données. Les résidents de Californie (CPRA) peuvent refuser la vente ou le partage de leurs informations. Nous ne vendons pas vos données, mais nos partenaires peuvent en collecter.",
+    privacy_opt_out:
+      "Pour exercer vos droits, contactez-nous ou utilisez les paramètres de confidentialité de votre appareil.",
     // Terms
     terms_title: "Conditions d'utilisation",
     terms_last_updated: "Dernière mise à jour : 11 février 2026",
@@ -553,7 +658,7 @@ export const translations = {
     about_text1:
       "Bienvenue sur ImportEspana, l'outil leader pour le calcul des taxes d'importation.",
     about_text2:
-      "Notre mission est de simplifier le processus d'importation en Espagne.",
+      "Notre mission est de simplifier le processus complexe d'importation de véhicules en Espagne, que ce soit depuis l'Union européenne (Allemagne, France, etc.) ou hors de l'UE (États-Unis, Japon, EAU, etc.).",
     // How It Works
     hiw_title: "Comment fonctionne ImportEspana",
     hiw_subtitle: "Comprenez le processus de calcul des taxes.",
@@ -569,5 +674,11 @@ export const translations = {
     hiw_cta_text: "Obtenez des estimations précises.",
     hiw_cta_button: "Aller à la calculatrice",
     selectRegion: "Région (Communauté autonome)",
+    // Cookie Consent
+    cookie_banner_text:
+      "Nous utilisons des cookies pour personnaliser le contenu et les publicités, pour fournir des fonctionnalités de médias sociaux et pour analyser notre trafic.",
+    cookie_accept: "Accepter",
+    cookie_decline: "Refuser",
+    cookie_learn_more: "En savoir plus",
   },
 };

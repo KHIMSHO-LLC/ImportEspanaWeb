@@ -6,8 +6,10 @@ import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
 import { useState } from "react";
 
 export const FaqSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const items = FAQ_DATA[language] || FAQ_DATA["en"];
 
   return (
     <section className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
@@ -19,7 +21,7 @@ export const FaqSection = () => {
       </div>
 
       <div className="space-y-4">
-        {FAQ_DATA.map((item, index) => (
+        {items.map((item, index) => (
           <div
             key={index}
             className="border-b border-gray-100 last:border-0 pb-4 last:pb-0"
