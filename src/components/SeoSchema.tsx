@@ -26,7 +26,7 @@ export default function SeoSchema() {
       },
       {
         "@type": "FAQPage",
-        mainEntity: FAQ_DATA.map((item) => ({
+        mainEntity: FAQ_DATA.es.map((item) => ({
           "@type": "Question",
           name: item.question,
           acceptedAnswer: {
