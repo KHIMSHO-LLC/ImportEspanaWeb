@@ -215,6 +215,7 @@ export function VehicleAutocomplete({
             setSelectedBrand(null);
           }}
           onFocus={() => setShowBrandSuggestions(true)}
+          aria-label={t("brand")}
         />
 
         {showBrandSuggestions && filteredBrands.length > 0 && (
@@ -246,6 +247,7 @@ export function VehicleAutocomplete({
             maxLength={4}
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
+            aria-label={t("yearOptional")}
           />
         </div>
       )}
@@ -267,6 +269,7 @@ export function VehicleAutocomplete({
               setShowModelSuggestions(true);
             }}
             onFocus={() => setShowModelSuggestions(true)}
+            aria-label={t("model")}
           />
 
           {showModelSuggestions && filteredModels.length > 0 && (

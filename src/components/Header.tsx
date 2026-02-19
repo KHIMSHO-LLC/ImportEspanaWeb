@@ -19,6 +19,7 @@ export const Header = () => {
             width={300}
             height={60}
             className="h-10 md:h-12 w-auto object-contain"
+            style={{ width: "auto" }} // Preserve aspect ratio
             priority
           />
         </Link>

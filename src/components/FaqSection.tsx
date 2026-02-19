@@ -50,7 +50,7 @@ export const FaqSection = () => {
       </div>
 
       <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-600">
           Keywords: Matriculación España, Import Tax Calculator, Coche Alemán,
           ITV Importación, DGT Tasas, Impuesto CO2
         </p>

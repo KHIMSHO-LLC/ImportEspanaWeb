@@ -33,7 +33,7 @@ export function LanguageSwitcher() {
             <span className="text-sm md:text-lg">{lang.flag}</span>
             <span
               className={`text-xs md:text-sm font-semibold ${
-                language === lang.code ? "text-blue-600" : "text-gray-500"
+                language === lang.code ? "text-blue-600" : "text-gray-700"
               }`}
             >
               {lang.code.toUpperCase()}
