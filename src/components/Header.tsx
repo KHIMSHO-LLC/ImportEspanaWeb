@@ -24,8 +24,14 @@ export const Header = () => {
           />
         </Link>
 
-        {/* Language Switcher - Centered on mobile */}
-        <div className="w-full md:w-auto flex justify-center overflow-x-auto no-scrollbar pb-1 md:pb-0">
+        {/* Navigation Links + Language Switcher */}
+        <div className="w-full md:w-auto flex justify-center items-center gap-4 overflow-x-auto no-scrollbar pb-1 md:pb-0">
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors whitespace-nowrap"
+          >
+            Blog
+          </Link>
           <LanguageSwitcher />
         </div>
       </div>

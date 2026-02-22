@@ -40,6 +40,12 @@ export function Footer() {
             >
               {t("footer_howItWorks")}
             </Link>
+            <Link
+              href="/blog"
+              className="text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              Blog
+            </Link>
           </div>
         </div>
       </div>
