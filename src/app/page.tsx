@@ -209,7 +209,7 @@ function HomeContent() {
   };
 
   return (
-    <div className="w-full md:pt-4">
+    <div className="w-full">
       <AdBanner
         dataAdSlot="1957145426"
         dataAdFormat="horizontal"
