@@ -572,7 +572,7 @@ function HomeContent() {
 export default function Home() {
   return (
     <div className="pb-20 bg-gray-50">
-      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 mt-6">
+      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4">
         {/* Left Sidebar */}
         <SidebarAd side="left" />
 
