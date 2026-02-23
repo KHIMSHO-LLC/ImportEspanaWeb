@@ -1,15 +1,9 @@
 /**
  * AI Blog Post Generator using Google Gemini API (Free Tier)
  * Generates BILINGUAL articles (Spanish + English) for each topic.
+ * Includes retry logic and model fallback for rate limits.
  *
  * Usage: GEMINI_API_KEY=your_key node scripts/generate-blog.mjs
- *
- * This script:
- * 1. Reads topics.json and finds the next unwritten topic
- * 2. Calls Gemini API to generate a Spanish article
- * 3. Calls Gemini API to generate an English version
- * 4. Saves both as markdown files in src/content/blog/
- * 5. Marks the topic as done in topics.json
  */
 
 import fs from "fs";
@@ -23,35 +17,83 @@ const TOPICS_FILE = path.join(__dirname, "topics.json");
 const BLOG_DIR = path.join(__dirname, "..", "src", "content", "blog");
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = "gemini-2.0-flash";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
 
-async function callGemini(prompt) {
-  const response = await fetch(GEMINI_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 4096,
-      },
-    }),
-  });
+// Models to try in order (fallback chain)
+const MODELS = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-flash-8b"];
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Gemini API error: ${response.status} - ${error}`);
+function getGeminiUrl(model) {
+  return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+}
+
+async function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function callGeminiWithRetry(prompt, maxRetries = 3) {
+  for (const model of MODELS) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(
+          `  🤖 Trying ${model} (attempt ${attempt}/${maxRetries})...`,
+        );
+
+        const response = await fetch(getGeminiUrl(model), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 4096,
+            },
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) {
+            console.log(`  ✅ Success with ${model}`);
+            return text;
+          }
+          throw new Error("Empty response from API");
+        }
+
+        if (response.status === 429) {
+          const errorData = await response.text();
+          // Extract retry delay from error if available
+          const retryMatch = errorData.match(/"retryDelay":\s*"(\d+)s"/);
+          const waitTime = retryMatch
+            ? parseInt(retryMatch[1]) + 5
+            : 45 * attempt;
+
+          console.log(
+            `  ⏳ Rate limited on ${model}. Waiting ${waitTime}s before retry...`,
+          );
+          await sleep(waitTime * 1000);
+          continue;
+        }
+
+        // Other errors - try next model
+        const error = await response.text();
+        console.log(
+          `  ⚠️ ${model} returned ${response.status}, trying next model...`,
+        );
+        break;
+      } catch (err) {
+        if (attempt === maxRetries) {
+          console.log(`  ⚠️ All retries failed for ${model}: ${err.message}`);
+          break;
+        }
+        console.log(
+          `  ⚠️ Error: ${err.message}, retrying in ${10 * attempt}s...`,
+        );
+        await sleep(10000 * attempt);
+      }
+    }
   }
 
-  const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!text) {
-    throw new Error("No content generated from Gemini API");
-  }
-
-  return text;
+  throw new Error("All models and retries exhausted. Try again later.");
 }
 
 async function generateSpanishArticle(topic) {
@@ -77,11 +119,10 @@ Requirements:
 
 Output ONLY the markdown article content (no frontmatter, no title).`;
 
-  return callGemini(prompt);
+  return callGeminiWithRetry(prompt);
 }
 
 async function generateEnglishArticle(topic) {
-  // Create an English version of the title
   const prompt = `You are an expert auto journalist and SEO specialist writing for ImportEspana.com, a website that helps people calculate costs of importing cars to Spain.
 
 Write a comprehensive, SEO-optimized blog article in ENGLISH about:
@@ -104,7 +145,7 @@ Requirements:
 
 Output ONLY the markdown article content (no frontmatter, no title).`;
 
-  return callGemini(prompt);
+  return callGeminiWithRetry(prompt);
 }
 
 function createFrontmatter(topic, lang) {
@@ -112,15 +153,7 @@ function createFrontmatter(topic, lang) {
   const tags = inferTags(topic.keyword);
 
   if (lang === "en") {
-    const enTitle =
-      topic.title_hint_en ||
-      topic.title_hint
-        .replace(/á/g, "a")
-        .replace(/é/g, "e")
-        .replace(/í/g, "i")
-        .replace(/ó/g, "o")
-        .replace(/ú/g, "u")
-        .replace(/ñ/g, "n");
+    const enTitle = topic.title_hint_en || topic.title_hint;
     return `---
 title: "${enTitle}"
 date: "${today}"
@@ -205,7 +238,7 @@ async function main() {
 
   try {
     // Generate Spanish article
-    console.log(`🇪🇸 Generating Spanish version...`);
+    console.log(`\n🇪🇸 Generating Spanish version...`);
     const esContent = await generateSpanishArticle(nextTopic);
     const esFrontmatter = createFrontmatter(nextTopic, "es");
     const esArticle = `${esFrontmatter}\n\n${esContent}\n`;
@@ -213,11 +246,14 @@ async function main() {
     fs.writeFileSync(esPath, esArticle, "utf-8");
     console.log(`✅ Spanish article saved: ${esPath}`);
 
-    // Small delay to avoid rate limiting
-    await new Promise((r) => setTimeout(r, 2000));
+    // Wait 60s between calls to avoid rate limits on free tier
+    console.log(
+      `\n⏳ Waiting 60s before English version (rate limit buffer)...`,
+    );
+    await sleep(60000);
 
     // Generate English article
-    console.log(`🇬🇧 Generating English version...`);
+    console.log(`\n🇬🇧 Generating English version...`);
     const enContent = await generateEnglishArticle(nextTopic);
     const enFrontmatter = createFrontmatter(nextTopic, "en");
     const enArticle = `${enFrontmatter}\n\n${enContent}\n`;
@@ -232,9 +268,9 @@ async function main() {
       JSON.stringify(topics, null, 2) + "\n",
       "utf-8",
     );
-    console.log(`✅ Topic marked as done. 2 articles generated!`);
+    console.log(`\n✅ Topic marked as done. 2 articles generated!`);
   } catch (error) {
-    console.error(`❌ Error generating article:`, error.message);
+    console.error(`\n❌ Error generating article:`, error.message);
     process.exit(1);
   }
 }
