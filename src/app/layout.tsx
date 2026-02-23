@@ -21,6 +21,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://importespana.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "ImportEspana - Calculadora Impuestos Matriculación España",
     template: "%s | ImportEspana",
@@ -78,7 +82,7 @@ export default function RootLayout({
         <LanguageProvider>
           <div className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block">
             <Header />
-            <main className="flex-1 pt-20 md:pt-20 print:pt-0">{children}</main>
+            <main className="flex-1 pt-16 md:pt-16 print:pt-0">{children}</main>
             <Footer />
             <CookieConsent />
           </div>
