@@ -19,11 +19,7 @@ const BLOG_DIR = path.join(__dirname, "..", "src", "content", "blog");
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Models to try in order (fallback chain)
-const MODELS = [
-  "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
-  "gemini-2.0-flash-thinking-exp",
-];
+const MODELS = ["gemini-2.5-flash", "gemini-2.5-flash-lite"];
 
 function getGeminiUrl(model) {
   return `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
