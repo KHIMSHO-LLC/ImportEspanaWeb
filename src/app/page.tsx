@@ -34,6 +34,7 @@ import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
+import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
 import { Country, ImportType } from "@/types";
 import {
   AlertTriangle,
@@ -48,6 +49,7 @@ import {
   RotateCcw,
   Truck,
   User,
+  TrendingDown,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -68,6 +70,15 @@ function HomeContent() {
   const [transportCost, setTransportCost] = useState("");
   const [needsHomologation, setNeedsHomologation] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("Madrid");
+
+  // Derived Values for Fiscal Depreciation UI
+  const baseFiscalValueStr = fiscalValue || "0";
+  const baseFiscalValue =
+    parseFloat(baseFiscalValueStr.replace(/\./g, "").replace(/,/g, ".")) || 0;
+  const percentageRetained =
+    DEPRECIATION_TABLE[carAge as keyof typeof DEPRECIATION_TABLE] || 1.0;
+  const calculatedFiscalValue =
+    baseFiscalValue * Math.max(0, percentageRetained);
   const [vehicleData, setVehicleData] = useState<{
     value: number;
     brand?: string;
@@ -411,6 +422,34 @@ function HomeContent() {
             <option value="12_plus_years">+12 años</option>
           </select>
         </div>
+
+        {/* Fiscal Value Depreciation UI */}
+        {baseFiscalValue > 0 && importType === "EU" && (
+          <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-xl flex flex-col items-center justify-center text-center">
+            <div className="flex items-center gap-2 text-orange-800 font-semibold mb-1">
+              <TrendingDown size={18} />
+              <span>{t("fiscalValueDepreciation")}</span>
+            </div>
+            <div className="text-orange-700 text-sm mb-1">
+              {baseFiscalValue.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "EUR",
+                maximumFractionDigits: 0,
+              })}{" "}
+              × {Math.round(percentageRetained * 100)}% =
+            </div>
+            <div className="text-2xl font-bold text-orange-900 mb-1">
+              {calculatedFiscalValue.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "EUR",
+                maximumFractionDigits: 0,
+              })}
+            </div>
+            <div className="text-xs text-orange-600 italic">
+              {t("fiscalValueNote")}
+            </div>
+          </div>
+        )}
 
         {/* CO2 */}
         <div>

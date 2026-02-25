@@ -46,6 +46,8 @@ export const translations = {
     printResult: "Print Result / Save PDF",
     taxesFees: "TAXES & FEES (Spain)",
     registrationTax: "Matriculation Tax",
+    fiscalValueDepreciation: "Fiscal Value After Depreciation",
+    fiscalValueNote: "This is the value Spain uses to calculate your taxes",
     itp: "ITP (Transfer Tax)",
     dgt: "DGT Fee",
     itv: "ITV Inspection",
@@ -189,6 +191,9 @@ export const translations = {
     printResult: "Imprimir / Guardar PDF",
     taxesFees: "IMPUESTOS Y TASAS (España)",
     registrationTax: "Impuesto de Matriculación",
+    fiscalValueDepreciation: "Valor Fiscal tras Depreciación",
+    fiscalValueNote:
+      "Este es el valor que usa España para calcular sus impuestos",
     itp: "ITP (Transmisiones)",
     dgt: "Tasa DGT",
     itv: "Inspección ITV",
@@ -329,6 +334,9 @@ export const translations = {
     printResult: "Печать / Сохранить PDF",
     taxesFees: "НАЛОГИ И СБОРЫ (Испания)",
     registrationTax: "Налог на регистрацию",
+    fiscalValueDepreciation: "Фискальная стоимость после амортизации",
+    fiscalValueNote:
+      "Это стоимость, которую Испания использует для расчета налогов",
     itp: "ITP (Налог на передачу)",
     dgt: "Сбор DGT",
     itv: "Техосмотр ITV",
@@ -465,6 +473,9 @@ export const translations = {
     printResult: "Drucken / PDF speichern",
     taxesFees: "STEUERN & GEBÜHREN (Spanien)",
     registrationTax: "Zulassungssteuer",
+    fiscalValueDepreciation: "Steuerwert nach Abschreibung",
+    fiscalValueNote:
+      "Diesen Wert verwendet Spanien zur Berechnung Ihrer Steuern",
     itp: "ITP (Grunderwerbsteuer)",
     dgt: "DGT-Gebühr",
     itv: "ITV-Inspektion",
@@ -600,6 +611,9 @@ export const translations = {
     printResult: "Imprimer / Enregistrer PDF",
     taxesFees: "TAXES ET FRAIS (Espagne)",
     registrationTax: "Taxe d'immatriculation",
+    fiscalValueDepreciation: "Valeur Fiscale après Dépréciation",
+    fiscalValueNote:
+      "C'est la valeur que l'Espagne utilise pour calculer vos impôts",
     itp: "ITP (Taxe de transfert)",
     dgt: "Frais DGT",
     itv: "Inspection ITV",
