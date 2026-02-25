@@ -7,8 +7,31 @@ import { StickyAdFooter } from "@/components/StickyAdFooter";
 
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
+import { HeroStats } from "@/components/HeroStats";
+import { OfficialSources } from "@/components/OfficialSources";
+import dynamic from "next/dynamic";
+
+const LiveMarketData = dynamic(
+  () => import("@/components/LiveMarketData").then((mod) => mod.LiveMarketData),
+  {
+    loading: () => (
+      <div className="bg-white/80 backdrop-blur rounded-2xl border border-gray-200 p-5 animate-pulse">
+        <div className="h-4 bg-gray-200 rounded w-32 mb-4" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-20 bg-gray-100 rounded-xl" />
+          ))}
+        </div>
+      </div>
+    ),
+    ssr: false,
+  },
+);
 import { SeoContent } from "@/components/SeoContent";
 import SeoSchema from "@/components/SeoSchema";
+import Link from "next/link";
+import { REGIONS } from "@/constants/Regions";
+import { COUNTRIES } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
 import { Country, ImportType } from "@/types";
@@ -30,7 +53,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 function HomeContent() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -210,6 +233,10 @@ function HomeContent() {
 
   return (
     <div className="w-full">
+      <HeroStats />
+
+      <LiveMarketData />
+
       <AdBanner
         dataAdSlot="1957145426"
         dataAdFormat="horizontal"
@@ -551,7 +578,7 @@ function HomeContent() {
             className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2"
           >
             <RotateCcw size={16} />
-            Reset Search
+            {language === "es" ? "Reiniciar búsqueda" : "Reset Search"}
           </button>
         </div>
 
@@ -565,6 +592,52 @@ function HomeContent() {
 
       <SeoContent />
       <FaqSection />
+      <OfficialSources />
+
+      {/* Internal Links — SEO: gives Google crawlable paths to all landing pages */}
+      <div className="mt-8 space-y-6">
+        {/* Region Links */}
+        <div>
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
+            <MapPin size={14} className="text-blue-500" />
+            {language === "es"
+              ? "Importar coches por comunidad autónoma"
+              : "Import cars by region"}
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {REGIONS.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/importar-coche/${r.slug}`}
+                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+              >
+                {language === "es" ? r.nameEs : r.name} ({r.itpRate}%)
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Country Links */}
+        <div>
+          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
+            <Globe size={14} className="text-green-500" />
+            {language === "es"
+              ? "Importar desde otros países"
+              : "Import from other countries"}
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {COUNTRIES.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/importar-desde/${c.slug}`}
+                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+              >
+                {c.flag} {language === "es" ? c.nameEs : c.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -572,7 +645,7 @@ function HomeContent() {
 export default function Home() {
   return (
     <div className="pb-20 bg-gray-50">
-      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4">
+      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 pt-4">
         {/* Left Sidebar */}
         <SidebarAd side="left" />
 

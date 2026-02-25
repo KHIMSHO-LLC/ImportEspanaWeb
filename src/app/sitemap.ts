@@ -1,5 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog-data";
+import { REGIONS } from "@/constants/Regions";
+import { COUNTRIES } from "@/constants/Countries";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://importespana.com";
@@ -47,8 +49,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/itp`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/resources`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ];
 
+  // Region-specific ITP / import pages (17 pages)
+  const regionPages: MetadataRoute.Sitemap = REGIONS.map((region) => ({
+    url: `${baseUrl}/importar-coche/${region.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  // Country-specific import guide pages (7 pages)
+  const countryPages: MetadataRoute.Sitemap = COUNTRIES.map((country) => ({
+    url: `${baseUrl}/importar-desde/${country.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  // Blog post pages
   const posts = getAllPosts();
   const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -57,5 +88,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...blogPages];
+  return [...staticPages, ...regionPages, ...countryPages, ...blogPages];
 }

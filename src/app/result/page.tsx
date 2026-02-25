@@ -44,7 +44,9 @@ function ResultContent() {
       carAge,
       co2Emissions,
       sellerType,
-      transportCost: parseFloat(searchParams.get("transportCost") || "0"),
+      transportCost: searchParams.get("transportCost")
+        ? parseFloat(searchParams.get("transportCost")!)
+        : undefined,
       customsAgentFee: searchParams.get("importType") === "NonEU" ? 200 : 0, // Estimate
       needsHomologation: searchParams.get("needsHomologation") === "true",
       itpRate: itpRateParam ? parseFloat(itpRateParam) : undefined,
@@ -167,7 +169,7 @@ function ResultContent() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
               >
                 <Printer size={20} />
-                Print Result / Guardar PDF
+                {t("printResult")}
               </button>
             </div>
           </div>
@@ -194,7 +196,7 @@ function ResultContent() {
                 color="text-gray-900"
               />
               <Row
-                label="Transport"
+                label={t("transport")}
                 value={result.transportCost}
                 color="text-gray-900"
               />

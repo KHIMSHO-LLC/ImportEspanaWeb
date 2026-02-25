@@ -1,6 +1,6 @@
 // ITP (Impuesto de Transmisiones Patrimoniales) rates for used vehicles
 // by Spanish Autonomous Community (Comunidad Autónoma)
-// Source: Official regional tax agencies, 2024/2025
+// Source: Official regional tax agencies, 2025/2026
 
 export interface SpanishRegion {
   name: string;
