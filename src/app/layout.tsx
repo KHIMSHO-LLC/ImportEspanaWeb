@@ -22,14 +22,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://importespana.com"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      es: "https://importespana.com",
-      en: "https://importespana.com",
-      "x-default": "https://importespana.com",
-    },
-  },
   title: {
     default: "ImportEspana - Calculadora Impuestos Matriculación España",
     template: "%s | ImportEspana",
