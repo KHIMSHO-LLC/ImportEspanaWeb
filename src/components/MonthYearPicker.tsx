@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useMemo } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface MonthYearPickerProps {
   value: string; // Expected: YYYY-MM
@@ -30,18 +31,18 @@ export function MonthYearPicker({
 
   const months = useMemo(() => {
     return [
-      { value: "01", label: lang === "es" ? "Enero" : "January" },
-      { value: "02", label: lang === "es" ? "Febrero" : "February" },
-      { value: "03", label: lang === "es" ? "Marzo" : "March" },
-      { value: "04", label: lang === "es" ? "Abril" : "April" },
-      { value: "05", label: lang === "es" ? "Mayo" : "May" },
-      { value: "06", label: lang === "es" ? "Junio" : "June" },
-      { value: "07", label: lang === "es" ? "Julio" : "July" },
-      { value: "08", label: lang === "es" ? "Agosto" : "August" },
-      { value: "09", label: lang === "es" ? "Septiembre" : "September" },
-      { value: "10", label: lang === "es" ? "Octubre" : "October" },
-      { value: "11", label: lang === "es" ? "Noviembre" : "November" },
-      { value: "12", label: lang === "es" ? "Diciembre" : "December" },
+      { value: "01", label: lang === "es" ? "Ene" : "Jan" },
+      { value: "02", label: lang === "es" ? "Feb" : "Feb" },
+      { value: "03", label: lang === "es" ? "Mar" : "Mar" },
+      { value: "04", label: lang === "es" ? "Abr" : "Apr" },
+      { value: "05", label: lang === "es" ? "May" : "May" },
+      { value: "06", label: lang === "es" ? "Jun" : "Jun" },
+      { value: "07", label: lang === "es" ? "Jul" : "Jul" },
+      { value: "08", label: lang === "es" ? "Ago" : "Aug" },
+      { value: "09", label: lang === "es" ? "Sep" : "Sep" },
+      { value: "10", label: lang === "es" ? "Oct" : "Oct" },
+      { value: "11", label: lang === "es" ? "Nov" : "Nov" },
+      { value: "12", label: lang === "es" ? "Dic" : "Dec" },
     ];
   }, [lang]);
 
@@ -62,31 +63,19 @@ export function MonthYearPicker({
         <select
           value={month}
           onChange={(e) => handleMonthChange(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm appearance-none cursor-pointer"
+          className="w-full p-3.5 bg-[#1a1a24] border border-[#2a2a3a] rounded text-[#f5f5f7] appearance-none cursor-pointer focus:outline-none focus:border-[#00d4aa] focus:shadow-[0_0_0_3px_rgba(0,212,170,0.2)] transition-all"
         >
-          <option value="" disabled>
+          <option value="" disabled className="bg-[#13131a]">
             {lang === "es" ? "Mes" : "Month"}
           </option>
           {months.map((m) => (
-            <option key={m.value} value={m.value}>
+            <option key={m.value} value={m.value} className="bg-[#13131a]">
               {m.label}
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#6b6b7a]">
+          <ChevronDown size={16} />
         </div>
       </div>
 
@@ -95,31 +84,19 @@ export function MonthYearPicker({
         <select
           value={year}
           onChange={(e) => handleYearChange(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm appearance-none cursor-pointer"
+          className="w-full p-3.5 bg-[#1a1a24] border border-[#2a2a3a] rounded text-[#f5f5f7] font-mono appearance-none cursor-pointer focus:outline-none focus:border-[#00d4aa] focus:shadow-[0_0_0_3px_rgba(0,212,170,0.2)] transition-all"
         >
-          <option value="" disabled>
+          <option value="" disabled className="bg-[#13131a]">
             {lang === "es" ? "Año" : "Year"}
           </option>
           {years.map((y) => (
-            <option key={y} value={y.toString()}>
+            <option key={y} value={y.toString()} className="bg-[#13131a] font-mono">
               {y}
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#6b6b7a]">
+          <ChevronDown size={16} />
         </div>
       </div>
     </div>

@@ -3,22 +3,11 @@ import { AdSense } from "@/components/AdSense";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SEO_KEYWORDS } from "@/constants/SeoKeywords";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { CookieConsent } from "@/components/CookieConsent";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://importespana.com"),
@@ -76,16 +65,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 font-sans text-slate-900`}
-      >
+      <body className="antialiased">
         <GoogleAnalytics gaId="G-05KZ4XPMFR" />
         <AdSense pId="8296385442547902" />
         <JsonLd />
         <LanguageProvider>
           <div className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block">
             <Header />
-            <main className="flex-1 pt-16 md:pt-16 print:pt-0">{children}</main>
+            <main className="flex-1 pt-20 print:pt-0">
+              {children}
+            </main>
             <Footer />
             <CookieConsent />
           </div>

@@ -1,32 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AdBanner } from "./AdBanner";
 import { X } from "lucide-react";
 
 export const StickyAdFooter = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Only show after user has scrolled a bit
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden print:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden print:hidden">
       {/* Close Button */}
       <button
         onClick={() => setIsVisible(false)}
-        className="absolute -top-8 right-2 bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-500 hover:text-gray-700 p-1 rounded-full shadow-sm"
+        className="absolute -top-6 right-3 bg-[#13131a] border border-[#2a2a3a] text-[#6b6b7a] hover:text-[#f5f5f7] p-1.5 rounded-md shadow-lg transition-all"
         aria-label="Close ad"
       >
-        <X size={16} />
+        <X size={14} />
       </button>
 
       {/* Ad Container */}
-      <div className="bg-white border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] pb-safe pt-2">
-        <div className="flex justify-center items-center min-h-[60px]">
+      <div className="bg-[#0a0a0f]/95 backdrop-blur-md border-t border-[#2a2a3a] pb-safe">
+        <div className="flex justify-center items-center min-h-[70px] px-4">
           <AdBanner
             dataAdSlot="4722909566"
             dataAdFormat="horizontal"
             dataFullWidthResponsive={true}
+            variant="footer"
           />
         </div>
       </div>

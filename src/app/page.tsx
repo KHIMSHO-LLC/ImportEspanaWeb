@@ -16,11 +16,11 @@ const LiveMarketData = dynamic(
   () => import("@/components/LiveMarketData").then((mod) => mod.LiveMarketData),
   {
     loading: () => (
-      <div className="bg-white/80 backdrop-blur rounded-2xl border border-gray-200 p-5 animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-32 mb-4" />
+      <div className="bg-[#13131a] border border-[#2a2a3a] rounded p-5 animate-pulse">
+        <div className="h-4 bg-[#2a2a3a] rounded w-32 mb-4" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-20 bg-gray-100 rounded-xl" />
+            <div key={i} className="h-20 bg-[#1a1a24] rounded" />
           ))}
         </div>
       </div>
@@ -35,7 +35,6 @@ import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
-import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
 import { Country, ImportType } from "@/types";
 import {
   AlertTriangle,
@@ -51,6 +50,8 @@ import {
   Truck,
   User,
   TrendingDown,
+  ArrowRight,
+  Calculator,
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -208,7 +209,6 @@ export function HomeContent({
     setTouched({ price: true, co2: true, fiscalValue: true });
 
     if (!vehicleData && !fiscalValue) {
-      // Should be covered by isValid but double check
       return;
     }
 
@@ -272,70 +272,79 @@ export function HomeContent({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Hero Stats */}
       <HeroStats />
 
+      {/* Live Market Data */}
       <LiveMarketData />
 
-      <AdBanner
-        dataAdSlot="1957145426"
-        dataAdFormat="horizontal"
-        dataFullWidthResponsive={true}
-        className="hidden md:block"
-      />
+      {/* Main Calculator Card */}
+      <div className="bg-[#13131a] border border-[#2a2a3a] rounded-lg p-6 md:p-8 space-y-8">
+        {/* Section Header */}
+        <div className="flex items-center gap-3 pb-4 border-b border-[#2a2a3a]">
+          <div className="w-10 h-10 bg-[#00d4aa]/10 border border-[#00d4aa]/20 rounded flex items-center justify-center">
+            <Calculator size={20} className="text-[#00d4aa]" />
+          </div>
+          <div>
+            <h2 className="text-headline text-[#f5f5f7]">Configura tu importación</h2>
+            <p className="text-small text-[#6b6b7a]">Rellena los datos de tu vehículo</p>
+          </div>
+        </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-6">
         {/* Import Type Toggle */}
-        <div className="flex bg-gray-100 p-1 rounded-xl">
-          <button
-            onClick={() => {
-              setImportType("EU");
-              setOriginCountry("Germany");
-            }}
-            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-              importType === "EU"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            <Globe size={16} />
-            {t("EU")}
-          </button>
-          <button
-            onClick={() => {
-              setImportType("NonEU");
-              setOriginCountry("UAE");
-              setNeedsHomologation(true);
-            }}
-            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-              importType === "NonEU"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-600 hover:text-gray-800"
-            }`}
-          >
-            <Anchor size={16} />
-            {t("NonEU")}
-          </button>
+        <div className="space-y-3">
+          <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+            <Globe size={14} />
+            TIPO DE IMPORTACIÓN
+          </label>
+          <div className="toggle-group">
+            <button
+              onClick={() => {
+                setImportType("EU");
+                setOriginCountry("Germany");
+              }}
+              className={`toggle-btn ${importType === "EU" ? "active" : ""}`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <Globe size={14} />
+                Unión Europea
+              </span>
+            </button>
+            <button
+              onClick={() => {
+                setImportType("NonEU");
+                setOriginCountry("UAE");
+                setNeedsHomologation(true);
+              }}
+              className={`toggle-btn ${importType === "NonEU" ? "active" : ""}`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <Anchor size={14} />
+                Fuera de UE
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Origin Country */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <MapPin size={16} className="text-blue-600" />
-            {t("originCountry")}
+        <div className="space-y-3">
+          <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+            <MapPin size={14} />
+            PAÍS DE ORIGEN
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {(importType === "EU"
-              ? ["Germany", "France", "Italy", "Belgium", "Netherlands"]
-              : ["UAE", "USA", "Japan", "Korea"]
+              ? ["Germany", "France", "Italy", "Belgium", "Netherlands", "Austria"]
+              : ["UAE", "USA", "Japan", "Korea", "UK", "Switzerland"]
             ).map((c) => (
               <button
                 key={c}
                 onClick={() => setOriginCountry(c as Country)}
-                className={`p-2 rounded-lg text-sm transition-colors border ${
+                className={`p-3 rounded border text-sm font-medium transition-all ${
                   originCountry === c
-                    ? "bg-blue-50 border-blue-500 text-blue-700 font-medium"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                    ? "bg-[#00d4aa]/10 border-[#00d4aa] text-[#00d4aa]"
+                    : "bg-[#1a1a24] border-[#2a2a3a] text-[#8b8b9a] hover:border-[#3a3a4a] hover:text-[#f5f5f7]"
                 }`}
               >
                 {c}
@@ -345,84 +354,81 @@ export function HomeContent({
         </div>
 
         {/* Vehicle Autocomplete */}
-        <VehicleAutocomplete
-          key={vehicleData ? "loaded" : "empty"}
-          initialData={vehicleData}
-          onVehicleSelected={(data) => {
-            setVehicleData(data);
-            setFiscalValue(data.value.toString());
-            setTouched((prev) => ({ ...prev, fiscalValue: true }));
+        <div className="space-y-3">
+          <label className="text-micro text-[#8b8b9a]">VEHÍCULO</label>
+          <VehicleAutocomplete
+            key={vehicleData ? "loaded" : "empty"}
+            initialData={vehicleData}
+            onVehicleSelected={(data) => {
+              setVehicleData(data);
+              setFiscalValue(data.value.toString());
+              setTouched((prev) => ({ ...prev, fiscalValue: true }));
 
-            if (data.co2 && data.co2 > 0) {
-              setCo2Emissions(data.co2.toString());
-              setTouched((prev) => ({ ...prev, co2: true }));
-            }
+              if (data.co2 && data.co2 > 0) {
+                setCo2Emissions(data.co2.toString());
+                setTouched((prev) => ({ ...prev, co2: true }));
+              }
 
-            if (data.fuelType === "Elc") {
-              setCo2Emissions("0");
-              setIsElectric(true);
-              setTouched((prev) => ({ ...prev, co2: true }));
-            } else {
-              setIsElectric(false);
-            }
+              if (data.fuelType === "Elc") {
+                setCo2Emissions("0");
+                setIsElectric(true);
+                setTouched((prev) => ({ ...prev, co2: true }));
+              } else {
+                setIsElectric(false);
+              }
 
-            if (data.year) {
-              const currentYear = new Date().getFullYear();
-              const diff = currentYear - data.year;
-              let calculatedAge = "new";
-              if (diff < 1) calculatedAge = "new";
-              else if (diff >= 1 && diff < 2) calculatedAge = "1_year";
-              else if (diff >= 2 && diff < 3) calculatedAge = "2_years";
-              else if (diff >= 3 && diff < 4) calculatedAge = "3_years";
-              else if (diff >= 4 && diff < 5) calculatedAge = "4_years";
-              else if (diff >= 5 && diff < 6) calculatedAge = "5_years";
-              else if (diff >= 6 && diff < 7) calculatedAge = "6_years";
-              else if (diff >= 7 && diff < 8) calculatedAge = "7_years";
-              else if (diff >= 8 && diff < 9) calculatedAge = "8_years";
-              else if (diff >= 9 && diff < 10) calculatedAge = "9_years";
-              else if (diff >= 10 && diff < 11) calculatedAge = "10_years";
-              else if (diff >= 11 && diff < 12) calculatedAge = "11_years";
-              else calculatedAge = "12_plus_years";
-              setCarAge(calculatedAge);
-            }
-          }}
-        />
-        {errors.fiscalValue && (
-          <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
-            <AlertTriangle size={14} />
-            <span>{errors.fiscalValue}</span>
-          </div>
-        )}
-
-        {/* Mobile In-Feed Ad */}
-        <div className="md:hidden">
-          <AdBanner
-            dataAdSlot="6734103034"
-            dataAdFormat="horizontal"
-            dataFullWidthResponsive={true}
+              if (data.year) {
+                const currentYear = new Date().getFullYear();
+                const diff = currentYear - data.year;
+                let calculatedAge = "new";
+                if (diff < 1) calculatedAge = "new";
+                else if (diff >= 1 && diff < 2) calculatedAge = "1_year";
+                else if (diff >= 2 && diff < 3) calculatedAge = "2_years";
+                else if (diff >= 3 && diff < 4) calculatedAge = "3_years";
+                else if (diff >= 4 && diff < 5) calculatedAge = "4_years";
+                else if (diff >= 5 && diff < 6) calculatedAge = "5_years";
+                else if (diff >= 6 && diff < 7) calculatedAge = "6_years";
+                else if (diff >= 7 && diff < 8) calculatedAge = "7_years";
+                else if (diff >= 8 && diff < 9) calculatedAge = "8_years";
+                else if (diff >= 9 && diff < 10) calculatedAge = "9_years";
+                else if (diff >= 10 && diff < 11) calculatedAge = "10_years";
+                else if (diff >= 11 && diff < 12) calculatedAge = "11_years";
+                else calculatedAge = "12_plus_years";
+                setCarAge(calculatedAge);
+              }
+            }}
           />
+          {errors.fiscalValue && (
+            <div className="flex items-center gap-2 text-[#ff4d4d] text-sm">
+              <AlertTriangle size={14} />
+              <span>{errors.fiscalValue}</span>
+            </div>
+          )}
         </div>
 
         {/* Car Price */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <Euro size={16} className="text-blue-600" />
-            {t("carPrice")}
+        <div className="space-y-3">
+          <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+            <Euro size={14} />
+            PRECIO DEL VEHÍCULO
           </label>
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            onBlur={() => setTouched((prev) => ({ ...prev, price: true }))}
-            placeholder="25000"
-            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
-              errors.price
-                ? "border-red-500 focus:ring-red-200 bg-red-50"
-                : "border-gray-300 focus:ring-blue-500 bg-white"
-            }`}
-          />
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-mono text-[#6b6b7a]">€</span>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, price: true }))}
+              placeholder="25000"
+              className={`input-midnight pl-10 text-mono ${
+                errors.price
+                  ? "border-[#ff4d4d] focus:border-[#ff4d4d] focus:shadow-[0_0_0_3px_rgba(255,77,77,0.2)]"
+                  : ""
+              }`}
+            />
+          </div>
           {errors.price && (
-            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+            <div className="flex items-center gap-2 text-[#ff4d4d] text-sm">
               <AlertTriangle size={14} />
               <span>{errors.price}</span>
             </div>
@@ -430,11 +436,11 @@ export function HomeContent({
         </div>
 
         {/* Registration Date & Condition */}
-        <div className="space-y-4 border border-gray-200 p-4 rounded-xl bg-gray-50/50">
-          <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-              <Calendar size={16} className="text-blue-600" />
-              Date of First Registration (Month/Year)
+        <div className="bg-[#1a1a24] border border-[#2a2a3a] rounded p-5 space-y-5">
+          <div className="space-y-3">
+            <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+              <Calendar size={14} />
+              FECHA DE PRIMERA MATRICULACIÓN
             </label>
             <MonthYearPicker
               value={registrationDate}
@@ -442,19 +448,19 @@ export function HomeContent({
             />
           </div>
 
-          <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+          <label className="flex items-start gap-3 p-3 bg-[#13131a] border border-[#2a2a3a] rounded cursor-pointer hover:border-[#3a3a4a] transition-all">
             <input
               type="checkbox"
               checked={isNewCondition}
               onChange={(e) => setIsNewCondition(e.target.checked)}
-              className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="mt-1 w-4 h-4 accent-[#00d4aa] bg-[#1a1a24] border-[#2a2a3a] rounded"
             />
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-gray-900">
-                Vehicle is {"<"} 6 months old OR has {"<"} 6,000 km
+              <span className="text-sm font-medium text-[#f5f5f7]">
+                Vehículo &lt; 6 meses o &lt; 6.000 km
               </span>
-              <span className="text-xs text-gray-500">
-                Subject to 21% VAT (IVA) instead of Transfer Tax (ITP)
+              <span className="text-xs text-[#6b6b7a]">
+                Sujeto a 21% IVA en lugar de ITP
               </span>
             </div>
           </label>
@@ -462,60 +468,71 @@ export function HomeContent({
 
         {/* Fiscal Value Depreciation UI */}
         {baseFiscalValue > 0 && (
-          <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-xl flex flex-col items-center justify-center text-center">
-            <div className="flex items-center gap-2 text-orange-800 font-semibold mb-1">
-              <TrendingDown size={18} />
-              <span>{t("fiscalValueDepreciation")}</span>
+          <div className="bg-[#00d4aa]/5 border border-[#00d4aa]/20 rounded p-5">
+            <div className="flex items-center gap-2 text-[#00d4aa] mb-3">
+              <TrendingDown size={16} />
+              <span className="text-micro">DEPRECIACIÓN FISCAL APLICADA</span>
             </div>
-            <div className="text-orange-700 text-sm mb-1">
-              {baseFiscalValue.toLocaleString("es-ES", {
-                style: "currency",
-                currency: "EUR",
-                maximumFractionDigits: 0,
-              })}{" "}
-              × {Math.round(percentageRetained * 100)}% =
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-mono text-[#8b8b9a]">
+                {baseFiscalValue.toLocaleString("es-ES", {
+                  style: "currency",
+                  currency: "EUR",
+                  maximumFractionDigits: 0,
+                })}
+              </span>
+              <span className="text-[#6b6b7a]">×</span>
+              <span className="text-mono text-[#00d4aa]">
+                {Math.round(percentageRetained * 100)}%
+              </span>
             </div>
-            <div className="text-2xl font-bold text-orange-900 mb-1">
+            <div className="text-mono-lg text-[#f5f5f7]">
               {calculatedFiscalValue.toLocaleString("es-ES", {
                 style: "currency",
                 currency: "EUR",
                 maximumFractionDigits: 0,
               })}
             </div>
-            <div className="text-xs text-orange-600 italic">
-              {t("fiscalValueNote")}
+            <div className="text-xs text-[#6b6b7a] mt-2">
+              Valor fiscal depreciado según antigüedad
             </div>
           </div>
         )}
 
         {/* CO2 */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <Gauge size={16} className="text-blue-600" />
-            {t("co2")}
+        <div className="space-y-3">
+          <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+            <Gauge size={14} />
+            EMISIONES CO₂ (g/km)
           </label>
           {isElectric && (
-            <div className="mb-2 bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium border border-green-200">
-              {t("evDetected")}
+            <div className="mb-3 flex items-center gap-2 bg-[#00d4aa]/10 border border-[#00d4aa]/20 rounded px-3 py-2">
+              <CheckCircle size={14} className="text-[#00d4aa]" />
+              <span className="text-sm text-[#00d4aa]">Vehículo eléctrico detectado</span>
             </div>
           )}
-          <input
-            type="number"
-            value={co2Emissions}
-            onChange={(e) => {
-              setCo2Emissions(e.target.value);
-              if (e.target.value !== "0") setIsElectric(false);
-            }}
-            onBlur={() => setTouched((prev) => ({ ...prev, co2: true }))}
-            placeholder="145"
-            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
-              errors.co2
-                ? "border-red-500 focus:ring-red-200 bg-red-50"
-                : "border-gray-300 focus:ring-blue-500 bg-white"
-            }`}
-          />
+          <div className="relative">
+            <input
+              type="number"
+              value={co2Emissions}
+              onChange={(e) => {
+                setCo2Emissions(e.target.value);
+                if (e.target.value !== "0") setIsElectric(false);
+              }}
+              onBlur={() => setTouched((prev) => ({ ...prev, co2: true }))}
+              placeholder="145"
+              className={`input-midnight text-mono ${
+                errors.co2
+                  ? "border-[#ff4d4d] focus:border-[#ff4d4d] focus:shadow-[0_0_0_3px_rgba(255,77,77,0.2)]"
+                  : ""
+              }`}
+            />
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-micro text-[#6b6b7a]">
+              g/km
+            </span>
+          </div>
           {errors.co2 && (
-            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+            <div className="flex items-center gap-2 text-[#ff4d4d] text-sm">
               <AlertTriangle size={14} />
               <span>{errors.co2}</span>
             </div>
@@ -524,57 +541,57 @@ export function HomeContent({
 
         {/* Seller Type (Only for EU) */}
         {importType === "EU" && (
-          <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-              <User size={16} className="text-blue-600" />
-              {t("sellerType")}
+          <div className="space-y-3">
+            <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+              <User size={14} />
+              TIPO DE VENDEDOR
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setSellerType("dealer")}
-                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`p-4 rounded border text-sm font-medium transition-all text-left ${
                   sellerType === "dealer"
-                    ? "bg-blue-50 border-blue-500 text-blue-700"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                    ? "bg-[#00d4aa]/10 border-[#00d4aa] text-[#00d4aa]"
+                    : "bg-[#1a1a24] border-[#2a2a3a] text-[#8b8b9a] hover:border-[#3a3a4a]"
                 }`}
               >
-                🏢 {t("dealer")}
+                <div className="text-lg mb-1">🏢</div>
+                Concesionario
               </button>
               <button
                 onClick={() => setSellerType("private")}
-                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`p-4 rounded border text-sm font-medium transition-all text-left ${
                   sellerType === "private"
-                    ? "bg-blue-50 border-blue-500 text-blue-700"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                    ? "bg-[#00d4aa]/10 border-[#00d4aa] text-[#00d4aa]"
+                    : "bg-[#1a1a24] border-[#2a2a3a] text-[#8b8b9a] hover:border-[#3a3a4a]"
                 }`}
               >
-                👤 {t("private")}
+                <div className="text-lg mb-1">👤</div>
+                Particular
               </button>
             </div>
             {sellerType === "private" && (
-              <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex items-start gap-2">
-                <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-                {t("privateSaleWarning")}
+              <div className="mt-3 flex items-start gap-2 bg-[#ffd700]/5 border border-[#ffd700]/20 rounded px-3 py-2">
+                <AlertTriangle size={14} className="text-[#ffd700] mt-0.5 shrink-0" />
+                <span className="text-xs text-[#ffd700]">{t("privateSaleWarning")}</span>
               </div>
             )}
             {sellerType === "private" && (
-              <div className="mt-3">
-                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-                  <MapPin size={16} className="text-blue-600" />
-                  {t("selectRegion")}
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="mt-4 space-y-3">
+                <label className="text-micro text-[#8b8b9a]">COMUNIDAD AUTÓNOMA</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
                   {SPANISH_REGIONS.map((region) => (
                     <button
                       key={region.name}
                       onClick={() => setSelectedRegion(region.name)}
-                      className={`p-2 rounded-lg border text-xs font-medium transition-all ${
+                      className={`p-2 rounded border text-xs font-medium transition-all ${
                         selectedRegion === region.name
-                          ? "bg-blue-50 border-blue-500 text-blue-700 ring-1 ring-blue-300"
-                          : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                          ? "bg-[#00d4aa]/10 border-[#00d4aa] text-[#00d4aa]"
+                          : "bg-[#1a1a24] border-[#2a2a3a] text-[#8b8b9a] hover:border-[#3a3a4a]"
                       }`}
                     >
                       {region.label}
+                      <span className="block text-[10px] opacity-60 mt-0.5">{region.rate}%</span>
                     </button>
                   ))}
                 </div>
@@ -585,109 +602,116 @@ export function HomeContent({
 
         {/* Non-EU Fields: Transport & Homologation */}
         {importType === "NonEU" && (
-          <>
-            <div>
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-                <Truck size={16} className="text-blue-600" />
-                {t("transportCost")}
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <label className="text-micro text-[#8b8b9a] flex items-center gap-2">
+                <Truck size={14} />
+                COSTE DE TRANSPORTE
               </label>
-              <input
-                type="number"
-                value={transportCost}
-                onChange={(e) => setTransportCost(e.target.value)}
-                placeholder="1500"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm"
-              />
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-mono text-[#6b6b7a]">€</span>
+                <input
+                  type="number"
+                  value={transportCost}
+                  onChange={(e) => setTransportCost(e.target.value)}
+                  placeholder="1500"
+                  className="input-midnight pl-10 text-mono"
+                />
+              </div>
             </div>
 
             <div
-              className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-4 rounded border-2 transition-all cursor-pointer flex items-center gap-3 ${
                 needsHomologation
-                  ? "bg-blue-50 border-blue-500"
-                  : "bg-white border-gray-200 hover:border-gray-300"
+                  ? "bg-[#00d4aa]/10 border-[#00d4aa]"
+                  : "bg-[#1a1a24] border-[#2a2a3a] hover:border-[#3a3a4a]"
               }`}
               onClick={() => setNeedsHomologation(!needsHomologation)}
             >
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
                   needsHomologation
-                    ? "bg-blue-600 border-blue-600"
-                    : "border-gray-300"
+                    ? "bg-[#00d4aa] border-[#00d4aa]"
+                    : "border-[#4a4a5a]"
                 }`}
               >
-                {needsHomologation && <CheckCircle size={14} color="white" />}
+                {needsHomologation && <CheckCircle size={12} className="text-[#0a0a0f]" />}
               </div>
               <div className="flex-1">
-                <p
-                  className={`text-sm font-semibold ${
-                    needsHomologation ? "text-blue-800" : "text-gray-700"
-                  }`}
-                >
+                <p className={`text-sm font-medium ${
+                  needsHomologation ? "text-[#00d4aa]" : "text-[#f5f5f7]"
+                }`}>
                   {t("homologation")}
                 </p>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs text-[#6b6b7a] mt-0.5">
                   {t("homologationInfo")}
                 </p>
               </div>
-              <FileCheck size={20} className="text-gray-400" />
+              <FileCheck size={18} className={needsHomologation ? "text-[#00d4aa]" : "text-[#4a4a5a]"} />
             </div>
-          </>
+          </div>
         )}
 
-        <div className="flex flex-col gap-3">
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-3 pt-4 border-t border-[#2a2a3a]">
           {/* Calculate Button */}
           <button
             onClick={calculate}
             disabled={!isValid && touched.price}
-            className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95 ${
+            className={`btn-primary w-full flex items-center justify-center gap-2 ${
               !isValid && touched.price
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-                : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200"
+                ? "opacity-40 cursor-not-allowed hover:shadow-none"
+                : "animate-pulse-glow"
             }`}
           >
+            <Calculator size={18} />
             {t("calculate")}
+            <ArrowRight size={18} />
           </button>
 
           {/* Reset Button */}
           <button
             onClick={resetSearch}
-            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2"
+            className="btn-secondary w-full flex items-center justify-center gap-2"
           >
             <RotateCcw size={16} />
-            {language === "es" ? "Reiniciar búsqueda" : "Reset Search"}
+            {language === "es" ? "Reiniciar" : "Reset"}
           </button>
         </div>
-
-        {/* Ad Banner */}
-        <AdBanner
-          dataAdSlot="2479889603"
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-        />
       </div>
 
+      {/* Inline Ad Below Calculator */}
+      <AdBanner
+        dataAdSlot="2479889603"
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        variant="inline"
+      />
+
+      {/* SEO Content */}
       <SeoContent />
       <FaqSection />
       <OfficialSources />
 
-      {/* Internal Links — SEO: gives Google crawlable paths to all landing pages */}
-      <div className="mt-8 space-y-6">
+      {/* Region & Country Links */}
+      <div className="mt-12 space-y-8">
         {/* Region Links */}
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-            <MapPin size={14} className="text-blue-500" />
+          <h3 className="text-micro text-[#8b8b9a] mb-4 flex items-center gap-2">
+            <MapPin size={14} />
             {language === "es"
-              ? "Importar coches por comunidad autónoma"
-              : "Import cars by region"}
+              ? "IMPORTAR POR COMUNIDAD AUTÓNOMA"
+              : "IMPORT BY REGION"}
           </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {REGIONS.map((r) => (
               <Link
                 key={r.slug}
                 href={`/importar-coche/${r.slug}`}
-                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+                className="text-xs text-[#6b6b7a] hover:text-[#00d4aa] bg-[#13131a] hover:bg-[#00d4aa]/10 border border-[#2a2a3a] hover:border-[#00d4aa]/30 px-3 py-1.5 rounded transition-all"
               >
-                {language === "es" ? r.nameEs : r.name} ({r.itpRate}%)
+                {language === "es" ? r.nameEs : r.name}
+                <span className="text-[#4a4a5a] ml-1">({r.itpRate}%)</span>
               </Link>
             ))}
           </div>
@@ -695,18 +719,18 @@ export function HomeContent({
 
         {/* Country Links */}
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-            <Globe size={14} className="text-green-500" />
+          <h3 className="text-micro text-[#8b8b9a] mb-4 flex items-center gap-2">
+            <Globe size={14} />
             {language === "es"
-              ? "Importar desde otros países"
-              : "Import from other countries"}
+              ? "IMPORTAR DESDE"
+              : "IMPORT FROM"}
           </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {COUNTRIES.map((c) => (
               <Link
                 key={c.slug}
                 href={`/importar-desde/${c.slug}`}
-                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+                className="text-xs text-[#6b6b7a] hover:text-[#00d4aa] bg-[#13131a] hover:bg-[#00d4aa]/10 border border-[#2a2a3a] hover:border-[#00d4aa]/30 px-3 py-1.5 rounded transition-all"
               >
                 {c.flag} {language === "es" ? c.nameEs : c.name}
               </Link>
@@ -714,32 +738,44 @@ export function HomeContent({
           </div>
         </div>
       </div>
+
+      {/* Bottom Ad */}
+      <AdBanner
+        dataAdSlot="1957145426"
+        dataAdFormat="horizontal"
+        dataFullWidthResponsive={true}
+        variant="inline"
+      />
     </div>
   );
 }
 
 export default function Home() {
   return (
-    <div className="pb-20 bg-gray-50">
-      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 pt-4">
-        {/* Left Sidebar */}
+    <div className="min-h-screen pb-24">
+      {/* Main Layout - Single Lane with Optional Sidebars */}
+      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 pt-6">
+        {/* Left Sidebar Ad - Desktop Only */}
         <SidebarAd side="left" />
 
-        {/* Main Content */}
-        <div className="flex-1 max-w-3xl w-full">
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
-            <Suspense
-              fallback={<div className="p-10 text-center">Loading...</div>}
-            >
-              <HomeContent />
-            </Suspense>
-          </div>
+        {/* Main Content - Single Lane */}
+        <div className="flex-1 max-w-2xl w-full">
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center py-20">
+                <div className="w-8 h-8 border-2 border-[#00d4aa] border-t-transparent rounded-full animate-spin" />
+              </div>
+            }
+          >
+            <HomeContent />
+          </Suspense>
         </div>
 
-        {/* Right Sidebar */}
+        {/* Right Sidebar Ad - Desktop Only */}
         <SidebarAd side="right" />
       </div>
 
+      {/* Mobile Sticky Ad */}
       <StickyAdFooter />
     </div>
   );

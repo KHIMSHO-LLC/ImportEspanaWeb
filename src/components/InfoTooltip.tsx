@@ -12,18 +12,18 @@ export function InfoTooltip({ text }: InfoTooltipProps) {
     <div className="relative inline-block ml-2">
       <button
         type="button"
-        className="text-gray-400 hover:text-blue-500 transition-colors focus:outline-none"
+        className="text-[#4a4a5a] hover:text-[#00d4aa] transition-colors focus:outline-none"
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
         onClick={() => setIsVisible(!isVisible)}
       >
-        <Info size={16} />
+        <Info size={14} />
       </button>
 
       {isVisible && (
-        <div className="absolute z-50 w-64 p-3 mt-2 -ml-32 text-xs text-white bg-gray-800 rounded-lg shadow-lg opacity-100 transition-opacity left-1/2 transform -translate-x-1/2 md:left-auto md:translate-x-0">
-          {text}
-          <div className="absolute bottom-full left-1/2 md:left-4 -ml-2 border-8 border-transparent border-b-gray-800"></div>
+        <div className="absolute z-50 w-64 p-3 mt-2 text-xs bg-[#1a1a24] border border-[#2a2a3a] rounded shadow-2xl left-1/2 transform -translate-x-1/2 md:left-auto md:translate-x-0">
+          <p className="text-[#8b8b9a] leading-relaxed">{text}</p>
+          <div className="absolute bottom-full left-1/2 md:left-4 -ml-1 border-4 border-transparent border-b-[#1a1a24]"></div>
         </div>
       )}
     </div>

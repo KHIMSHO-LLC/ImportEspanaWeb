@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TrendingDown, TrendingUp, Activity, Fuel, Globe } from "lucide-react";
+import { TrendingDown, TrendingUp, Activity, Fuel, Globe, Car } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface LiveStats {
@@ -44,11 +44,11 @@ export function LiveMarketData() {
 
   if (loading || !data) {
     return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="bg-[#13131a] border border-[#2a2a3a] rounded p-4 mb-8">
+        <div className="h-4 bg-[#2a2a3a] rounded w-1/3 mb-4 animate-pulse"></div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-16 bg-gray-100 rounded-lg"></div>
+            <div key={i} className="h-20 bg-[#1a1a24] rounded animate-pulse"></div>
           ))}
         </div>
       </div>
@@ -56,71 +56,78 @@ export function LiveMarketData() {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-        <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
-          <Activity size={16} className="text-blue-600 animate-pulse" />
-          {lang === "es" ? "Mercado en Tiempo Real" : "Live Market Data"}
+    <div className="bg-[#13131a] border border-[#2a2a3a] rounded overflow-hidden mb-8">
+      {/* Header */}
+      <div className="bg-[#1a1a24] px-4 py-3 border-b border-[#2a2a3a] flex items-center justify-between">
+        <h3 className="text-micro text-[#8b8b9a] flex items-center gap-2">
+          <Activity size={14} className="text-[#00d4aa]" />
+          {lang === "es" ? "MERCADO EN TIEMPO REAL" : "LIVE MARKET DATA"}
         </h3>
-        <div className="text-xs text-gray-500 font-medium bg-white px-2 py-1 rounded-md border border-gray-200 shadow-sm">
-          {lang === "es" ? "Actualizado: " : "Updated: "}
-          <span className="text-green-600 font-bold">Hoy</span>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-[#00d4aa] rounded-full animate-pulse"></div>
+          <span className="text-micro text-[#6b6b7a]">
+            {lang === "es" ? "Actualizado hoy" : "Updated today"}
+          </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[#2a2a3a]">
         {/* EUR to GBP */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Globe size={14} /> 🇪🇺 EUR → 🇬🇧 GBP
+        <div className="p-4 hover:bg-[#1a1a24] transition-colors group">
+          <div className="flex items-center gap-1.5 text-micro text-[#6b6b7a] mb-2">
+            <Globe size={12} />
+            <span>EUR → GBP</span>
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="text-mono text-[#f5f5f7] text-xl">
             £{data.exchangeRates.GBP.toFixed(4)}
           </div>
-          <div className="flex items-center gap-1 text-xs text-green-600 mt-1 font-medium">
-            <TrendingUp size={12} />
+          <div className="flex items-center gap-1 text-[10px] text-[#00d4aa] mt-1 font-medium">
+            <TrendingUp size={10} />
             Estable
           </div>
         </div>
 
         {/* EUR to PLN */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Globe size={14} /> 🇪🇺 EUR → 🇵🇱 PLN
+        <div className="p-4 hover:bg-[#1a1a24] transition-colors group">
+          <div className="flex items-center gap-1.5 text-micro text-[#6b6b7a] mb-2">
+            <Globe size={12} />
+            <span>EUR → PLN</span>
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="text-mono text-[#f5f5f7] text-xl">
             zł{data.exchangeRates.PLN.toFixed(2)}
           </div>
-          <div className="flex items-center gap-1 text-xs text-amber-600 mt-1 font-medium">
+          <div className="flex items-center gap-1 text-[10px] text-[#ffd700] mt-1 font-medium">
             Estable
           </div>
         </div>
 
         {/* Diesel Spain */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Fuel size={14} />{" "}
-            {lang === "es" ? "Diésel España" : "Diesel Spain"}
+        <div className="p-4 hover:bg-[#1a1a24] transition-colors group">
+          <div className="flex items-center gap-1.5 text-micro text-[#6b6b7a] mb-2">
+            <Fuel size={12} />
+            <span>{lang === "es" ? "Diésel ESP" : "Diesel ESP"}</span>
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="text-mono text-[#f5f5f7] text-xl">
             €{data.fuel.dieselSpain.toFixed(3)}/L
           </div>
-          <div className="flex items-center gap-1 text-xs text-green-600 mt-1 font-medium">
-            <TrendingDown size={12} />
-            Nacional Media
+          <div className="flex items-center gap-1 text-[10px] text-[#00d4aa] mt-1 font-medium">
+            <TrendingDown size={10} />
+            Media nacional
           </div>
         </div>
 
         {/* Import Activity */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            🚗 {lang === "es" ? "Matriculaciones" : "Registrations"}
+        <div className="p-4 hover:bg-[#1a1a24] transition-colors group">
+          <div className="flex items-center gap-1.5 text-micro text-[#6b6b7a] mb-2">
+            <Car size={12} />
+            <span>{lang === "es" ? "Matriculaciones" : "Registrations"}</span>
           </div>
-          <div className="text-xl font-black text-blue-600">
-            {data.stats.monthlyImports.toLocaleString("de-DE")}{" "}
-            <span className="text-sm font-medium text-gray-500">/mo</span>
+          <div className="text-mono text-[#00d4aa] text-xl">
+            {data.stats.monthlyImports.toLocaleString("de-DE")}
+            <span className="text-[#6b6b7a] text-sm ml-1">/mo</span>
           </div>
-          <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+          <div className="text-[10px] text-[#4a4a5a] mt-1">
             DGT {data.stats.period}
           </div>
         </div>
