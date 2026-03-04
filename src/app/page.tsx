@@ -726,12 +726,14 @@ export default function Home() {
         <SidebarAd side="left" />
 
         {/* Main Content */}
-        <div className="flex-1 max-w-md w-full">
-          <Suspense
-            fallback={<div className="p-10 text-center">Loading...</div>}
-          >
-            <HomeContent />
-          </Suspense>
+        <div className="flex-1 max-w-3xl w-full">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+            <Suspense
+              fallback={<div className="p-10 text-center">Loading...</div>}
+            >
+              <HomeContent />
+            </Suspense>
+          </div>
         </div>
 
         {/* Right Sidebar */}
