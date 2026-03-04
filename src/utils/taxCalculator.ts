@@ -37,12 +37,52 @@ const FEES = {
   HOMOLOGATION: 1600.0, // Avg cost for individual homologation (range 500-2500)
 };
 
+export function getDepreciationFactor(
+  registrationDate?: string,
+  carAge?: keyof typeof DEPRECIATION_TABLE,
+): number {
+  if (registrationDate) {
+    const [yearStr, monthStr] = registrationDate.split("-");
+    if (yearStr && monthStr) {
+      const regYear = parseInt(yearStr, 10);
+      const regMonth = parseInt(monthStr, 10);
+
+      const today = new Date();
+      const todayYear = today.getFullYear();
+      const todayMonth = today.getMonth() + 1;
+
+      let months = (todayYear - regYear) * 12 + (todayMonth - regMonth);
+      if (months < 0) months = 0;
+
+      if (months < 12) return 1.0;
+      if (months < 24) return 0.84;
+      if (months < 36) return 0.67;
+      if (months < 48) return 0.56;
+      if (months < 60) return 0.47;
+      if (months < 72) return 0.39;
+      if (months < 84) return 0.34;
+      if (months < 96) return 0.28;
+      if (months < 108) return 0.24;
+      if (months < 120) return 0.19;
+      if (months < 132) return 0.17;
+      if (months < 144) return 0.13;
+      return 0.1;
+    }
+  }
+  return carAge && DEPRECIATION_TABLE[carAge as keyof typeof DEPRECIATION_TABLE]
+    ? DEPRECIATION_TABLE[carAge as keyof typeof DEPRECIATION_TABLE]
+    : 1.0;
+}
+
 export function calculateImportCost(
   input: CalculationInput,
 ): CalculationResult {
   // 1. Determine Tax Base (Base Imponible)
   // Logic: Official BOE Value * Depreciation Factor
-  const depreciationFactor = DEPRECIATION_TABLE[input.carAge];
+  const depreciationFactor = getDepreciationFactor(
+    input.registrationDate,
+    input.carAge,
+  );
   const taxBase = input.officialFiscalValue * depreciationFactor;
 
   // 2. Registration Tax (Impuesto de Matriculación)
@@ -71,9 +111,23 @@ export function calculateImportCost(
     // No ITP for Non-EU imports (VAT applies instead)
     itpTax = 0;
   } else {
-    // EU Logic: ITP for Private Sellers
-    const rateITP = input.itpRate ?? 0.04; // Default 4%
-    itpTax = input.sellerType === "private" ? taxBase * rateITP : 0;
+    // EU Logic: New vs Used, Private vs Dealer
+    if (input.isNewCondition) {
+      vat = input.carPrice * 0.21; // "New" cars always pay 21% Spanish IVA
+      itpTax = 0;
+    } else {
+      if (input.sellerType === "dealer") {
+        vat = 0;
+        itpTax = 0;
+      } else {
+        // private seller
+        vat = 0;
+        let defaultRate = 0.08;
+        if (taxBase > 20000) defaultRate = 0.1;
+        const rateITP = input.itpRate ?? defaultRate;
+        itpTax = taxBase * rateITP;
+      }
+    }
   }
 
   // 4. Logistics & Fees

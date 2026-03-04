@@ -43,6 +43,12 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  alternates: {
+    languages: {
+      "es-ES": "https://importespana.com",
+      "en-US": "https://importespana.com",
+    },
+  },
   openGraph: {
     title: "ImportEspana - Calculadora Impuesto Matriculación",
     description:

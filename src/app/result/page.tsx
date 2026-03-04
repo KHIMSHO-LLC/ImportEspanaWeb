@@ -287,9 +287,9 @@ function ResultContent() {
 
             <div className="mt-8 bg-gray-50 rounded-xl p-4 text-xs text-gray-500 space-y-2 print:mt-4 print:bg-gray-100 print:text-black print:p-4">
               <div className="flex justify-between">
-                <span>{t("depreciation")}</span>
+                <span>{t("residualValue")}</span>
                 <span className="font-medium">
-                  {((1 - result.depreciationPercentage) * 100).toFixed(0)}%
+                  {(result.depreciationPercentage * 100).toFixed(0)}%
                 </span>
               </div>
               <div className="flex justify-between">

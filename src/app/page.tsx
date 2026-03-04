@@ -9,6 +9,7 @@ import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
 import { HeroStats } from "@/components/HeroStats";
 import { OfficialSources } from "@/components/OfficialSources";
+import { MonthYearPicker } from "@/components/MonthYearPicker";
 import dynamic from "next/dynamic";
 
 const LiveMarketData = dynamic(
@@ -54,14 +55,28 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-function HomeContent() {
+export function HomeContent({
+  prefilledRegion,
+  prefilledCountry,
+  prefilledImportType,
+}: {
+  prefilledRegion?: string;
+  prefilledCountry?: Country;
+  prefilledImportType?: ImportType;
+}) {
   const { t, language } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [importType, setImportType] = useState<ImportType>("EU");
-  const [originCountry, setOriginCountry] = useState<Country>("Germany");
+  const [importType, setImportType] = useState<ImportType>(
+    prefilledImportType || "EU",
+  );
+  const [originCountry, setOriginCountry] = useState<Country>(
+    prefilledCountry || "Germany",
+  );
   const [carAge, setCarAge] = useState("new");
+  const [registrationDate, setRegistrationDate] = useState("");
+  const [isNewCondition, setIsNewCondition] = useState(false);
   const [co2Emissions, setCo2Emissions] = useState("");
   const [sellerType, setSellerType] = useState<"dealer" | "private">("dealer");
   const [price, setPrice] = useState("");
@@ -69,14 +84,18 @@ function HomeContent() {
   const [isElectric, setIsElectric] = useState(false);
   const [transportCost, setTransportCost] = useState("");
   const [needsHomologation, setNeedsHomologation] = useState(false);
-  const [selectedRegion, setSelectedRegion] = useState("Madrid");
+  const [selectedRegion, setSelectedRegion] = useState(
+    prefilledRegion || "Madrid",
+  );
 
   // Derived Values for Fiscal Depreciation UI
   const baseFiscalValueStr = fiscalValue || "0";
   const baseFiscalValue =
     parseFloat(baseFiscalValueStr.replace(/\./g, "").replace(/,/g, ".")) || 0;
-  const percentageRetained =
-    DEPRECIATION_TABLE[carAge as keyof typeof DEPRECIATION_TABLE] || 1.0;
+
+  // Use the new getDepreciationFactor from taxCalculator
+  const { getDepreciationFactor } = require("@/utils/taxCalculator");
+  const percentageRetained = getDepreciationFactor(registrationDate, carAge);
   const calculatedFiscalValue =
     baseFiscalValue * Math.max(0, percentageRetained);
   const [vehicleData, setVehicleData] = useState<{
@@ -151,6 +170,12 @@ function HomeContent() {
       const pAge = searchParams.get("carAge");
       if (pAge) setCarAge(pAge);
 
+      const pRegDate = searchParams.get("registrationDate");
+      if (pRegDate) setRegistrationDate(pRegDate);
+
+      const pIsNewCondition = searchParams.get("isNewCondition");
+      if (pIsNewCondition === "true") setIsNewCondition(true);
+
       const pCo2 = searchParams.get("co2Emissions");
       if (pCo2) {
         setCo2Emissions(pCo2);
@@ -207,6 +232,8 @@ function HomeContent() {
       carPrice: price,
       officialFiscalValue: fiscalValue,
       carAge,
+      registrationDate,
+      isNewCondition: isNewCondition.toString(),
       co2Emissions: co2Emissions || "0",
       sellerType,
       transportCost: transportCost,
@@ -229,6 +256,8 @@ function HomeContent() {
     setImportType("EU");
     setOriginCountry("Germany");
     setCarAge("new");
+    setRegistrationDate("");
+    setIsNewCondition(false);
     setCo2Emissions("");
     setSellerType("dealer");
     setSelectedRegion("Madrid");
@@ -324,6 +353,11 @@ function HomeContent() {
             setFiscalValue(data.value.toString());
             setTouched((prev) => ({ ...prev, fiscalValue: true }));
 
+            if (data.co2 && data.co2 > 0) {
+              setCo2Emissions(data.co2.toString());
+              setTouched((prev) => ({ ...prev, co2: true }));
+            }
+
             if (data.fuelType === "Elc") {
               setCo2Emissions("0");
               setIsElectric(true);
@@ -395,36 +429,39 @@ function HomeContent() {
           )}
         </div>
 
-        {/* Car Age */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <Calendar size={16} className="text-blue-600" />
-            {t("age")}
+        {/* Registration Date & Condition */}
+        <div className="space-y-4 border border-gray-200 p-4 rounded-xl bg-gray-50/50">
+          <div>
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+              <Calendar size={16} className="text-blue-600" />
+              Date of First Registration (Month/Year)
+            </label>
+            <MonthYearPicker
+              value={registrationDate}
+              onChange={(val) => setRegistrationDate(val)}
+            />
+          </div>
+
+          <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+            <input
+              type="checkbox"
+              checked={isNewCondition}
+              onChange={(e) => setIsNewCondition(e.target.checked)}
+              className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <div className="flex flex-col">
+              <span className="text-sm font-semibold text-gray-900">
+                Vehicle is {"<"} 6 months old OR has {"<"} 6,000 km
+              </span>
+              <span className="text-xs text-gray-500">
+                Subject to 21% VAT (IVA) instead of Transfer Tax (ITP)
+              </span>
+            </div>
           </label>
-          <select
-            value={carAge}
-            onChange={(e) => setCarAge(e.target.value)}
-            aria-label={t("age")}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm"
-          >
-            <option value="new">New / Menos de 1 año</option>
-            <option value="1_year">1-2 años</option>
-            <option value="2_years">2-3 años</option>
-            <option value="3_years">3-4 años</option>
-            <option value="4_years">4-5 años</option>
-            <option value="5_years">5-6 años</option>
-            <option value="6_years">6-7 años</option>
-            <option value="7_years">7-8 años</option>
-            <option value="8_years">8-9 años</option>
-            <option value="9_years">9-10 años</option>
-            <option value="10_years">10-11 años</option>
-            <option value="11_years">11-12 años</option>
-            <option value="12_plus_years">+12 años</option>
-          </select>
         </div>
 
         {/* Fiscal Value Depreciation UI */}
-        {baseFiscalValue > 0 && importType === "EU" && (
+        {baseFiscalValue > 0 && (
           <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-xl flex flex-col items-center justify-center text-center">
             <div className="flex items-center gap-2 text-orange-800 font-semibold mb-1">
               <TrendingDown size={18} />

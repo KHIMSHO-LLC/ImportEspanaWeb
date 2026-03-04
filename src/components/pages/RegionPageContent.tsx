@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+
 import { REGIONS, getRegionBySlug } from "@/constants/Regions";
 import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
@@ -16,6 +18,7 @@ import {
   Percent,
   ChevronRight,
 } from "lucide-react";
+import { HomeContent } from "@/app/page";
 
 const texts = {
   es: {
@@ -235,49 +238,21 @@ export default function RegionContent({ slug }: { slug: string }) {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 space-y-6 pb-20">
-        {/* ITP Calculation Example */}
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
-            <Calculator size={20} className="text-blue-600" />
-            {t.itpCalcTitle} {regionName}
+        {/* Live Interactive Calculator for this Region */}
+        <section className="bg-white rounded-2xl shadow-sm p-4 md:p-6 mb-8 border border-blue-100">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 flex items-center gap-2 mb-6 border-b pb-4">
+            <Calculator size={24} className="text-blue-600" />
+            Calculadora de Costes para {regionName}
           </h2>
-          <div className="bg-gray-50 rounded-xl p-4 mb-4">
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t.carPrice}</span>
-                <span className="font-medium">
-                  €{examplePrice.toLocaleString()}
-                </span>
+          <Suspense
+            fallback={
+              <div className="p-10 text-center text-gray-500">
+                Cargando calculadora...
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t.depreciation}</span>
-                <span className="font-medium">×{exampleDepreciation}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t.fiscalValue}</span>
-                <span className="font-medium">
-                  €{exampleFiscalValue.toLocaleString()}
-                </span>
-              </div>
-              <hr className="border-gray-200" />
-              <div className="flex justify-between text-base">
-                <span className="font-semibold text-gray-900">
-                  {t.itp} ({region.itpRate}%)
-                </span>
-                <span className="font-bold text-blue-600">
-                  €{exampleITP.toLocaleString()}
-                </span>
-              </div>
-            </div>
-          </div>
-          <Link
-            href="/?originCountry=Germany&sellerType=private"
-            className="flex items-center justify-center gap-2 w-full sm:w-auto bg-blue-600 text-white px-5 py-3 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
+            }
           >
-            <Calculator size={16} />
-            {t.calcExact}
-            <ArrowRight size={16} />
-          </Link>
+            <HomeContent prefilledRegion={region.name} />
+          </Suspense>
         </section>
 
         {/* DGT Office */}

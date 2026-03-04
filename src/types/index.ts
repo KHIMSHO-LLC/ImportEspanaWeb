@@ -31,7 +31,9 @@ export interface CalculationInput {
   originCountry: Country;
   carPrice: number; // Purchase Price (Market Value)
   officialFiscalValue: number; // BOE Value (Brand new value according to Hacienda)
-  carAge: CarAge;
+  carAge?: CarAge;
+  registrationDate?: string; // Format: YYYY-MM
+  isNewCondition?: boolean; // True if < 6 months OR < 6,000km
   co2Emissions: number;
   sellerType: "dealer" | "private";
   transportCost?: number;
@@ -74,4 +76,5 @@ export interface Vehicle {
   cvf: string;
   cv: number;
   value: number;
+  co2?: number | null;
 }

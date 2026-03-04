@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
+  { href: "/valoracion-boe", label: "Valoración BOE" },
   { href: "/blog", label: "Blog" },
   { href: "/itp", label: "ITP" },
   { href: "/resources", label: "Resources" },

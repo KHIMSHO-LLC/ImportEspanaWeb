@@ -71,6 +71,57 @@ export default function SeoSchema() {
           "query-input": "required name=search_term_string",
         },
       },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Inicio",
+            item: "https://importespana.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Valoración BOE",
+            item: "https://importespana.com/valoracion-boe",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Impuesto ITP",
+            item: "https://importespana.com/itp",
+          },
+        ],
+      },
+      {
+        "@type": "HowTo",
+        name: "Cómo matricular un coche extranjero en España",
+        description:
+          "Guía paso a paso para importar y matricular tu coche de la UE en España.",
+        step: [
+          {
+            "@type": "HowToStep",
+            name: "Paso 1: ITV Especial",
+            text: "Pasar la ITV de importación con la ficha técnica reducida.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Paso 2: Impuestos (Hacienda)",
+            text: "Pagar el Impuesto de Matriculación y el ITP (o modelo 309 para IVA) en la Agencia Tributaria.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Paso 3: Ayuntamiento",
+            text: "Pagar el IVTM (Sello del coche) en tu ayuntamiento.",
+          },
+          {
+            "@type": "HowToStep",
+            name: "Paso 4: DGT",
+            text: "Presentar todos los justificantes de pago en la cita de Tráfico para obtener el permiso de circulación.",
+          },
+        ],
+      },
     ],
   };
 

@@ -1,6 +1,6 @@
 "use server";
 
-import boePrices from "@/data/boe_prices.json";
+import boePrices from "@/data/boe_prices_with_co2.json";
 import { Vehicle } from "@/types";
 
 // Cache unique brands (server-side memory)

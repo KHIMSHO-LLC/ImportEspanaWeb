@@ -21,6 +21,7 @@ interface VehicleAutocompleteProps {
     fuelType?: string;
     isManual: boolean;
     year?: number;
+    co2?: number | null;
   }) => void;
 }
 
@@ -134,6 +135,7 @@ export function VehicleAutocomplete({
       fuelType: vehicle.fuelType,
       isManual: false,
       year: yearInput,
+      co2: vehicle.co2,
     });
   };
 
@@ -285,6 +287,7 @@ export function VehicleAutocomplete({
                     {item.cv}cv • {item.startYear}
                     {item.endYear ? `-${item.endYear}` : "+"} • €
                     {item.value.toLocaleString("de-DE")}
+                    {item.co2 ? ` • ${item.co2}g CO₂` : ""}
                     {item.fuelType === "Elc" && " ⚡"}
                   </div>
                 </div>
