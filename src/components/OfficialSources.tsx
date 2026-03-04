@@ -13,6 +13,11 @@ const sources = {
         desc: "Valores fiscales oficiales para el cálculo del ITP",
       },
       {
+        name: "EEA — Base de datos oficial de emisiones de CO₂",
+        url: "https://www.eea.europa.eu/data-and-maps/data/co2-cars-emission-19",
+        desc: "Datos de emisiones homologadas (WLTP/NEDC) de vehículos en Europa",
+      },
+      {
         name: "AEAT — Impuesto especial sobre determinados medios de transporte",
         url: "https://sede.agenciatributaria.gob.es/Sede/impuestos-tasas/impuesto-matriculacion.html",
         desc: "Impuesto de matriculación basado en emisiones CO₂",
@@ -31,6 +36,11 @@ const sources = {
         name: "BOE — Vehicle valuation tables",
         url: "https://www.boe.es/buscar/doc.php?id=BOE-A-2025-26357",
         desc: "Official fiscal values for ITP calculation",
+      },
+      {
+        name: "EEA — Official CO₂ Emissions Database",
+        url: "https://www.eea.europa.eu/data-and-maps/data/co2-cars-emission-19",
+        desc: "Homologated emissions data (WLTP/NEDC) for European vehicles",
       },
       {
         name: "AEAT — Special tax on vehicles",

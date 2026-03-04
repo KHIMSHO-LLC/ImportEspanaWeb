@@ -73,7 +73,7 @@ export const translations = {
     ageInfo:
       "The age of the car today. Used to calculate the depreciation (tax discount).",
     co2Info:
-      "CO2 emissions in g/km found on the datasheet (Ficha Técnica). Affects the Registration Tax.",
+      "CO2 emissions in g/km found on the datasheet (Ficha Técnica). Automated values are sourced directly from the European Environment Agency (EEA) homologation database (WLTP/NEDC). Affects the Registration Tax.",
     sellerTypeInfo:
       "Buying from a Dealer avoids ITP tax. Buying from a Private Seller incurs 4% ITP.",
     // PDF
@@ -220,7 +220,7 @@ export const translations = {
     ageInfo:
       "La antigüedad del coche hoy. Se usa para calcular la depreciación (descuento fiscal).",
     co2Info:
-      "Emisiones CO2 en g/km (ver Ficha Técnica). Afecta al Impuesto de Matriculación.",
+      "Las emisiones de CO2 determinan el tramo del impuesto de matriculación. Los valores automáticos se obtienen de la base de datos oficial de la Agencia Europea de Medio Ambiente (EEA).",
     sellerTypeInfo:
       "Comprar a un Concesionario evita el ITP. Comprar a un Particular conlleva un 4% de ITP.",
     pdfTitle: "Presupuesto de Importación",
