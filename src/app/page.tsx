@@ -272,7 +272,7 @@ export function HomeContent({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-8">
       <HeroStats />
 
       <LiveMarketData />
@@ -284,19 +284,16 @@ export function HomeContent({
         className="hidden md:block"
       />
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 space-y-6">
+      {/* Calculator — the instrument */}
+      <div className="space-y-8">
         {/* Import Type Toggle */}
-        <div className="flex bg-gray-100 p-1 rounded-xl">
+        <div className="pill-group">
           <button
             onClick={() => {
               setImportType("EU");
               setOriginCountry("Germany");
             }}
-            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-              importType === "EU"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`pill-option ${importType === "EU" ? "active" : ""}`}
           >
             <Globe size={16} />
             {t("EU")}
@@ -307,11 +304,7 @@ export function HomeContent({
               setOriginCountry("UAE");
               setNeedsHomologation(true);
             }}
-            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-              importType === "NonEU"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-600 hover:text-gray-800"
-            }`}
+            className={`pill-option ${importType === "NonEU" ? "active" : ""}`}
           >
             <Anchor size={16} />
             {t("NonEU")}
@@ -319,12 +312,12 @@ export function HomeContent({
         </div>
 
         {/* Origin Country */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <MapPin size={16} className="text-blue-600" />
+        <div className="space-y-3">
+          <label className="label-caps flex items-center gap-2">
+            <MapPin size={14} className="text-[var(--brand-blue)]" />
             {t("originCountry")}
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {(importType === "EU"
               ? ["Germany", "France", "Italy", "Belgium", "Netherlands"]
               : ["UAE", "USA", "Japan", "Korea"]
@@ -332,17 +325,15 @@ export function HomeContent({
               <button
                 key={c}
                 onClick={() => setOriginCountry(c as Country)}
-                className={`p-2 rounded-lg text-sm transition-colors border ${
-                  originCountry === c
-                    ? "bg-blue-50 border-blue-500 text-blue-700 font-medium"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-                }`}
+                className={`chip ${originCountry === c ? "active" : ""}`}
               >
                 {c}
               </button>
             ))}
           </div>
         </div>
+
+        <div className="divider" />
 
         {/* Vehicle Autocomplete */}
         <VehicleAutocomplete
@@ -388,7 +379,7 @@ export function HomeContent({
           }}
         />
         {errors.fiscalValue && (
-          <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+          <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
             <AlertTriangle size={14} />
             <span>{errors.fiscalValue}</span>
           </div>
@@ -404,9 +395,9 @@ export function HomeContent({
         </div>
 
         {/* Car Price */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <Euro size={16} className="text-blue-600" />
+        <div className="space-y-2">
+          <label className="label-caps flex items-center gap-2">
+            <Euro size={14} className="text-[var(--brand-blue)]" />
             {t("carPrice")}
           </label>
           <input
@@ -414,15 +405,11 @@ export function HomeContent({
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             onBlur={() => setTouched((prev) => ({ ...prev, price: true }))}
-            placeholder="25000"
-            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
-              errors.price
-                ? "border-red-500 focus:ring-red-200 bg-red-50"
-                : "border-gray-300 focus:ring-blue-500 bg-white"
-            }`}
+            placeholder="25,000"
+            className={`input-field ${errors.price ? "error" : ""}`}
           />
           {errors.price && (
-            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+            <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
               <AlertTriangle size={14} />
               <span>{errors.price}</span>
             </div>
@@ -430,10 +417,10 @@ export function HomeContent({
         </div>
 
         {/* Registration Date & Condition */}
-        <div className="space-y-4 border border-gray-200 p-4 rounded-xl bg-gray-50/50">
-          <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-              <Calendar size={16} className="text-blue-600" />
+        <div className="space-y-4 p-5 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-dim)]">
+          <div className="space-y-2">
+            <label className="label-caps flex items-center gap-2">
+              <Calendar size={14} className="text-[var(--brand-blue)]" />
               Date of First Registration (Month/Year)
             </label>
             <MonthYearPicker
@@ -442,60 +429,61 @@ export function HomeContent({
             />
           </div>
 
-          <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-colors">
+          <label className="flex items-start gap-3 p-4 bg-[var(--surface)] border border-[var(--surface-border)] rounded-xl cursor-pointer hover:border-[var(--brand-blue-light)] transition-all duration-200">
             <input
               type="checkbox"
               checked={isNewCondition}
               onChange={(e) => setIsNewCondition(e.target.checked)}
-              className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="mt-1 w-4 h-4 text-[var(--brand-blue)] border-[var(--surface-border)] rounded focus:ring-[var(--brand-blue)]"
             />
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-gray-900">
+              <span className="text-sm font-semibold text-[var(--text-primary)]">
                 Vehicle is {"<"} 6 months old OR has {"<"} 6,000 km
               </span>
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-[var(--text-tertiary)] mt-0.5">
                 Subject to 21% VAT (IVA) instead of Transfer Tax (ITP)
               </span>
             </div>
           </label>
         </div>
 
-        {/* Fiscal Value Depreciation UI */}
+        {/* Fiscal Value Depreciation */}
         {baseFiscalValue > 0 && (
-          <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-xl flex flex-col items-center justify-center text-center">
-            <div className="flex items-center gap-2 text-orange-800 font-semibold mb-1">
+          <div className="p-5 rounded-xl border border-[var(--brand-gold)]/30 bg-[var(--brand-gold)]/[0.04] animate-fadeInUp">
+            <div className="flex items-center gap-2 text-[var(--brand-gold)] font-semibold mb-2">
               <TrendingDown size={18} />
-              <span>{t("fiscalValueDepreciation")}</span>
+              <span className="text-sm">{t("fiscalValueDepreciation")}</span>
             </div>
-            <div className="text-orange-700 text-sm mb-1">
+            <div className="text-sm text-[var(--text-secondary)] mb-1">
               {baseFiscalValue.toLocaleString("es-ES", {
                 style: "currency",
                 currency: "EUR",
                 maximumFractionDigits: 0,
               })}{" "}
-              × {Math.round(percentageRetained * 100)}% =
+              × {Math.round(percentageRetained * 100)}%
             </div>
-            <div className="text-2xl font-bold text-orange-900 mb-1">
+            <div className="number-display text-3xl text-[var(--text-primary)]">
               {calculatedFiscalValue.toLocaleString("es-ES", {
                 style: "currency",
                 currency: "EUR",
                 maximumFractionDigits: 0,
               })}
             </div>
-            <div className="text-xs text-orange-600 italic">
+            <div className="text-xs text-[var(--text-tertiary)] mt-2 italic">
               {t("fiscalValueNote")}
             </div>
           </div>
         )}
 
         {/* CO2 */}
-        <div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-            <Gauge size={16} className="text-blue-600" />
+        <div className="space-y-2">
+          <label className="label-caps flex items-center gap-2">
+            <Gauge size={14} className="text-[var(--brand-blue)]" />
             {t("co2")}
           </label>
           {isElectric && (
-            <div className="mb-2 bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium border border-green-200">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-700 text-sm font-medium">
+              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
               {t("evDetected")}
             </div>
           )}
@@ -508,14 +496,10 @@ export function HomeContent({
             }}
             onBlur={() => setTouched((prev) => ({ ...prev, co2: true }))}
             placeholder="145"
-            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none shadow-sm ${
-              errors.co2
-                ? "border-red-500 focus:ring-red-200 bg-red-50"
-                : "border-gray-300 focus:ring-blue-500 bg-white"
-            }`}
+            className={`input-field ${errors.co2 ? "error" : ""}`}
           />
           {errors.co2 && (
-            <div className="flex items-center gap-2 mt-2 text-red-600 text-sm">
+            <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
               <AlertTriangle size={14} />
               <span>{errors.co2}</span>
             </div>
@@ -524,43 +508,35 @@ export function HomeContent({
 
         {/* Seller Type (Only for EU) */}
         {importType === "EU" && (
-          <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-              <User size={16} className="text-blue-600" />
+          <div className="space-y-3">
+            <label className="label-caps flex items-center gap-2">
+              <User size={14} className="text-[var(--brand-blue)]" />
               {t("sellerType")}
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setSellerType("dealer")}
-                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
-                  sellerType === "dealer"
-                    ? "bg-blue-50 border-blue-500 text-blue-700"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-                }`}
+                className={`chip text-center ${sellerType === "dealer" ? "active" : ""}`}
               >
                 🏢 {t("dealer")}
               </button>
               <button
                 onClick={() => setSellerType("private")}
-                className={`p-3 rounded-lg border text-sm font-medium transition-all ${
-                  sellerType === "private"
-                    ? "bg-blue-50 border-blue-500 text-blue-700"
-                    : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-                }`}
+                className={`chip text-center ${sellerType === "private" ? "active" : ""}`}
               >
                 👤 {t("private")}
               </button>
             </div>
             {sellerType === "private" && (
-              <div className="mt-2 text-xs text-yellow-700 bg-yellow-50 p-2 rounded flex items-start gap-2">
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-[var(--brand-gold)]/[0.06] border border-[var(--brand-gold)]/20 text-sm text-[var(--warning)]">
                 <AlertTriangle size={14} className="mt-0.5 shrink-0" />
                 {t("privateSaleWarning")}
               </div>
             )}
             {sellerType === "private" && (
-              <div className="mt-3">
-                <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-                  <MapPin size={16} className="text-blue-600" />
+              <div className="space-y-3 mt-2">
+                <label className="label-caps flex items-center gap-2">
+                  <MapPin size={14} className="text-[var(--brand-blue)]" />
                   {t("selectRegion")}
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -568,11 +544,7 @@ export function HomeContent({
                     <button
                       key={region.name}
                       onClick={() => setSelectedRegion(region.name)}
-                      className={`p-2 rounded-lg border text-xs font-medium transition-all ${
-                        selectedRegion === region.name
-                          ? "bg-blue-50 border-blue-500 text-blue-700 ring-1 ring-blue-300"
-                          : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
-                      }`}
+                      className={`chip text-xs ${selectedRegion === region.name ? "active" : ""}`}
                     >
                       {region.label}
                     </button>
@@ -583,12 +555,12 @@ export function HomeContent({
           </div>
         )}
 
-        {/* Non-EU Fields: Transport & Homologation */}
+        {/* Non-EU Fields */}
         {importType === "NonEU" && (
           <>
-            <div>
-              <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
-                <Truck size={16} className="text-blue-600" />
+            <div className="space-y-2">
+              <label className="label-caps flex items-center gap-2">
+                <Truck size={14} className="text-[var(--brand-blue)]" />
                 {t("transportCost")}
               </label>
               <input
@@ -596,69 +568,61 @@ export function HomeContent({
                 value={transportCost}
                 onChange={(e) => setTransportCost(e.target.value)}
                 placeholder="1500"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm"
+                className="input-field"
               />
             </div>
 
             <div
-              className={`p-4 rounded-xl border-2 transition-all cursor-pointer flex items-center gap-3 ${
+              className={`p-4 rounded-xl border-2 cursor-pointer flex items-center gap-3 transition-all duration-200 ${
                 needsHomologation
-                  ? "bg-blue-50 border-blue-500"
-                  : "bg-white border-gray-200 hover:border-gray-300"
+                  ? "bg-[var(--brand-blue)]/[0.04] border-[var(--brand-blue)]"
+                  : "bg-[var(--surface)] border-[var(--surface-border)] hover:border-[var(--text-tertiary)]"
               }`}
               onClick={() => setNeedsHomologation(!needsHomologation)}
             >
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
                   needsHomologation
-                    ? "bg-blue-600 border-blue-600"
-                    : "border-gray-300"
+                    ? "bg-[var(--brand-blue)] border-[var(--brand-blue)]"
+                    : "border-[var(--surface-border)]"
                 }`}
               >
                 {needsHomologation && <CheckCircle size={14} color="white" />}
               </div>
               <div className="flex-1">
-                <p
-                  className={`text-sm font-semibold ${
-                    needsHomologation ? "text-blue-800" : "text-gray-700"
-                  }`}
-                >
+                <p className={`text-sm font-semibold ${needsHomologation ? "text-[var(--brand-blue)]" : "text-[var(--text-primary)]"}`}>
                   {t("homologation")}
                 </p>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs text-[var(--text-tertiary)] mt-0.5">
                   {t("homologationInfo")}
                 </p>
               </div>
-              <FileCheck size={20} className="text-gray-400" />
+              <FileCheck size={20} className="text-[var(--text-tertiary)]" />
             </div>
           </>
         )}
 
+        <div className="divider" />
+
+        {/* Action buttons */}
         <div className="flex flex-col gap-3">
-          {/* Calculate Button */}
           <button
             onClick={calculate}
             disabled={!isValid && touched.price}
-            className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95 ${
-              !isValid && touched.price
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-                : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200"
-            }`}
+            className="btn-primary w-full py-4 text-base"
           >
             {t("calculate")}
           </button>
 
-          {/* Reset Button */}
           <button
             onClick={resetSearch}
-            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2"
+            className="btn-secondary w-full flex items-center justify-center gap-2"
           >
-            <RotateCcw size={16} />
+            <RotateCcw size={15} />
             {language === "es" ? "Reiniciar búsqueda" : "Reset Search"}
           </button>
         </div>
 
-        {/* Ad Banner */}
         <AdBanner
           dataAdSlot="2479889603"
           dataAdFormat="auto"
@@ -670,22 +634,21 @@ export function HomeContent({
       <FaqSection />
       <OfficialSources />
 
-      {/* Internal Links — SEO: gives Google crawlable paths to all landing pages */}
-      <div className="mt-8 space-y-6">
-        {/* Region Links */}
+      {/* Internal Links — SEO */}
+      <div className="mt-12 space-y-8">
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-            <MapPin size={14} className="text-blue-500" />
+          <h3 className="label-caps mb-3 flex items-center gap-1.5">
+            <MapPin size={12} className="text-[var(--brand-blue)]" />
             {language === "es"
               ? "Importar coches por comunidad autónoma"
               : "Import cars by region"}
           </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {REGIONS.map((r) => (
               <Link
                 key={r.slug}
                 href={`/importar-coche/${r.slug}`}
-                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+                className="text-xs text-[var(--text-tertiary)] hover:text-[var(--brand-blue)] bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-1.5 rounded-full transition-all duration-200"
               >
                 {language === "es" ? r.nameEs : r.name} ({r.itpRate}%)
               </Link>
@@ -693,20 +656,19 @@ export function HomeContent({
           </div>
         </div>
 
-        {/* Country Links */}
         <div>
-          <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-            <Globe size={14} className="text-green-500" />
+          <h3 className="label-caps mb-3 flex items-center gap-1.5">
+            <Globe size={12} className="text-[var(--success)]" />
             {language === "es"
               ? "Importar desde otros países"
               : "Import from other countries"}
           </h3>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {COUNTRIES.map((c) => (
               <Link
                 key={c.slug}
                 href={`/importar-desde/${c.slug}`}
-                className="text-xs text-gray-500 hover:text-blue-600 bg-gray-100 hover:bg-blue-50 px-2.5 py-1 rounded-full transition-colors"
+                className="text-xs text-[var(--text-tertiary)] hover:text-[var(--brand-blue)] bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-1.5 rounded-full transition-all duration-200"
               >
                 {c.flag} {language === "es" ? c.nameEs : c.name}
               </Link>
@@ -720,20 +682,24 @@ export function HomeContent({
 
 export default function Home() {
   return (
-    <div className="pb-20 bg-gray-50">
-      <div className="flex justify-center items-start gap-6 max-w-7xl mx-auto px-4 pt-4">
+    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+      <div className="flex justify-center items-start gap-8 max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-20">
         {/* Left Sidebar */}
         <SidebarAd side="left" />
 
         {/* Main Content */}
         <div className="flex-1 max-w-3xl w-full">
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
-            <Suspense
-              fallback={<div className="p-10 text-center">Loading...</div>}
-            >
-              <HomeContent />
-            </Suspense>
-          </div>
+          <Suspense
+            fallback={
+              <div className="space-y-6 py-12">
+                <div className="skeleton h-12 w-3/4" />
+                <div className="skeleton h-6 w-1/2" />
+                <div className="skeleton h-64 w-full" />
+              </div>
+            }
+          >
+            <HomeContent />
+          </Suspense>
         </div>
 
         {/* Right Sidebar */}

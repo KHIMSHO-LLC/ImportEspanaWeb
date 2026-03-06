@@ -62,7 +62,7 @@ export function MonthYearPicker({
         <select
           value={month}
           onChange={(e) => handleMonthChange(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm appearance-none cursor-pointer"
+          className="w-full p-3 input-field appearance-none cursor-pointer"
         >
           <option value="" disabled>
             {lang === "es" ? "Mes" : "Month"}
@@ -73,7 +73,7 @@ export function MonthYearPicker({
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[var(--text-tertiary)]">
           <svg
             className="h-4 w-4"
             fill="none"
@@ -95,7 +95,7 @@ export function MonthYearPicker({
         <select
           value={year}
           onChange={(e) => handleYearChange(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-gray-900 shadow-sm appearance-none cursor-pointer"
+          className="w-full p-3 input-field appearance-none cursor-pointer"
         >
           <option value="" disabled>
             {lang === "es" ? "Año" : "Year"}
@@ -106,7 +106,7 @@ export function MonthYearPicker({
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[var(--text-tertiary)]">
           <svg
             className="h-4 w-4"
             fill="none"

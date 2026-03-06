@@ -73,29 +73,29 @@ export default function ItpContent() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-full mb-3">
+        <div className="inline-flex items-center gap-2 bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
           <MapPin size={14} />
           {sorted.length} {lang === "es" ? "regiones" : "regions"}
         </div>
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-3">
+        <h1 className="text-3xl font-extrabold text-[var(--text-primary)] mb-3">
           {t.title}
         </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto">{t.subtitle}</p>
+        <p className="text-[var(--text-tertiary)] max-w-2xl mx-auto">{t.subtitle}</p>
       </div>
 
       {/* ITP Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+      <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] overflow-hidden mb-8">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-700">
+              <tr className="bg-[var(--surface-dim)] border-b border-[var(--surface-border)]">
+                <th className="text-left px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
                   {t.tableRegion}
                 </th>
-                <th className="text-center px-5 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-center px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
                   {t.tableRate}
                 </th>
-                <th className="text-right px-5 py-3 text-sm font-semibold text-gray-700">
+                <th className="text-right px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
                   {t.tableExample}
                 </th>
               </tr>
@@ -113,11 +113,11 @@ export default function ItpContent() {
                         : isHighest
                           ? "bg-red-50"
                           : i % 2 === 0
-                            ? "bg-white"
-                            : "bg-gray-50/50"
+                            ? "bg-[var(--surface-elevated)]"
+                            : "bg-[var(--surface-dim)]/50"
                     }`}
                   >
-                    <td className="px-5 py-3 text-sm text-gray-900 font-medium">
+                    <td className="px-5 py-3 text-sm text-[var(--text-primary)] font-medium">
                       <div className="flex items-center gap-2">
                         {region.name}
                         {isLowest && (
@@ -132,10 +132,10 @@ export default function ItpContent() {
                         )}
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-sm text-center font-bold text-gray-900">
+                    <td className="px-5 py-3 text-sm text-center font-bold text-[var(--text-primary)]">
                       {(region.rate * 100).toFixed(1)}%
                     </td>
-                    <td className="px-5 py-3 text-sm text-right text-gray-700">
+                    <td className="px-5 py-3 text-sm text-right text-[var(--text-secondary)]">
                       €{(10000 * region.rate).toLocaleString("es-ES")}
                     </td>
                   </tr>
@@ -144,13 +144,13 @@ export default function ItpContent() {
             </tbody>
           </table>
         </div>
-        <div className="px-5 py-3 border-t border-gray-100 text-xs text-gray-400 flex items-center justify-between">
+        <div className="px-5 py-3 border-t border-[var(--surface-border)] text-xs text-[var(--text-tertiary)] flex items-center justify-between">
           <span>{t.source}</span>
           <a
             href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-26357"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-700 flex items-center gap-1"
+            className="text-blue-500 hover:text-[var(--brand-blue)] flex items-center gap-1"
           >
             {t.boeLink} <ExternalLink size={12} />
           </a>
@@ -159,37 +159,37 @@ export default function ItpContent() {
 
       {/* Info Cards */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-            <Info size={18} className="text-blue-600" />
+        <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] p-6">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3 flex items-center gap-2">
+            <Info size={18} className="text-[var(--brand-blue)]" />
             {t.whatIsItp}
           </h2>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
             {t.whatIsItpDesc}
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-            <Calculator size={18} className="text-blue-600" />
+        <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] p-6">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3 flex items-center gap-2">
+            <Calculator size={18} className="text-[var(--brand-blue)]" />
             {t.howCalc}
           </h2>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
             {t.howCalcDesc}
           </p>
         </div>
       </div>
 
       {/* When it applies */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">
+      <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] p-6 mb-8">
+        <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4">
           {t.whenApplies}
         </h2>
         <ul className="space-y-2">
           {t.whenAppliesItems.map((item, i) => (
             <li
               key={i}
-              className="flex items-start gap-3 text-sm text-gray-600"
+              className="flex items-start gap-3 text-sm text-[var(--text-secondary)]"
             >
               <svg
                 className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
@@ -218,7 +218,7 @@ export default function ItpContent() {
         </p>
         <Link
           href="/"
-          className="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+          className="inline-block bg-[var(--surface-elevated)] text-[var(--brand-blue)] font-bold py-3 px-8 rounded-xl hover:bg-[var(--brand-blue)]/5 transition-colors shadow-lg"
         >
           {t.ctaButton} →
         </Link>

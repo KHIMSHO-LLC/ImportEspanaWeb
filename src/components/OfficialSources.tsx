@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const sources = {
   es: {
@@ -62,30 +62,29 @@ export const OfficialSources = () => {
   const data = sources[lang];
 
   return (
-    <div className="mt-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <ExternalLink size={18} className="text-blue-600" />
+    <div className="mt-12">
+      <h2 className="heading-section text-lg text-[var(--text-primary)] mb-6">
         {data.title}
       </h2>
-      <div className="space-y-3">
+      <div className="grid sm:grid-cols-2 gap-3">
         {data.items.map((item, i) => (
           <a
             key={i}
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block p-3 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all group"
+            className="group block p-4 rounded-xl border border-[var(--surface-border)] hover:border-[var(--brand-blue)]/30 bg-[var(--surface-elevated)] hover:shadow-md transition-all duration-200"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-blue-700 group-hover:text-blue-800">
+            <div className="flex items-start justify-between gap-2">
+              <span className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors duration-200">
                 {item.name}
               </span>
-              <ExternalLink
+              <ArrowUpRight
                 size={14}
-                className="text-gray-400 group-hover:text-blue-500"
+                className="shrink-0 mt-0.5 text-[var(--text-tertiary)] group-hover:text-[var(--brand-blue)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">{item.desc}</p>
+            <p className="text-xs text-[var(--text-tertiary)] mt-1.5 leading-relaxed">{item.desc}</p>
           </a>
         ))}
       </div>

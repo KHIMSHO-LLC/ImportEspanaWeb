@@ -32,7 +32,6 @@ function ResultContent() {
     const itpRateParam = searchParams.get("itpRate");
 
     if (!originCountry || !officialFiscalValue) {
-      // router.push("/"); // Redirect if missing params? Or just show empty state.
       return;
     }
 
@@ -47,7 +46,7 @@ function ResultContent() {
       transportCost: searchParams.get("transportCost")
         ? parseFloat(searchParams.get("transportCost")!)
         : undefined,
-      customsAgentFee: searchParams.get("importType") === "NonEU" ? 200 : 0, // Estimate
+      customsAgentFee: searchParams.get("importType") === "NonEU" ? 200 : 0,
       needsHomologation: searchParams.get("needsHomologation") === "true",
       itpRate: itpRateParam ? parseFloat(itpRateParam) : undefined,
       brand: brand || undefined,
@@ -61,8 +60,11 @@ function ResultContent() {
 
   if (!result || !input) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-[var(--text-tertiary)]">Calculating...</span>
+        </div>
       </div>
     );
   }
@@ -72,7 +74,7 @@ function ResultContent() {
   return (
     <>
       <PrintLayout result={result} input={input} />
-      <div className="w-full p-3 md:p-4 print:hidden">
+      <div className="w-full print:hidden space-y-6">
         <AdBanner
           dataAdSlot="8470582888"
           dataAdFormat="horizontal"
@@ -80,43 +82,43 @@ function ResultContent() {
           className="print:hidden"
         />
 
+        {/* Back button — minimal */}
         <button
           onClick={() => router.push(`/?${searchParams.toString()}`)}
-          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-4 md:mb-6 transition-colors print:hidden"
+          className="flex items-center gap-2 text-[var(--text-tertiary)] hover:text-[var(--brand-blue)] text-sm font-medium transition-colors duration-200 print:hidden"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={16} />
           {t("backToSearch")}
         </button>
 
-        {/* Force a 2-column grid for print with reduced gap */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-8 print:grid-cols-2 print:gap-4 print:items-start">
-          {/* Left Col: Main Result */}
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 print:grid-cols-2 print:gap-4 print:items-start">
+          {/* Left Col: The Hero Number */}
           <div className="space-y-6 print:space-y-3">
-            <div className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-2xl md:rounded-3xl p-5 md:p-8 text-white shadow-xl print:bg-blue-600 print:text-white print:p-4 print:shadow-none print:border print:border-blue-600 print:rounded-lg">
-              <h2 className="text-blue-100 font-semibold tracking-wider text-sm uppercase mb-2 print:text-white print:mb-1 print:text-xs">
-                {t("estimatedTotal")}
-              </h2>
-              <div className="text-4xl md:text-5xl font-bold mb-3 md:mb-4 print:text-3xl print:mb-1">
-                {result.totalCost.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
-              </div>
-              <p className="text-blue-100 text-sm opacity-90 print:text-white print:text-xs">
-                {t("includes")}
-              </p>
-
-              {isElectric && (
-                <div className="mt-6 inline-flex items-center gap-2 bg-green-500/20 border border-green-400/50 px-4 py-2 rounded-full backdrop-blur-sm print:mt-2 print:border-white print:text-white print:px-2 print:py-0.5">
-                  <CheckCircle
-                    size={16}
-                    className="text-green-300 print:text-white print:w-3 print:h-3"
-                  />
-                  <span className="text-green-50 font-medium text-sm print:text-white print:text-xs">
-                    {t("evDetected")}
-                  </span>
+            {/* Total Cost Card — the showstopper */}
+            <div className="card-hero p-6 md:p-10 animate-fadeInUp">
+              <div className="relative z-10">
+                <div className="label-caps text-white/60 mb-3 print:text-white print:mb-1 print:text-xs">
+                  {t("estimatedTotal")}
                 </div>
-              )}
+                <div className="number-display text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6 animate-countUp print:text-3xl print:mb-1">
+                  {result.totalCost.toLocaleString("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </div>
+                <p className="text-white/50 text-sm print:text-white print:text-xs">
+                  {t("includes")}
+                </p>
+
+                {isElectric && (
+                  <div className="mt-6 inline-flex items-center gap-2 bg-emerald-400/15 border border-emerald-400/30 px-4 py-2 rounded-full print:mt-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-emerald-200 font-medium text-sm print:text-white print:text-xs">
+                      {t("evDetected")}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
             <AdBanner
@@ -127,48 +129,46 @@ function ResultContent() {
             />
 
             {/* Vehicle Info Card */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-5 md:p-6 shadow-sm print:shadow-none print:border-gray-200 print:p-4 print:rounded-lg">
-              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2 print:mb-2 print:text-base">
-                <Car
-                  size={20}
-                  className="text-blue-600 print:text-black print:w-5 print:h-5"
-                />
+            <div className="card p-5 md:p-6 animate-fadeInUp stagger-2 print:shadow-none print:border-gray-200 print:p-4 print:rounded-lg">
+              <h3 className="label-caps mb-4 flex items-center gap-2 print:mb-2">
+                <Car size={14} className="text-[var(--brand-blue)]" />
                 {t("vehicleSearch")}
               </h3>
-              <div className="space-y-3 text-sm print:space-y-2 print:text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-500 print:text-gray-900">
+              <div className="space-y-3 text-sm print:space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--text-tertiary)]">
                     {t("brand")}/{t("model")}
                   </span>
-                  <span className="font-medium text-gray-900">
+                  <span className="font-semibold text-[var(--text-primary)]">
                     {searchParams.get("brand")} {searchParams.get("model")}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 print:text-gray-900">
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--text-tertiary)]">
                     {t("originCountry")}
                   </span>
-                  <span className="font-medium text-gray-900">
+                  <span className="font-semibold text-[var(--text-primary)]">
                     {input.originCountry}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 print:text-gray-900">
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--text-tertiary)]">
                     {t("co2")}
                   </span>
-                  <span className="font-medium text-gray-900">
+                  <span className="number-display font-semibold text-[var(--text-primary)]">
                     {input.co2Emissions} g/km
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="text-center print:hidden">
+            {/* Print button */}
+            <div className="print:hidden">
               <button
                 onClick={() => window.print()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-blue-200 transition-all transform hover:-translate-y-0.5"
+                className="btn-secondary w-full sm:w-auto gap-2"
               >
-                <Printer size={20} />
+                <Printer size={16} />
                 {t("printResult")}
               </button>
             </div>
@@ -184,99 +184,60 @@ function ResultContent() {
           </div>
 
           {/* Right Col: Breakdown */}
-          <div className="bg-white rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg border border-gray-100 h-fit print:shadow-none print:border-gray-200 print:rounded-lg print:p-4">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 print:mb-2 print:text-base">
-              💶 {t("breakdown")}
+          <div className="card-elevated p-5 md:p-8 h-fit animate-fadeInUp stagger-3 print:shadow-none print:border-gray-200 print:rounded-lg print:p-4">
+            <h3 className="heading-section text-lg text-[var(--text-primary)] mb-6 print:mb-2 print:text-base">
+              {t("breakdown")}
             </h3>
 
-            <div className="space-y-4 print:space-y-2">
-              <Row
-                label={t("carPrice")}
-                value={input.carPrice}
-                color="text-gray-900"
-              />
-              <Row
-                label={t("transport")}
-                value={result.transportCost}
-                color="text-gray-900"
-              />
+            <div className="space-y-3 print:space-y-2">
+              <Row label={t("carPrice")} value={input.carPrice} />
+              <Row label={t("transport")} value={result.transportCost} />
 
-              <div className="h-px bg-gray-200 my-4 print:my-3" />
+              <div className="divider" />
 
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 print:mb-2 print:text-black">
+              <div className="label-caps mb-3 print:mb-2">
                 {t("taxesFees")}
-              </h4>
+              </div>
 
               <Row
                 label={t("registrationTax")}
                 value={result.registrationTax}
-                color="text-blue-600 print:text-black"
+                accent
                 bold
               />
 
               {result.duty > 0 && (
-                <Row
-                  label={t("duty")}
-                  value={result.duty}
-                  color="text-red-600 print:text-black"
-                />
+                <Row label={t("duty")} value={result.duty} accent />
               )}
 
               {result.vat > 0 && (
-                <Row
-                  label={t("vat")}
-                  value={result.vat}
-                  color="text-red-600 print:text-black"
-                />
+                <Row label={t("vat")} value={result.vat} accent />
               )}
 
               {result.customsAgentFee > 0 && (
-                <Row
-                  label={t("customsAgent")}
-                  value={result.customsAgentFee}
-                  color="text-gray-600 print:text-black"
-                />
+                <Row label={t("customsAgent")} value={result.customsAgentFee} />
               )}
 
               {result.homologationFee > 0 && (
-                <Row
-                  label={t("homologation")}
-                  value={result.homologationFee}
-                  color="text-orange-600 print:text-black"
-                />
+                <Row label={t("homologation")} value={result.homologationFee} />
               )}
 
               {result.itpTax > 0 && (
-                <Row
-                  label={t("itp")}
-                  value={result.itpTax}
-                  color="text-blue-600 print:text-black"
-                />
+                <Row label={t("itp")} value={result.itpTax} accent />
               )}
 
-              <Row
-                label={t("dgt")}
-                value={result.dgtFee}
-                color="text-gray-600 print:text-black"
-              />
-              <Row
-                label={t("itv")}
-                value={result.itvFee}
-                color="text-gray-600 print:text-black"
-              />
-              <Row
-                label={t("plates")}
-                value={result.platesFee}
-                color="text-gray-600 print:text-black"
-              />
+              <Row label={t("dgt")} value={result.dgtFee} />
+              <Row label={t("itv")} value={result.itvFee} />
+              <Row label={t("plates")} value={result.platesFee} />
 
-              <div className="h-px bg-gray-200 my-6 print:my-4" />
+              <div className="h-px bg-[var(--surface-border)] my-6 print:my-4" />
 
+              {/* Grand total row */}
               <div className="flex justify-between items-center">
-                <span className="text-lg font-bold text-gray-900 print:text-lg">
+                <span className="text-base font-bold text-[var(--text-primary)]">
                   {t("totalImportCost")}
                 </span>
-                <span className="text-xl font-bold text-blue-700 print:text-black print:text-xl">
+                <span className="number-display text-xl font-bold text-[var(--brand-blue)] print:text-black">
                   {(result.totalCost - input.carPrice).toLocaleString("de-DE", {
                     style: "currency",
                     currency: "EUR",
@@ -285,22 +246,23 @@ function ResultContent() {
               </div>
             </div>
 
-            <div className="mt-8 bg-gray-50 rounded-xl p-4 text-xs text-gray-500 space-y-2 print:mt-4 print:bg-gray-100 print:text-black print:p-4">
-              <div className="flex justify-between">
-                <span>{t("residualValue")}</span>
-                <span className="font-medium">
+            {/* Technical details */}
+            <div className="mt-8 p-4 rounded-xl bg-[var(--surface-dim)] border border-[var(--surface-border)] space-y-2 print:mt-4 print:p-4">
+              <div className="flex justify-between text-xs">
+                <span className="text-[var(--text-tertiary)]">{t("residualValue")}</span>
+                <span className="number-display font-medium text-[var(--text-secondary)]">
                   {(result.depreciationPercentage * 100).toFixed(0)}%
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>{t("taxBase")}</span>
-                <span className="font-medium">
+              <div className="flex justify-between text-xs">
+                <span className="text-[var(--text-tertiary)]">{t("taxBase")}</span>
+                <span className="number-display font-medium text-[var(--text-secondary)]">
                   {result.taxBase.toFixed(0)}€
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>{t("taxRate")}</span>
-                <span className="font-medium">
+              <div className="flex justify-between text-xs">
+                <span className="text-[var(--text-tertiary)]">{t("taxRate")}</span>
+                <span className="number-display font-medium text-[var(--text-secondary)]">
                   {(result.taxRateApplied * 100).toFixed(2)}%
                 </span>
               </div>
@@ -310,7 +272,7 @@ function ResultContent() {
               dataAdSlot="5089848873"
               dataAdFormat="rectangle"
               dataFullWidthResponsive={true}
-              className="print:hidden"
+              className="print:hidden mt-6"
             />
           </div>
         </div>
@@ -322,20 +284,20 @@ function ResultContent() {
 function Row({
   label,
   value,
-  color,
   bold,
+  accent,
 }: {
   label: string;
   value: number;
-  color: string;
   bold?: boolean;
+  accent?: boolean;
 }) {
   return (
-    <div className="flex justify-between items-center text-sm">
-      <span className={`text-gray-600 ${bold ? "font-semibold" : ""}`}>
+    <div className="flex justify-between items-center text-sm py-0.5">
+      <span className={`text-[var(--text-secondary)] ${bold ? "font-semibold text-[var(--text-primary)]" : ""}`}>
         {label}
       </span>
-      <span className={`${color} ${bold ? "font-bold" : "font-medium"}`}>
+      <span className={`number-display ${accent ? "text-[var(--brand-blue)]" : "text-[var(--text-primary)]"} ${bold ? "font-bold" : "font-medium"}`}>
         {value.toLocaleString("de-DE", { style: "currency", currency: "EUR" })}
       </span>
     </div>
@@ -344,11 +306,20 @@ function Row({
 
 export default function ResultPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex justify-center items-start gap-6 max-w-[1600px] mx-auto px-4 mt-6 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none">
+    <main className="min-h-screen flex justify-center items-start gap-8 max-w-[1600px] mx-auto px-4 md:px-8 mt-6 pb-20 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none" style={{ background: 'var(--background)' }}>
       <SidebarAd side="left" />
 
       <div className="flex-1 w-full max-w-4xl print:max-w-none print:w-full">
-        <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="min-h-[60vh] flex items-center justify-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
+                <span className="text-sm text-[var(--text-tertiary)]">Loading...</span>
+              </div>
+            </div>
+          }
+        >
           <ResultContent />
         </Suspense>
       </div>

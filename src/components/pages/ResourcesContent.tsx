@@ -212,10 +212,10 @@ const colorMap: Record<
   }
 > = {
   blue: {
-    bg: "bg-blue-50/50",
+    bg: "bg-[var(--brand-blue)]/5/50",
     border: "border-blue-100",
-    icon: "text-blue-600",
-    highlightBg: "bg-blue-50",
+    icon: "text-[var(--brand-blue)]",
+    highlightBg: "bg-[var(--brand-blue)]/5",
     highlightBorder: "border-blue-300",
   },
   green: {
@@ -250,14 +250,14 @@ export default function ResourcesContent() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-medium px-3 py-1.5 rounded-full mb-3">
+        <div className="inline-flex items-center gap-2 bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
           <FileText size={14} />
           {lang === "es" ? "Enlaces verificados 2026" : "Verified links 2026"}
         </div>
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-3">
+        <h1 className="text-3xl font-extrabold text-[var(--text-primary)] mb-3">
           {t.title}
         </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto">{t.subtitle}</p>
+        <p className="text-[var(--text-tertiary)] max-w-2xl mx-auto">{t.subtitle}</p>
       </div>
 
       {/* Resource Sections */}
@@ -267,13 +267,13 @@ export default function ResourcesContent() {
           return (
             <div
               key={i}
-              className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
+              className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] overflow-hidden"
             >
               {/* Section Header */}
               <div
                 className={`px-6 py-4 ${colors.bg} border-b ${colors.border}`}
               >
-                <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
                   <section.icon size={20} className={colors.icon} />
                   {section.title}
                 </h2>
@@ -290,21 +290,21 @@ export default function ResourcesContent() {
                     className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all group cursor-pointer ${
                       link.highlight
                         ? `${colors.highlightBg} ${colors.highlightBorder} hover:shadow-md`
-                        : "border-gray-100 hover:border-blue-200 hover:bg-blue-50/50 hover:shadow-sm"
+                        : "border-[var(--surface-border)] hover:border-blue-200 hover:bg-[var(--brand-blue)]/5/50 hover:shadow-sm"
                     }`}
                   >
                     <div className="flex-1 mr-3">
                       <span
-                        className={`text-sm font-bold ${link.highlight ? "text-gray-900" : "text-blue-700"} group-hover:text-blue-800`}
+                        className={`text-sm font-bold ${link.highlight ? "text-[var(--text-primary)]" : "text-[var(--brand-blue)]"} group-hover:text-[var(--brand-blue)]`}
                       >
                         {link.name}
                       </span>
-                      <p className="text-xs text-gray-500 mt-0.5">
+                      <p className="text-xs text-[var(--text-tertiary)] mt-0.5">
                         {link.desc}
                       </p>
                     </div>
                     <div
-                      className={`flex items-center gap-1 shrink-0 ${link.highlight ? "text-blue-600" : "text-gray-400 group-hover:text-blue-500"}`}
+                      className={`flex items-center gap-1 shrink-0 ${link.highlight ? "text-[var(--brand-blue)]" : "text-[var(--text-tertiary)] group-hover:text-blue-500"}`}
                     >
                       <span className="text-xs font-medium hidden sm:inline">
                         {lang === "es" ? "Abrir" : "Open"}

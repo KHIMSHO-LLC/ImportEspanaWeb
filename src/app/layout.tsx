@@ -77,7 +77,8 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 font-sans text-slate-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        style={{ background: 'var(--background)', color: 'var(--foreground)' }}
       >
         <GoogleAnalytics gaId="G-05KZ4XPMFR" />
         <AdSense pId="8296385442547902" />
@@ -85,7 +86,7 @@ export default function RootLayout({
         <LanguageProvider>
           <div className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block">
             <Header />
-            <main className="flex-1 pt-16 md:pt-16 print:pt-0">{children}</main>
+            <main className="flex-1 pt-[72px] md:pt-[80px] print:pt-0">{children}</main>
             <Footer />
             <CookieConsent />
           </div>

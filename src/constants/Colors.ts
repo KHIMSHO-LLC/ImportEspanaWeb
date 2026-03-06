@@ -1,13 +1,20 @@
 export const Colors = {
-  primary: "#003399", // EU Blue
-  secondary: "#FFD700", // Gold
-  accent: "#0055CC", // Lighter Blue
-  background: "#F5F7FA",
+  primary: "#1D4ED8",
+  primaryDeep: "#1E3A8A",
+  secondary: "#E5A000",
+  accent: "#3B82F6",
+  background: "#FAFAF8",
+  surface: "#FFFFFF",
+  surfaceDim: "#F4F3F0",
   white: "#FFFFFF",
-  text: "#1F2937",
-  textLight: "#6B7280",
-  border: "#E5E7EB",
-  success: "#10B981",
-  warning: "#F59E0B",
-  error: "#EF4444",
+  text: "#0A0F1E",
+  textSecondary: "#64748B",
+  textLight: "#94A3B8",
+  border: "#E8E6E1",
+  success: "#059669",
+  warning: "#D97706",
+  error: "#DC2626",
+  brandBlue: "#1D4ED8",
+  brandGold: "#E5A000",
+  brandRed: "#DC2626",
 };

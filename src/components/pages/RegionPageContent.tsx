@@ -162,75 +162,75 @@ export default function RegionContent({ slug }: { slug: string }) {
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-[var(--surface-dim)] min-h-screen">
       {/* Breadcrumbs */}
       <div className="max-w-4xl mx-auto px-4 pt-4">
         <nav
-          className="flex items-center gap-1 text-xs text-gray-400"
+          className="flex items-center gap-1 text-xs text-[var(--text-tertiary)]"
           aria-label="Breadcrumb"
         >
-          <Link href="/" className="hover:text-blue-600 transition-colors">
+          <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
             ImportEspana
           </Link>
           <ChevronRight size={12} />
-          <Link href="/itp" className="hover:text-blue-600 transition-colors">
+          <Link href="/itp" className="hover:text-[var(--brand-blue)] transition-colors">
             ITP
           </Link>
           <ChevronRight size={12} />
-          <span className="text-gray-600">{regionName}</span>
+          <span className="text-[var(--text-secondary)]">{regionName}</span>
         </nav>
       </div>
 
       {/* Hero */}
       <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+        <div className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
           <div className="flex items-start gap-3 mb-4">
-            <div className="p-2 bg-blue-50 rounded-xl">
-              <MapPin className="text-blue-600" size={24} />
+            <div className="p-2 bg-[var(--brand-blue)]/5 rounded-xl">
+              <MapPin className="text-[var(--brand-blue)]" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)]">
                 {lang === "es"
                   ? `Importar Coche en ${regionName}`
                   : `Import a Car in ${regionName}`}
               </h1>
-              <p className="text-gray-500 mt-1">
+              <p className="text-[var(--text-tertiary)] mt-1">
                 {t.guideComplete} • {t.itp} {region.itpRate}% • {t.data2026}
               </p>
             </div>
           </div>
 
-          <p className="text-gray-600 leading-relaxed">{description}</p>
+          <p className="text-[var(--text-secondary)] leading-relaxed">{description}</p>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-            <div className="bg-blue-50 rounded-xl p-3 text-center">
-              <Percent size={18} className="text-blue-600 mx-auto mb-1" />
-              <div className="text-lg font-bold text-gray-900">
+            <div className="bg-[var(--brand-blue)]/5 rounded-xl p-3 text-center">
+              <Percent size={18} className="text-[var(--brand-blue)] mx-auto mb-1" />
+              <div className="text-lg font-bold text-[var(--text-primary)]">
                 {region.itpRate}%
               </div>
-              <div className="text-xs text-gray-500">{t.itp}</div>
+              <div className="text-xs text-[var(--text-tertiary)]">{t.itp}</div>
             </div>
             <div className="bg-green-50 rounded-xl p-3 text-center">
               <Users size={18} className="text-green-600 mx-auto mb-1" />
-              <div className="text-lg font-bold text-gray-900">
+              <div className="text-lg font-bold text-[var(--text-primary)]">
                 {region.population}
               </div>
-              <div className="text-xs text-gray-500">{t.population}</div>
+              <div className="text-xs text-[var(--text-tertiary)]">{t.population}</div>
             </div>
             <div className="bg-purple-50 rounded-xl p-3 text-center">
               <Building2 size={18} className="text-purple-600 mx-auto mb-1" />
-              <div className="text-lg font-bold text-gray-900">
+              <div className="text-lg font-bold text-[var(--text-primary)]">
                 {region.capital}
               </div>
-              <div className="text-xs text-gray-500">{t.capital}</div>
+              <div className="text-xs text-[var(--text-tertiary)]">{t.capital}</div>
             </div>
             <div className="bg-amber-50 rounded-xl p-3 text-center">
               <Car size={18} className="text-amber-600 mx-auto mb-1" />
-              <div className="text-lg font-bold text-gray-900">
+              <div className="text-lg font-bold text-[var(--text-primary)]">
                 {region.popularBrands[0]}
               </div>
-              <div className="text-xs text-gray-500">{t.popularBrand}</div>
+              <div className="text-xs text-[var(--text-tertiary)]">{t.popularBrand}</div>
             </div>
           </div>
         </div>
@@ -239,14 +239,14 @@ export default function RegionContent({ slug }: { slug: string }) {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 space-y-6 pb-20">
         {/* Live Interactive Calculator for this Region */}
-        <section className="bg-white rounded-2xl shadow-sm p-4 md:p-6 mb-8 border border-blue-100">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-900 flex items-center gap-2 mb-6 border-b pb-4">
-            <Calculator size={24} className="text-blue-600" />
+        <section className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm p-4 md:p-6 mb-8 border border-blue-100">
+          <h2 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-6 border-b pb-4">
+            <Calculator size={24} className="text-[var(--brand-blue)]" />
             Calculadora de Costes para {regionName}
           </h2>
           <Suspense
             fallback={
-              <div className="p-10 text-center text-gray-500">
+              <div className="p-10 text-center text-[var(--text-tertiary)]">
                 Cargando calculadora...
               </div>
             }
@@ -256,13 +256,13 @@ export default function RegionContent({ slug }: { slug: string }) {
         </section>
 
         {/* DGT Office */}
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
+        <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
             <Building2 size={20} className="text-green-600" />
             {t.dgtOffice} {region.capital}
           </h2>
           <div className="bg-green-50 rounded-xl p-4 mb-4">
-            <p className="text-sm text-gray-700 font-medium">
+            <p className="text-sm text-[var(--text-secondary)] font-medium">
               📍 {region.dgtOffice}
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function RegionContent({ slug }: { slug: string }) {
               href="https://sede.dgt.gob.es/es/vehiculos/matriculaciones-de-vehiculos/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 bg-white border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-green-50 transition-colors"
+              className="flex items-center justify-center gap-1.5 bg-[var(--surface-elevated)] border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm font-medium hover:bg-green-50 transition-colors"
             >
               {t.dgtRegistrations}
               <ExternalLink size={14} />
@@ -289,8 +289,8 @@ export default function RegionContent({ slug }: { slug: string }) {
         </section>
 
         {/* Tips */}
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
+        <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
             <Lightbulb size={20} className="text-amber-500" />
             {t.tipsTitle} {regionName}
           </h2>
@@ -298,7 +298,7 @@ export default function RegionContent({ slug }: { slug: string }) {
             {tips.map((tip, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 text-sm text-gray-700"
+                className="flex items-start gap-3 text-sm text-[var(--text-secondary)]"
               >
                 <span className="mt-0.5 w-5 h-5 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
                   {i + 1}
@@ -310,8 +310,8 @@ export default function RegionContent({ slug }: { slug: string }) {
         </section>
 
         {/* Import Steps */}
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4">
+        <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
             <FileCheck size={20} className="text-purple-600" />
             {t.stepsTitle} {regionName}
           </h2>
@@ -322,10 +322,10 @@ export default function RegionContent({ slug }: { slug: string }) {
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">
+                  <h3 className="font-semibold text-[var(--text-primary)] text-sm">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-0.5">{step.desc}</p>
+                  <p className="text-sm text-[var(--text-tertiary)] mt-0.5">{step.desc}</p>
                 </div>
               </li>
             ))}
@@ -333,15 +333,15 @@ export default function RegionContent({ slug }: { slug: string }) {
         </section>
 
         {/* Popular Brands */}
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+        <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
             {t.mostImported} {regionName}
           </h2>
           <div className="flex flex-wrap gap-2">
             {region.popularBrands.map((brand) => (
               <span
                 key={brand}
-                className="px-3 py-1.5 bg-gray-100 rounded-full text-sm font-medium text-gray-700"
+                className="px-3 py-1.5 bg-gray-100 rounded-full text-sm font-medium text-[var(--text-secondary)]"
               >
                 {brand}
               </span>
@@ -357,7 +357,7 @@ export default function RegionContent({ slug }: { slug: string }) {
           <p className="text-blue-100 text-sm mb-4">{t.ctaDesc}</p>
           <Link
             href="/"
-            className="flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-blue-700 px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-blue-50 transition-colors"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
           >
             <Calculator size={18} />
             {t.ctaButton}
@@ -367,7 +367,7 @@ export default function RegionContent({ slug }: { slug: string }) {
 
         {/* Other Regions */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 mb-3">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3">
             {t.otherRegions}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -375,12 +375,12 @@ export default function RegionContent({ slug }: { slug: string }) {
               <Link
                 key={r.slug}
                 href={`/importar-coche/${r.slug}`}
-                className="bg-white rounded-xl border border-gray-200 p-3 hover:border-blue-300 hover:shadow-sm transition-all"
+                className="bg-[var(--surface-elevated)] rounded-xl border border-[var(--surface-border)] p-3 hover:border-blue-300 hover:shadow-sm transition-all"
               >
-                <div className="font-medium text-sm text-gray-900">
+                <div className="font-medium text-sm text-[var(--text-primary)]">
                   {lang === "es" ? r.nameEs : r.name}
                 </div>
-                <div className="text-xs text-gray-400">
+                <div className="text-xs text-[var(--text-tertiary)]">
                   {t.itp} {r.itpRate}%
                 </div>
               </Link>
@@ -388,7 +388,7 @@ export default function RegionContent({ slug }: { slug: string }) {
           </div>
           <Link
             href="/itp"
-            className="inline-flex items-center gap-1 text-blue-600 text-sm font-medium mt-3 hover:underline"
+            className="inline-flex items-center gap-1 text-[var(--brand-blue)] text-sm font-medium mt-3 hover:underline"
           >
             {t.viewAll}
             <ArrowRight size={14} />

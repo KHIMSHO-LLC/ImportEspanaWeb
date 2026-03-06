@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { BookOpen, CheckCircle, Calculator, Info } from "lucide-react";
+import { BookOpen, Calculator, Info } from "lucide-react";
 
 export const SeoContent = () => {
   const { language } = useLanguage();
@@ -22,11 +22,11 @@ export const SeoContent = () => {
 };
 
 const ContentES = () => (
-  <article className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
-    <div className="space-y-8 text-gray-700 leading-relaxed">
+  <article className="mt-16">
+    <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Calculator className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Calculator className="text-[var(--brand-blue)]" size={20} />
           ¿Cómo calcular el Impuesto de Matriculación en España?
         </h2>
         <p className="mb-4">
@@ -46,39 +46,36 @@ const ContentES = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Info className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Info className="text-[var(--brand-blue)]" size={20} />
           Tramos del Impuesto de Matriculación 2024
         </h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
+        <ul className="grid md:grid-cols-2 gap-3">
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">0% (Exento)</span>
+              <span className="font-bold block text-[var(--text-primary)]">0% (Exento)</span>
               Para emisiones menores o iguales a 120 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-blue-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-blue)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">4,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">4,75%</span>
               Para emisiones entre 121 y 159 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle
-              className="text-yellow-500 shrink-0 mt-0.5"
-              size={20}
-            />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">9,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">9,75%</span>
               Para emisiones entre 160 y 199 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-red)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">14,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">14,75%</span>
               Para emisiones mayores o iguales a 200 g/km de CO2.
             </div>
           </li>
@@ -86,29 +83,29 @@ const ContentES = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <BookOpen className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <BookOpen className="text-[var(--brand-blue)]" size={20} />
           Pasos para Matricular un Coche Extranjero
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
-            <span className="font-bold text-gray-900">Pasar la ITV:</span> Es
+            <span className="font-bold text-[var(--text-primary)]">Pasar la ITV:</span> Es
             obligatorio pasar la Inspección Técnica de Vehículos para obtener la
             Ficha Técnica española.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Pagar Impuestos:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Pagar Impuestos:</span>{" "}
             Deberás liquidar el Impuesto de Matriculación (Modelo 576) y, en
             algunos casos, el Impuesto de Transmisiones Patrimoniales (ITP).
           </li>
           <li>
-            <span className="font-bold text-gray-900">
+            <span className="font-bold text-[var(--text-primary)]">
               Impuesto de Circulación:
             </span>{" "}
             Abonar el IVTM en tu ayuntamiento.
           </li>
           <li>
-            <span className="font-bold text-gray-900">
+            <span className="font-bold text-[var(--text-primary)]">
               Matriculación en la DGT:
             </span>{" "}
             Presentar toda la documentación en la Dirección General de Tráfico
@@ -121,11 +118,11 @@ const ContentES = () => (
 );
 
 const ContentEN = () => (
-  <article className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
-    <div className="space-y-8 text-gray-700 leading-relaxed">
+  <article className="mt-16">
+    <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Calculator className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Calculator className="text-[var(--brand-blue)]" size={20} />
           How to Calculate Car Import Tax in Spain?
         </h2>
         <p className="mb-4">
@@ -144,39 +141,36 @@ const ContentEN = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Info className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Info className="text-[var(--brand-blue)]" size={20} />
           Registration Tax Brackets 2024
         </h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
+        <ul className="grid md:grid-cols-2 gap-3">
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">0% (Exempt)</span>
+              <span className="font-bold block text-[var(--text-primary)]">0% (Exempt)</span>
               For emissions ≤ 120 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-blue-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-blue)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">4.75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">4.75%</span>
               For emissions between 121 and 159 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle
-              className="text-yellow-500 shrink-0 mt-0.5"
-              size={20}
-            />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">9.75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">9.75%</span>
               For emissions between 160 and 199 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-red)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">14.75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">14.75%</span>
               For emissions ≥ 200 g/km CO2.
             </div>
           </li>
@@ -184,27 +178,27 @@ const ContentEN = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <BookOpen className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <BookOpen className="text-[var(--brand-blue)]" size={20} />
           Steps to Register a Foreign Car
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
-            <span className="font-bold text-gray-900">Pass the ITV:</span> It is
+            <span className="font-bold text-[var(--text-primary)]">Pass the ITV:</span> It is
             mandatory to pass the Technical Vehicle Inspection to obtain the
             Spanish Technical Sheet.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Pay Taxes:</span> You must
+            <span className="font-bold text-[var(--text-primary)]">Pay Taxes:</span> You must
             pay the Registration Tax (Form 576) and, in some cases, the Transfer
             Tax (ITP).
           </li>
           <li>
-            <span className="font-bold text-gray-900">Road Tax (IVTM):</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Road Tax (IVTM):</span>{" "}
             Pay the annual circulation tax at your local town hall.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Register at DGT:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Register at DGT:</span>{" "}
             Submit all documentation to the Traffic Department to obtain the
             circulation permit and new license plates.
           </li>
@@ -215,11 +209,11 @@ const ContentEN = () => (
 );
 
 const ContentDE = () => (
-  <article className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
-    <div className="space-y-8 text-gray-700 leading-relaxed">
+  <article className="mt-16">
+    <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Calculator className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Calculator className="text-[var(--brand-blue)]" size={20} />
           Wie berechnet man die Zulassungssteuer in Spanien?
         </h2>
         <p className="mb-4">
@@ -240,41 +234,38 @@ const ContentDE = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Info className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Info className="text-[var(--brand-blue)]" size={20} />
           Steuersätze der Zulassungssteuer 2024
         </h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
+        <ul className="grid md:grid-cols-2 gap-3">
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">
+              <span className="font-bold block text-[var(--text-primary)]">
                 0% (Befreit)
               </span>
               Für Emissionen ≤ 120 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-blue-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-blue)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">4,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">4,75%</span>
               Für Emissionen zwischen 121 und 159 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle
-              className="text-yellow-500 shrink-0 mt-0.5"
-              size={20}
-            />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">9,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">9,75%</span>
               Für Emissionen zwischen 160 und 199 g/km CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-red)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">14,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">14,75%</span>
               Für Emissionen ≥ 200 g/km CO2.
             </div>
           </li>
@@ -282,27 +273,27 @@ const ContentDE = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <BookOpen className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <BookOpen className="text-[var(--brand-blue)]" size={20} />
           Schritte zur Zulassung eines Importfahrzeugs
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
-            <span className="font-bold text-gray-900">TÜV (ITV):</span> Es ist
+            <span className="font-bold text-[var(--text-primary)]">TÜV (ITV):</span> Es ist
             obligatorisch, die technische Inspektion zu bestehen, um das
             spanische technische Datenblatt zu erhalten.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Steuern zahlen:</span> Sie
+            <span className="font-bold text-[var(--text-primary)]">Steuern zahlen:</span> Sie
             müssen die Zulassungssteuer (Formular 576) und in einigen Fällen die
             Grunderwerbsteuer (ITP) zahlen.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Kfz-Steuer (IVTM):</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Kfz-Steuer (IVTM):</span>{" "}
             Zahlung der jährlichen Verkehrssteuer bei Ihrem Rathaus.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Anmeldung bei DGT:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Anmeldung bei DGT:</span>{" "}
             Einreichung aller Unterlagen beim Verkehrsamt, um die Zulassung und
             neue Kennzeichen zu erhalten.
           </li>
@@ -313,11 +304,11 @@ const ContentDE = () => (
 );
 
 const ContentFR = () => (
-  <article className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
-    <div className="space-y-8 text-gray-700 leading-relaxed">
+  <article className="mt-16">
+    <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Calculator className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Calculator className="text-[var(--brand-blue)]" size={20} />
           Comment calculer la taxe d'immatriculation en Espagne ?
         </h2>
         <p className="mb-4">
@@ -338,41 +329,38 @@ const ContentFR = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Info className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Info className="text-[var(--brand-blue)]" size={20} />
           Tranches de la Taxe d'Immatriculation 2024
         </h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
+        <ul className="grid md:grid-cols-2 gap-3">
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">
+              <span className="font-bold block text-[var(--text-primary)]">
                 0% (Exonéré)
               </span>
               Pour les émissions ≤ 120 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-blue-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-blue)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">4,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">4,75%</span>
               Pour les émissions entre 121 et 159 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle
-              className="text-yellow-500 shrink-0 mt-0.5"
-              size={20}
-            />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">9,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">9,75%</span>
               Pour les émissions entre 160 et 199 g/km de CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-red)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">14,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">14,75%</span>
               Pour les émissions ≥ 200 g/km de CO2.
             </div>
           </li>
@@ -380,29 +368,29 @@ const ContentFR = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <BookOpen className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <BookOpen className="text-[var(--brand-blue)]" size={20} />
           Étapes pour immatriculer une voiture étrangère
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
-            <span className="font-bold text-gray-900">Passer l'ITV :</span> Il
+            <span className="font-bold text-[var(--text-primary)]">Passer l'ITV :</span> Il
             est obligatoire de passer le contrôle technique pour obtenir la
             Fiche Technique espagnole.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Payer les Taxes :</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Payer les Taxes :</span>{" "}
             Vous devez payer la Taxe d'Immatriculation (Modèle 576) et, dans
             certains cas, la Taxe de Transfert (ITP).
           </li>
           <li>
-            <span className="font-bold text-gray-900">
+            <span className="font-bold text-[var(--text-primary)]">
               Taxe de Circulation :
             </span>{" "}
             Payer l'IVTM annuel à votre mairie.
           </li>
           <li>
-            <span className="font-bold text-gray-900">
+            <span className="font-bold text-[var(--text-primary)]">
               Immatriculation à la DGT :
             </span>{" "}
             Soumettre tous les documents à la Direction Générale du Trafic pour
@@ -415,11 +403,11 @@ const ContentFR = () => (
 );
 
 const ContentRU = () => (
-  <article className="mt-12 bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
-    <div className="space-y-8 text-gray-700 leading-relaxed">
+  <article className="mt-16">
+    <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Calculator className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Calculator className="text-[var(--brand-blue)]" size={20} />
           Как рассчитать налог на регистрацию в Испании?
         </h2>
         <p className="mb-4">
@@ -439,41 +427,38 @@ const ContentRU = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Info className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <Info className="text-[var(--brand-blue)]" size={20} />
           Ставки налога на регистрацию 2024
         </h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-green-500 shrink-0 mt-0.5" size={20} />
+        <ul className="grid md:grid-cols-2 gap-3">
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">
+              <span className="font-bold block text-[var(--text-primary)]">
                 0% (Освобожден)
               </span>
               Для выбросов ≤ 120 г/км CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-blue-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-blue)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">4,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">4,75%</span>
               Для выбросов между 121 и 159 г/км CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle
-              className="text-yellow-500 shrink-0 mt-0.5"
-              size={20}
-            />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">9,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">9,75%</span>
               Для выбросов между 160 и 199 г/км CO2.
             </div>
           </li>
-          <li className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-            <CheckCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+          <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand-red)] shrink-0 mt-1.5" />
             <div>
-              <span className="font-bold block text-gray-900">14,75%</span>
+              <span className="font-bold block text-[var(--text-primary)]">14,75%</span>
               Для выбросов ≥ 200 г/км CO2.
             </div>
           </li>
@@ -481,27 +466,27 @@ const ContentRU = () => (
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <BookOpen className="text-blue-600" size={24} />
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
+          <BookOpen className="text-[var(--brand-blue)]" size={20} />
           Шаги для регистрации иностранного авто
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
-            <span className="font-bold text-gray-900">Пройти ITV:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Пройти ITV:</span>{" "}
             Обязательно пройти техосмотр для получения испанского технического
             паспорта.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Оплатить налоги:</span> Вы
+            <span className="font-bold text-[var(--text-primary)]">Оплатить налоги:</span> Вы
             должны оплатить налог на регистрацию (форма 576) и, в некоторых
             случаях, налог на передачу прав (ITP).
           </li>
           <li>
-            <span className="font-bold text-gray-900">Дорожный налог:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Дорожный налог:</span>{" "}
             Оплатить ежегодный налог IVTM в мэрии.
           </li>
           <li>
-            <span className="font-bold text-gray-900">Регистрация в DGT:</span>{" "}
+            <span className="font-bold text-[var(--text-primary)]">Регистрация в DGT:</span>{" "}
             Подать все документы в дорожную инспекцию для получения разрешения и
             новых номеров.
           </li>

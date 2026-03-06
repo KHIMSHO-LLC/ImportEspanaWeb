@@ -9,7 +9,6 @@ export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already made a choice
     const consent = localStorage.getItem("cookie_consent");
     if (!consent) {
       setIsVisible(true);
@@ -29,32 +28,34 @@ export const CookieConsent = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 md:p-6 z-50 animate-in slide-in-from-bottom duration-500 print:hidden">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="text-gray-600 text-sm md:text-base flex-1">
-          <p>
-            {t("cookie_banner_text")}{" "}
-            <Link
-              href="/privacy"
-              className="text-blue-600 hover:underline font-medium"
-            >
-              {t("cookie_learn_more")}
-            </Link>
-          </p>
-        </div>
-        <div className="flex gap-3 shrink-0">
-          <button
-            onClick={handleDecline}
-            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-          >
-            {t("cookie_decline")}
-          </button>
-          <button
-            onClick={handleAccept}
-            className="px-6 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors"
-          >
-            {t("cookie_accept")}
-          </button>
+    <div className="fixed bottom-0 left-0 right-0 z-50 print:hidden animate-fadeInUp" style={{ animationDuration: '0.4s' }}>
+      <div className="mx-4 mb-4 md:mx-8 md:mb-6 max-w-2xl ml-auto">
+        <div className="backdrop-blur-xl bg-[var(--foreground)]/95 border border-white/10 rounded-2xl p-5 shadow-2xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p className="text-white/70 text-sm flex-1 leading-relaxed">
+              {t("cookie_banner_text")}{" "}
+              <Link
+                href="/privacy"
+                className="text-white underline underline-offset-2 hover:text-[var(--brand-gold)] transition-colors duration-200 font-medium"
+              >
+                {t("cookie_learn_more")}
+              </Link>
+            </p>
+            <div className="flex gap-2 shrink-0">
+              <button
+                onClick={handleDecline}
+                className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white bg-white/10 hover:bg-white/15 rounded-lg transition-all duration-200"
+              >
+                {t("cookie_decline")}
+              </button>
+              <button
+                onClick={handleAccept}
+                className="px-5 py-2 text-sm font-semibold text-[var(--foreground)] bg-white hover:bg-white/90 rounded-lg transition-all duration-200"
+              >
+                {t("cookie_accept")}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

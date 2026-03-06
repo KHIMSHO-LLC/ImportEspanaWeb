@@ -8,58 +8,53 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-gray-200 mt-auto print:hidden min-h-[100px]">
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-5">
-          {/* Links - stack as grid on mobile for bigger tap targets */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-x-6 gap-y-1 w-full sm:w-auto">
-            <Link
-              href="/privacy"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              {t("footer_privacy")}
-            </Link>
-            <Link
-              href="/terms"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              {t("footer_terms")}
-            </Link>
-            <Link
-              href="/about"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              {t("footer_about")}
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              {t("footer_howItWorks")}
-            </Link>
-            <Link
-              href="/blog"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/itp"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left"
-            >
-              ITP
-            </Link>
-            <Link
-              href="/resources"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm py-2 text-center sm:text-left col-span-2 sm:col-span-1"
-            >
-              Resources
-            </Link>
+    <footer className="mt-auto print:hidden border-t border-[var(--surface-border)]" style={{ background: 'var(--foreground)' }}>
+      <div className="max-w-7xl mx-auto py-12 px-6 md:px-8">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+          {/* Brand */}
+          <div className="space-y-3">
+            <div className="text-white font-bold text-lg tracking-tight">
+              Import<span className="text-[var(--brand-gold)]">España</span>
+            </div>
+            <p className="text-white/40 text-sm max-w-xs leading-relaxed">
+              {t("footer_rights")}
+            </p>
           </div>
 
-          {/* Copyright */}
-          <div className="text-gray-400 text-xs text-center">
-            © {currentYear} ImportEspana. {t("footer_rights")}
+          {/* Links grid */}
+          <nav className="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-3">
+            <Link href="/privacy" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              {t("footer_privacy")}
+            </Link>
+            <Link href="/terms" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              {t("footer_terms")}
+            </Link>
+            <Link href="/about" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              {t("footer_about")}
+            </Link>
+            <Link href="/how-it-works" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              {t("footer_howItWorks")}
+            </Link>
+            <Link href="/blog" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              Blog
+            </Link>
+            <Link href="/itp" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              ITP
+            </Link>
+            <Link href="/resources" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
+              Resources
+            </Link>
+          </nav>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-white/30 text-xs">
+            © {currentYear} ImportEspana
+          </div>
+          <div className="flex items-center gap-1.5 text-white/30 text-xs">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Official BOE Data
           </div>
         </div>
       </div>

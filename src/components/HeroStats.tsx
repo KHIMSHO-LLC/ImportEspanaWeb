@@ -1,69 +1,34 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { BarChart3, Car, MapPin, Percent } from "lucide-react";
 
 const stats = {
   es: [
-    {
-      icon: Car,
-      value: "47,000+",
-      label: "Coches importados a España cada año",
-    },
-    {
-      icon: BarChart3,
-      value: "€3,000–8,000",
-      label: "Ahorro medio vs comprar en España",
-    },
-    {
-      icon: MapPin,
-      value: "17",
-      label: "Comunidades con diferentes tipos de ITP",
-    },
-    {
-      icon: Percent,
-      value: "0–14.75%",
-      label: "Rango del impuesto de matriculación",
-    },
+    { value: "47,000+", label: "Coches importados/año" },
+    { value: "€3k–8k", label: "Ahorro medio" },
+    { value: "17", label: "Comunidades autónomas" },
+    { value: "0–14.75%", label: "Rango impuesto" },
   ],
   en: [
-    {
-      icon: Car,
-      value: "47,000+",
-      label: "Cars imported to Spain every year",
-    },
-    {
-      icon: BarChart3,
-      value: "€3,000–8,000",
-      label: "Average savings vs buying in Spain",
-    },
-    {
-      icon: MapPin,
-      value: "17",
-      label: "Regions with different ITP tax rates",
-    },
-    {
-      icon: Percent,
-      value: "0–14.75%",
-      label: "Registration tax range based on CO₂",
-    },
+    { value: "47,000+", label: "Cars imported/year" },
+    { value: "€3k–8k", label: "Average savings" },
+    { value: "17", label: "Tax regions" },
+    { value: "0–14.75%", label: "Tax range" },
   ],
 };
 
 const heroText = {
   es: {
-    title: "Calcula el coste real de importar tu coche",
+    eyebrow: "Calculadora gratuita",
+    title: "El coste real de importar tu coche",
     subtitle:
-      "Descubre en segundos cuánto pagarás en impuestos, tasas y transporte. Sin sorpresas.",
-    cta: "Usar calculadora gratis",
-    trusted: "Datos oficiales del BOE",
+      "Impuestos, tasas y transporte — calculados en segundos con datos oficiales del BOE.",
   },
   en: {
-    title: "Calculate the real cost of importing your car",
+    eyebrow: "Free calculator",
+    title: "The real cost of importing your car",
     subtitle:
-      "Find out in seconds what you'll pay in taxes, fees, and transport. No surprises.",
-    cta: "Use free calculator",
-    trusted: "Official BOE data",
+      "Taxes, fees and transport — calculated in seconds with official BOE data.",
   },
 };
 
@@ -74,35 +39,32 @@ export const HeroStats = () => {
   const items = stats[lang];
 
   return (
-    <div className="mb-6 space-y-5">
-      {/* Hero Text */}
-      <div className="text-center space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight">
+    <div className="mb-8 space-y-6 animate-fadeInUp">
+      {/* Hero text — editorial, dramatic */}
+      <div className="space-y-3">
+        <div className="label-caps text-[var(--brand-blue)] flex items-center gap-2">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--brand-blue)]" />
+          {text.eyebrow}
+        </div>
+        <h1 className="heading-display text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)]">
           {text.title}
         </h1>
-        <p className="text-gray-500 text-sm sm:text-base">{text.subtitle}</p>
-        <div className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">
-          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          {text.trusted}
-        </div>
+        <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-xl leading-relaxed">
+          {text.subtitle}
+        </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Stats — monospace numbers, dramatic contrast */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[var(--surface-border)] rounded-xl overflow-hidden">
         {items.map((stat, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl border border-gray-100 p-3 text-center shadow-sm hover:shadow-md transition-shadow"
+            className={`bg-[var(--surface)] p-4 sm:p-5 animate-fadeInUp stagger-${i + 1}`}
           >
-            <stat.icon className="w-5 h-5 text-blue-500 mx-auto mb-1.5" />
-            <div className="text-lg font-bold text-gray-900">{stat.value}</div>
-            <div className="text-xs text-gray-500 leading-tight">
+            <div className="number-display text-xl sm:text-2xl text-[var(--text-primary)]">
+              {stat.value}
+            </div>
+            <div className="text-xs text-[var(--text-tertiary)] mt-1 font-medium">
               {stat.label}
             </div>
           </div>

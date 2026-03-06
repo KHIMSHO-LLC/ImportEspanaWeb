@@ -19,7 +19,6 @@ export function LanguageSwitcher() {
 
   const current = languages.find((l) => l.code === language) || languages[0];
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -34,14 +33,14 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-elevated)] hover:border-[var(--text-tertiary)] transition-all duration-200 text-sm"
       >
         <span className="text-base">{current.flag}</span>
-        <span className="font-medium text-gray-700">
+        <span className="font-medium text-[var(--text-secondary)]">
           {current.code.toUpperCase()}
         </span>
         <svg
-          className={`w-3.5 h-3.5 text-gray-500 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-3.5 h-3.5 text-[var(--text-tertiary)] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -56,7 +55,7 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50 min-w-[140px]">
+        <div className="absolute right-0 mt-2 bg-[var(--surface-elevated)] border border-[var(--surface-border)] rounded-xl shadow-lg py-1 z-50 min-w-[140px] animate-slideDown">
           {languages.map((lang) => (
             <button
               key={lang.code}
@@ -64,10 +63,10 @@ export function LanguageSwitcher() {
                 setLanguage(lang.code);
                 setOpen(false);
               }}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors ${
+              className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors duration-150 ${
                 language === lang.code
-                  ? "bg-blue-50 text-blue-700 font-medium"
-                  : "text-gray-700 hover:bg-gray-50"
+                  ? "bg-[var(--brand-blue)]/8 text-[var(--brand-blue)] font-medium"
+                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-dim)]"
               }`}
             >
               <span className="text-base">{lang.flag}</span>

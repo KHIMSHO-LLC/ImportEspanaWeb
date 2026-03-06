@@ -44,11 +44,11 @@ export function LiveMarketData() {
 
   if (loading || !data) {
     return (
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
+      <div className="rounded-xl border border-[var(--surface-border)] p-4">
+        <div className="h-5 skeleton rounded w-1/3 mb-4" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-16 bg-gray-100 rounded-lg"></div>
+            <div key={i} className="h-16 skeleton rounded-lg" />
           ))}
         </div>
       </div>
@@ -56,71 +56,71 @@ export function LiveMarketData() {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-        <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2">
-          <Activity size={16} className="text-blue-600 animate-pulse" />
+    <div className="rounded-xl border border-[var(--surface-border)] overflow-hidden bg-[var(--surface-elevated)]">
+      <div className="px-4 py-3 border-b border-[var(--surface-border)] flex items-center justify-between bg-[var(--surface-dim)]">
+        <h3 className="label-caps flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-[pulse-dot_2s_ease-in-out_infinite]" />
           {lang === "es" ? "Mercado en Tiempo Real" : "Live Market Data"}
         </h3>
-        <div className="text-xs text-gray-500 font-medium bg-white px-2 py-1 rounded-md border border-gray-200 shadow-sm">
+        <div className="text-xs text-[var(--text-tertiary)] font-medium px-2 py-1 rounded-md border border-[var(--surface-border)]">
           {lang === "es" ? "Actualizado: " : "Updated: "}
-          <span className="text-green-600 font-bold">Hoy</span>
+          <span className="text-emerald-600 font-bold">Hoy</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-gray-100">
+      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-[var(--surface-border)]">
         {/* EUR to GBP */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Globe size={14} /> 🇪🇺 EUR → 🇬🇧 GBP
+        <div className="p-4 hover:bg-[var(--surface-dim)] transition-colors duration-200">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--text-tertiary)] mb-1.5">
+            <Globe size={12} /> EUR → GBP
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="number-display text-xl text-[var(--text-primary)]">
             £{data.exchangeRates.GBP.toFixed(4)}
           </div>
-          <div className="flex items-center gap-1 text-xs text-green-600 mt-1 font-medium">
+          <div className="flex items-center gap-1 text-xs text-emerald-600 mt-1.5 font-medium">
             <TrendingUp size={12} />
             Estable
           </div>
         </div>
 
         {/* EUR to PLN */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Globe size={14} /> 🇪🇺 EUR → 🇵🇱 PLN
+        <div className="p-4 hover:bg-[var(--surface-dim)] transition-colors duration-200">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--text-tertiary)] mb-1.5">
+            <Globe size={12} /> EUR → PLN
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="number-display text-xl text-[var(--text-primary)]">
             zł{data.exchangeRates.PLN.toFixed(2)}
           </div>
-          <div className="flex items-center gap-1 text-xs text-amber-600 mt-1 font-medium">
+          <div className="flex items-center gap-1 text-xs text-amber-600 mt-1.5 font-medium">
             Estable
           </div>
         </div>
 
         {/* Diesel Spain */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            <Fuel size={14} />{" "}
+        <div className="p-4 hover:bg-[var(--surface-dim)] transition-colors duration-200">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--text-tertiary)] mb-1.5">
+            <Fuel size={12} />{" "}
             {lang === "es" ? "Diésel España" : "Diesel Spain"}
           </div>
-          <div className="text-xl font-black text-gray-900">
+          <div className="number-display text-xl text-[var(--text-primary)]">
             €{data.fuel.dieselSpain.toFixed(3)}/L
           </div>
-          <div className="flex items-center gap-1 text-xs text-green-600 mt-1 font-medium">
+          <div className="flex items-center gap-1 text-xs text-emerald-600 mt-1.5 font-medium">
             <TrendingDown size={12} />
             Nacional Media
           </div>
         </div>
 
         {/* Import Activity */}
-        <div className="p-4 hover:bg-gray-50 transition-colors">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-1">
-            🚗 {lang === "es" ? "Matriculaciones" : "Registrations"}
+        <div className="p-4 hover:bg-[var(--surface-dim)] transition-colors duration-200">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--text-tertiary)] mb-1.5">
+            {lang === "es" ? "Matriculaciones" : "Registrations"}
           </div>
-          <div className="text-xl font-black text-blue-600">
+          <div className="number-display text-xl text-[var(--brand-blue)]">
             {data.stats.monthlyImports.toLocaleString("de-DE")}{" "}
-            <span className="text-sm font-medium text-gray-500">/mo</span>
+            <span className="text-sm font-medium text-[var(--text-tertiary)]">/mo</span>
           </div>
-          <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+          <div className="flex items-center gap-1 text-xs text-[var(--text-tertiary)] mt-1.5">
             DGT {data.stats.period}
           </div>
         </div>

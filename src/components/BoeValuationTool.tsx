@@ -36,7 +36,7 @@ export function BoeValuationTool() {
   const depreciatedValue = originalValue * Math.max(0, percentageRetained);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+    <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-lg border border-[var(--surface-border)] overflow-hidden">
       <div className="bg-blue-600 p-6 md:p-8 text-white">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3 mb-3">
           <Calculator size={28} />
@@ -53,8 +53,8 @@ export function BoeValuationTool() {
 
       <div className="p-6 md:p-8 space-y-8">
         {/* Step 1: Vehicle Selection */}
-        <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100">
-          <div className="flex items-center gap-3 text-lg font-bold text-gray-900 mb-2">
+        <div className="bg-[var(--surface-dim)] p-6 rounded-xl border border-[var(--surface-border)]">
+          <div className="flex items-center gap-3 text-lg font-bold text-[var(--text-primary)] mb-2">
             <span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">
               1
             </span>
@@ -62,7 +62,7 @@ export function BoeValuationTool() {
               ? "Selecciona el Vehículo Exacto"
               : "Select the Exact Vehicle"}
           </div>
-          <p className="text-sm text-gray-500 mb-6 ml-11">
+          <p className="text-sm text-[var(--text-tertiary)] mb-6 ml-11">
             {lang === "es"
               ? "Busca la marca, modelo y motorización en la base de datos oficial del BOE. Este valor representa el precio del coche cuando era completamente nuevo antes de impuestos."
               : "Search for the make, model, and engine in the official BOE database. This value represents the car's price when it was brand new before any taxes were applied."}
@@ -77,8 +77,8 @@ export function BoeValuationTool() {
 
         {/* Step 2: Registration Date */}
         {vehicleData && (
-          <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-100 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex items-center gap-3 text-lg font-bold text-gray-900 mb-2">
+          <div className="bg-[var(--surface-dim)] p-6 rounded-xl border border-[var(--surface-border)] animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-3 text-lg font-bold text-[var(--text-primary)] mb-2">
               <span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">
                 2
               </span>
@@ -86,14 +86,14 @@ export function BoeValuationTool() {
                 ? "Fecha de Primera Matriculación"
                 : "Date of First Registration"}
             </div>
-            <p className="text-sm text-gray-500 mb-6 ml-11">
+            <p className="text-sm text-[var(--text-tertiary)] mb-6 ml-11">
               {lang === "es"
                 ? "Hacienda descuenta valor a tu coche cada año que pasa. Introduce la fecha exacta (mes y año) en la que el coche se matriculó por primera vez (no importa en qué país) para calcular la depreciación oficial mensual."
                 : "The Spanish Treasury discounts your car's value every passing year. Enter the exact date (month and year) the car was first registered anywhere in the world to calculate the official monthly depreciation."}
             </p>
 
             <div className="ml-11">
-              <label className="flex items-center text-sm font-semibold text-gray-700 mb-2">
+              <label className="flex items-center text-sm font-semibold text-[var(--text-secondary)] mb-2">
                 <CalendarIcon size={16} className="text-blue-600 mr-2" />
                 {lang === "es"
                   ? "Mes y Año de Matriculación"
@@ -117,14 +117,14 @@ export function BoeValuationTool() {
 
         {/* Results */}
         {vehicleData && registrationDate && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mt-8 pt-8 border-t border-gray-200">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 mt-8 pt-8 border-t border-[var(--surface-border)]">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="heading-section text-2xl text-[var(--text-primary)]">
                 {lang === "es"
                   ? "Resultado: Tu Valor BOE en 2026"
                   : "Result: Your BOE Tax Base Value in 2026"}
               </h3>
-              <p className="text-gray-500 text-sm mt-2 max-w-2xl mx-auto">
+              <p className="text-[var(--text-tertiary)] text-sm mt-2 max-w-2xl mx-auto">
                 {lang === "es"
                   ? "A continuación puedes ver el desglose matemático de cómo la Agencia Tributaria Española calcula lo que vale tu coche hoy. Este es el valor que debes declarar obligatoriamente en tus impuestos."
                   : "Below is the mathematical breakdown of how the Spanish Tax Agency calculates what your car is worth today. This is the minimum value you must declare on your taxes to avoid fines."}
@@ -133,19 +133,19 @@ export function BoeValuationTool() {
 
             <div className="grid md:grid-cols-3 gap-6">
               {/* Original BOE Value */}
-              <div className="bg-white rounded-xl p-6 text-center border-2 border-gray-100 shadow-sm flex flex-col justify-center">
-                <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Euro size={20} className="text-gray-600" />
+              <div className="bg-[var(--surface-elevated)] rounded-xl p-6 text-center border-2 border-[var(--surface-border)] shadow-sm flex flex-col justify-center">
+                <div className="w-12 h-12 bg-[var(--surface-dim)] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Euro size={20} className="text-[var(--text-secondary)]" />
                 </div>
-                <div className="text-sm font-semibold text-gray-500 mb-1">
+                <div className="text-sm font-semibold text-[var(--text-tertiary)] mb-1">
                   {lang === "es"
                     ? "Paso 1: Valor BOE (Nuevo)"
                     : "Step 1: BOE Value (New)"}
                 </div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="heading-section text-2xl text-[var(--text-primary)]">
                   €{originalValue.toLocaleString("de-DE")}
                 </div>
-                <div className="text-xs text-gray-400 mt-2">
+                <div className="text-xs text-[var(--text-tertiary)] mt-2">
                   {lang === "es"
                     ? "Precio oficial base antes de impuestos"
                     : "Official base price before any taxes"}
@@ -153,7 +153,7 @@ export function BoeValuationTool() {
               </div>
 
               {/* Depreciation Percentage */}
-              <div className="bg-white rounded-xl p-6 text-center border-2 border-amber-100 shadow-sm flex flex-col justify-center">
+              <div className="bg-[var(--surface-elevated)] rounded-xl p-6 text-center border-2 border-amber-200/50 shadow-sm flex flex-col justify-center">
                 <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
                   <Calculator size={20} className="text-amber-600" />
                 </div>

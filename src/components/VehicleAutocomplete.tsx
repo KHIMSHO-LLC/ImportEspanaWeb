@@ -161,27 +161,25 @@ export function VehicleAutocomplete({
   // Manual entry mode
   if (isManualMode) {
     return (
-      <div className="mb-6">
-        <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-          <label className="block text-sm font-semibold text-gray-700 mb-1">
-            💰 {t("manualEntryLabel")}
+      <div className="space-y-4">
+        <div className="p-5 rounded-xl border border-[var(--surface-border)] bg-[var(--surface)]">
+          <label className="label-caps block mb-1">
+            {t("manualEntryLabel")}
           </label>
-          <p className="text-xs text-gray-500 mb-3">{t("manualEntryHelp")}</p>
-          <div className="flex gap-2">
-            <input
-              type="number"
-              className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white"
-              placeholder="Ej: 45000"
-              value={manualValue}
-              onChange={(e) => setManualValue(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleManualSubmit()}
-            />
-          </div>
+          <p className="text-xs text-[var(--text-tertiary)] mb-4">{t("manualEntryHelp")}</p>
+          <input
+            type="number"
+            className="input-field"
+            placeholder="Ej: 45000"
+            value={manualValue}
+            onChange={(e) => setManualValue(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleManualSubmit()}
+          />
 
           {manualValue && parseFloat(manualValue) > 0 && (
             <button
               onClick={handleManualSubmit}
-              className="mt-3 w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
+              className="btn-primary w-full mt-4"
             >
               {t("confirmValue")}
             </button>
@@ -190,7 +188,7 @@ export function VehicleAutocomplete({
 
         <button
           onClick={toggleManualMode}
-          className="mt-2 text-sm text-blue-600 hover:underline w-full text-center"
+          className="text-sm text-[var(--brand-blue)] hover:text-[var(--brand-blue-deep)] font-medium w-full text-center transition-colors duration-200"
         >
           {t("backToSearch")}
         </button>
@@ -199,17 +197,17 @@ export function VehicleAutocomplete({
   }
 
   return (
-    <div className="mb-6">
+    <div className="space-y-5">
       {/* Brand Search */}
-      <div className="mb-4 relative" ref={brandInputRef}>
-        <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
-          🚗 {t("brand")}
+      <div className="relative" ref={brandInputRef}>
+        <label className="label-caps flex items-center gap-2 mb-2">
+          {t("brand")}
           <InfoTooltip text={t("vehicleSearchInfo")} />
         </label>
         <input
           type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
-          placeholder="Escribe la marca (ej: Mercedes, BMW)"
+          className="input-field"
+          placeholder="Mercedes, BMW, Audi..."
           value={brandQuery}
           onChange={(e) => {
             setBrandQuery(e.target.value);
@@ -221,14 +219,14 @@ export function VehicleAutocomplete({
         />
 
         {showBrandSuggestions && filteredBrands.length > 0 && (
-          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          <div className="absolute z-10 w-full mt-2 bg-[var(--surface)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slideDown">
             {filteredBrands.map((item) => (
               <div
                 key={item}
-                className="p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0"
+                className="px-4 py-3 hover:bg-[var(--surface-dim)] cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl"
                 onClick={() => handleBrandSelect(item)}
               >
-                <div className="font-medium text-gray-900">{item}</div>
+                <div className="font-medium text-[var(--text-primary)]">{item}</div>
               </div>
             ))}
           </div>
@@ -237,14 +235,14 @@ export function VehicleAutocomplete({
 
       {/* Year Filter (optional) */}
       {selectedBrand && (
-        <div className="mb-4">
-          <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
-            📅 {t("yearOptional")}
+        <div className="animate-fadeInUp">
+          <label className="label-caps flex items-center gap-2 mb-2">
+            {t("yearOptional")}
             <InfoTooltip text={t("yearInfo")} />
           </label>
           <input
             type="number"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
+            className="input-field"
             placeholder="2020"
             maxLength={4}
             value={yearFilter}
@@ -256,15 +254,15 @@ export function VehicleAutocomplete({
 
       {/* Model Search */}
       {selectedBrand && (
-        <div className="mb-4 relative" ref={modelInputRef}>
-          <label className="flex items-center text-sm font-semibold text-gray-700 mb-1">
-            🔧 {t("model")}
+        <div className="relative animate-fadeInUp" ref={modelInputRef}>
+          <label className="label-caps flex items-center gap-2 mb-2">
+            {t("model")}
             <InfoTooltip text={t("vehicleSearchInfo")} />
           </label>
           <input
             type="text"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 placeholder:text-gray-400 bg-white shadow-sm"
-            placeholder="Escribe el modelo (ej: X5, Clase C)"
+            className="input-field"
+            placeholder="X5, Clase C, Golf..."
             value={modelQuery}
             onChange={(e) => {
               setModelQuery(e.target.value);
@@ -275,20 +273,29 @@ export function VehicleAutocomplete({
           />
 
           {showModelSuggestions && filteredModels.length > 0 && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            <div className="absolute z-10 w-full mt-2 bg-[var(--surface)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-72 overflow-y-auto animate-slideDown">
               {filteredModels.map((item) => (
                 <div
                   key={item.id}
-                  className="p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-0"
+                  className="px-4 py-3 hover:bg-[var(--surface-dim)] cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl border-b border-[var(--surface-border)] last:border-0"
                   onClick={() => handleModelSelect(item)}
                 >
-                  <div className="font-medium text-gray-900">{item.model}</div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {item.cv}cv • {item.startYear}
-                    {item.endYear ? `-${item.endYear}` : "+"} • €
-                    {item.value.toLocaleString("de-DE")}
-                    {item.co2 ? ` • ${item.co2}g CO₂` : ""}
-                    {item.fuelType === "Elc" && " ⚡"}
+                  <div className="font-medium text-[var(--text-primary)]">{item.model}</div>
+                  <div className="flex items-center gap-2 text-xs text-[var(--text-tertiary)] mt-1">
+                    <span>{item.cv}cv</span>
+                    <span className="opacity-30">·</span>
+                    <span>{item.startYear}{item.endYear ? `–${item.endYear}` : "+"}</span>
+                    <span className="opacity-30">·</span>
+                    <span className="number-display font-semibold text-[var(--text-secondary)]">€{item.value.toLocaleString("de-DE")}</span>
+                    {item.co2 ? (
+                      <>
+                        <span className="opacity-30">·</span>
+                        <span>{item.co2}g CO₂</span>
+                      </>
+                    ) : null}
+                    {item.fuelType === "Elc" && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 text-[10px] font-bold">EV</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -299,18 +306,19 @@ export function VehicleAutocomplete({
 
       {/* Selected Vehicle Info */}
       {selectedVehicle && (
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-2">
-          <div className="text-sm font-semibold text-blue-700 mb-1">
-            ✅ {t("vehicleSearch")}
+        <div className="p-5 rounded-xl border border-[var(--brand-blue)]/20 bg-[var(--brand-blue)]/[0.03] animate-fadeInUp">
+          <div className="label-caps text-[var(--brand-blue)] mb-2">
+            {t("vehicleSearch")}
           </div>
-          <div className="text-lg font-bold text-gray-900">
+          <div className="text-lg font-bold text-[var(--text-primary)] tracking-tight">
             {selectedVehicle.brand} {selectedVehicle.model}
           </div>
-          <div className="text-xl font-bold text-blue-800 mt-1">
+          <div className="number-display text-2xl text-[var(--brand-blue)] mt-1">
             €{selectedVehicle.value.toLocaleString("de-DE")}
           </div>
           {selectedVehicle.fuelType === "Elc" && (
-            <div className="mt-2 inline-block bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               {t("evDetected")}
             </div>
           )}
@@ -320,7 +328,7 @@ export function VehicleAutocomplete({
       {/* Manual Entry Link */}
       <button
         onClick={toggleManualMode}
-        className="mt-2 text-sm text-blue-600 hover:underline w-full text-center"
+        className="text-sm text-[var(--text-tertiary)] hover:text-[var(--brand-blue)] font-medium w-full text-center transition-colors duration-200"
       >
         {t("manualEntryLink")}
       </button>
