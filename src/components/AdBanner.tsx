@@ -29,24 +29,7 @@ export const AdBanner = ({
     <div
       className={`my-4 md:my-8 text-center overflow-hidden print:hidden flex justify-center w-full min-h-[100px] ${className}`}
     >
-      {/* Visual Debug Placeholder for Development */}
-      {process.env.NODE_ENV === "development" && (
-        <div
-          style={{
-            background: "#e5e7eb",
-            border: "1px dashed #9ca3af",
-            padding: "20px",
-            color: "#6b7280",
-            fontSize: "12px",
-            marginBottom: "10px",
-            minWidth: "250px",
-          }}
-        >
-          <strong>[AdSense Placeholder]</strong>
-          <br />
-          Slot: {dataAdSlot} ({dataAdFormat})
-        </div>
-      )}
+      {/* Visual Debug Placeholder REMOVED for clean UI */}
 
       <ins
         className="adsbygoogle"
