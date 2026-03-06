@@ -27,7 +27,7 @@ export const AdBanner = ({
 
   return (
     <div
-      className={`my-4 md:my-8 text-center overflow-hidden print:hidden ${className}`}
+      className={`my-4 md:my-8 text-center overflow-hidden print:hidden flex justify-center w-full min-h-[100px] ${className}`}
     >
       {/* Visual Debug Placeholder for Development */}
       {process.env.NODE_ENV === "development" && (
@@ -39,6 +39,7 @@ export const AdBanner = ({
             color: "#6b7280",
             fontSize: "12px",
             marginBottom: "10px",
+            minWidth: "250px",
           }}
         >
           <strong>[AdSense Placeholder]</strong>
@@ -49,7 +50,7 @@ export const AdBanner = ({
 
       <ins
         className="adsbygoogle"
-        style={{ display: "block" }}
+        style={{ display: "block", minWidth: "250px", width: "100%" }}
         data-ad-client="ca-pub-8296385442547902"
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}
