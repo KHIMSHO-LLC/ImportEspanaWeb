@@ -44,9 +44,14 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
+    canonical: "https://importespana.com",
     languages: {
       "es-ES": "https://importespana.com",
       "en-US": "https://importespana.com",
+      "de-DE": "https://importespana.com",
+      "fr-FR": "https://importespana.com",
+      "ru-RU": "https://importespana.com",
+      "x-default": "https://importespana.com",
     },
   },
   openGraph: {

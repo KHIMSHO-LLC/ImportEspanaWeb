@@ -3,17 +3,17 @@
 import { AdBanner } from "@/components/AdBanner";
 import { SidebarAd } from "@/components/SidebarAd";
 import { PrintLayout } from "@/components/PrintLayout";
-import { Colors } from "@/constants/Colors";
+import LeadCaptureForm from "@/components/LeadCaptureForm";
 import { useLanguage } from "@/context/LanguageContext";
 import { CalculationInput } from "@/types";
 import { calculateImportCost } from "@/utils/taxCalculator";
-import { ArrowLeft, Car, CheckCircle, Printer } from "lucide-react";
+import { ArrowLeft, Car, CheckCircle, ChevronDown, ChevronUp, Copy, Printer, Info } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 function ResultContent() {
   const searchParams = useSearchParams();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const router = useRouter();
   const [result, setResult] = useState<any>(null);
   const [input, setInput] = useState<CalculationInput | null>(null);
@@ -58,12 +58,24 @@ function ResultContent() {
     setInput(calculatedInput);
   }, [searchParams]);
 
+  const [showCalcDetails, setShowCalcDetails] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  };
+
   if (!result || !input) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
-          <span className="text-sm text-[var(--text-tertiary)]">Calculating...</span>
+          <span className="text-sm text-[var(--text-tertiary)]">{t("calculating")}</span>
         </div>
       </div>
     );
@@ -162,14 +174,21 @@ function ResultContent() {
               </div>
             </div>
 
-            {/* Print button */}
-            <div className="print:hidden">
+            {/* Action buttons */}
+            <div className="print:hidden flex flex-wrap gap-2">
               <button
                 onClick={() => window.print()}
-                className="btn-secondary w-full sm:w-auto gap-2"
+                className="btn-secondary flex items-center gap-2"
               >
                 <Printer size={16} />
                 {t("printResult")}
+              </button>
+              <button
+                onClick={handleShare}
+                className="btn-secondary flex items-center gap-2"
+              >
+                <Copy size={16} />
+                {copied ? t("copied") : t("shareResult")}
               </button>
             </div>
           </div>
@@ -276,6 +295,107 @@ function ResultContent() {
             />
           </div>
         </div>
+
+        {/* "How we calculated this" expandable */}
+        <div className="card p-5 print:hidden animate-fadeInUp">
+          <button
+            onClick={() => setShowCalcDetails(!showCalcDetails)}
+            className="w-full flex items-center justify-between text-left"
+          >
+            <span className="font-semibold text-[var(--text-primary)] flex items-center gap-2">
+              <Info size={16} className="text-[var(--brand-blue)]" />
+              {t("howWeCalculated")}
+            </span>
+            {showCalcDetails ? (
+              <ChevronUp size={16} className="text-[var(--text-tertiary)]" />
+            ) : (
+              <ChevronDown size={16} className="text-[var(--text-tertiary)]" />
+            )}
+          </button>
+          {showCalcDetails && (
+            <div className="mt-4 space-y-3 text-sm text-[var(--text-secondary)]">
+              <p>
+                <strong className="text-[var(--text-primary)]">
+                  {language === "de" ? "Zulassungssteuer (IEDMT):" : language === "fr" ? "Taxe d'immatriculation (IEDMT) :" : language === "ru" ? "Налог на регистрацию (IEDMT):" : "Impuesto de Matriculación (IEDMT):"}
+                </strong>{" "}
+                {language === "de"
+                  ? `Berechnet durch Anwendung des CO₂-Steuersatzes (${input.co2Emissions} g/km → ${(result.taxRateApplied * 100).toFixed(2)}%) auf den abgeschriebenen Steuerwert (${(result.depreciationPercentage * 100).toFixed(0)}% von ${result.taxBase > 0 ? (result.taxBase / result.depreciationPercentage).toFixed(0) : "—"} €).`
+                  : language === "fr"
+                  ? `Calculé en appliquant le taux CO₂ (${input.co2Emissions} g/km → ${(result.taxRateApplied * 100).toFixed(2)}%) sur la valeur fiscale dépréciée (${(result.depreciationPercentage * 100).toFixed(0)}% de ${result.taxBase > 0 ? (result.taxBase / result.depreciationPercentage).toFixed(0) : "—"} €).`
+                  : language === "ru"
+                  ? `Рассчитывается путём применения ставки CO₂ (${input.co2Emissions} г/км → ${(result.taxRateApplied * 100).toFixed(2)}%) к амортизированной стоимости (${(result.depreciationPercentage * 100).toFixed(0)}% от ${result.taxBase > 0 ? (result.taxBase / result.depreciationPercentage).toFixed(0) : "—"} €).`
+                  : language === "en"
+                  ? `Calculated by applying the CO₂ tax rate (${input.co2Emissions} g/km → ${(result.taxRateApplied * 100).toFixed(2)}%) to the depreciated BOE fiscal value (${(result.depreciationPercentage * 100).toFixed(0)}% of ${result.taxBase > 0 ? (result.taxBase / result.depreciationPercentage).toFixed(0) : "—"} €).`
+                  : `Se calcula aplicando el tipo impositivo según las emisiones CO₂ (${input.co2Emissions} g/km → ${(result.taxRateApplied * 100).toFixed(2)}%) sobre el valor fiscal del BOE depreciado (${(result.depreciationPercentage * 100).toFixed(0)}% de ${result.taxBase > 0 ? (result.taxBase / result.depreciationPercentage).toFixed(0) : "—"} €).`}
+              </p>
+              {result.itpTax > 0 && (
+                <p>
+                  <strong className="text-[var(--text-primary)]">ITP:</strong>{" "}
+                  {language === "de"
+                    ? "Grunderwerbsteuer bei Kauf von Privatperson. Berechnet auf den BOE-Steuerwert nach dem Satz der autonomen Gemeinschaft."
+                    : language === "fr"
+                    ? "Taxe de transfert de propriété pour achat auprès d'un particulier. Calculée sur la valeur fiscale BOE selon le taux de la communauté autonome."
+                    : language === "ru"
+                    ? "Налог на передачу имущества при покупке у частного лица. Рассчитывается на основе фискальной стоимости BOE по ставке автономного сообщества."
+                    : language === "en"
+                    ? "Transfer tax applied when buying from a private seller. Calculated on the BOE fiscal value at your autonomous community's rate."
+                    : "Impuesto de Transmisiones Patrimoniales aplicado por comprar a un particular. Se calcula sobre el valor fiscal BOE según el tipo de tu comunidad autónoma."}
+                </p>
+              )}
+              {result.duty > 0 && (
+                <p>
+                  <strong className="text-[var(--text-primary)]">
+                    {language === "de" ? "Zoll:" : language === "fr" ? "Droits de douane :" : language === "ru" ? "Таможенная пошлина:" : language === "en" ? "Customs duty:" : "Arancel aduanero:"}
+                  </strong>{" "}
+                  {language === "de"
+                    ? "10% des CIF-Werts (Preis + Transport + Versicherung) für Fahrzeuge aus Drittländern (allgemeiner EU-Zolltarif, TARIC 8703)."
+                    : language === "fr"
+                    ? "10% de la valeur CIF (prix + transport + assurance) pour les véhicules hors UE (tarif douanier UE général, TARIC 8703)."
+                    : language === "ru"
+                    ? "10% от стоимости CIF (цена + доставка + страховка) для автомобилей из третьих стран (общий тариф ЕС, TARIC 8703)."
+                    : language === "en"
+                    ? "10% of CIF value (price + transport + insurance) for non-EU vehicles (general EU customs tariff, TARIC 8703)."
+                    : "10% del valor CIF (precio + transporte + seguro) por ser un vehículo de origen no comunitario (arancel general UE, TARIC 8703)."}
+                </p>
+              )}
+              {result.vat > 0 && (
+                <p>
+                  <strong className="text-[var(--text-primary)]">
+                    {language === "de" ? "Einfuhr-MwSt.:" : language === "fr" ? "TVA d'importation :" : language === "ru" ? "НДС на импорт:" : language === "en" ? "Import VAT:" : "IVA de importación:"}
+                  </strong>{" "}
+                  {language === "de"
+                    ? "21% auf den CIF-Wert plus Zoll. Gilt für Fahrzeuge außerhalb der EU."
+                    : language === "fr"
+                    ? "21% sur la valeur CIF plus les droits de douane. S'applique aux véhicules hors UE."
+                    : language === "ru"
+                    ? "21% от стоимости CIF плюс таможенная пошлина. Применяется к автомобилям из-за пределов ЕС."
+                    : language === "en"
+                    ? "21% on the CIF value plus customs duty. Applies to vehicles imported from outside the EU."
+                    : "21% sobre el valor CIF más el arancel. Aplica para vehículos importados de fuera de la UE."}
+                </p>
+              )}
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {t("calcSource")}{" "}
+                <a href="/metodologia" className="text-[var(--brand-blue)] hover:underline">
+                  {t("seeMethodology")}
+                </a>
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Lead capture form */}
+        <div className="print:hidden">
+          <LeadCaptureForm
+            vehicleContext={{
+              brand: searchParams.get("brand") ?? undefined,
+              model: searchParams.get("model") ?? undefined,
+              price: searchParams.get("carPrice") ?? undefined,
+              totalCost: result ? result.totalCost.toFixed(0) : undefined,
+              originCountry: searchParams.get("originCountry") ?? undefined,
+            }}
+          />
+        </div>
       </div>
     </>
   );
@@ -315,7 +435,7 @@ export default function ResultPage() {
             <div className="min-h-[60vh] flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm text-[var(--text-tertiary)]">Loading...</span>
+                <span className="text-sm text-[var(--text-tertiary)]">…</span>
               </div>
             </div>
           }

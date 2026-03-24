@@ -1,4 +1,5 @@
 import { CalculationInput, CalculationResult, Country } from "../types";
+import { DEFAULT_ITP_RATE } from "../constants/ItpRates";
 
 // Official Hacienda Depreciation Table (BOE)
 // Represents the % of value RETAINED by the car.
@@ -30,11 +31,30 @@ const TRANSPORT_COSTS: Record<Country, number> = {
   Korea: 2000,
 };
 
+// Regional IEDMT top-bracket (≥200 g/km) overrides
+// Source: Agencia Tributaria, updated March 3, 2026
+// Only the top bracket is confirmed from official sources; middle brackets default to national rates.
+// Canarias/Ceuta/Melilla apply 0% to ALL brackets (IGIC/IPSI territories).
+const IEDMT_TOP_BRACKET_BY_REGION: Record<string, number> = {
+  Asturias: 0.16,        // +1.25% over national 14.75%
+  Cataluña: 0.16,        // +1.25%
+  "Comunidad Valenciana": 0.16, // +1.25%
+  Murcia: 0.159,         // +1.15%
+  Cantabria: 0.15,       // +0.25%
+  Baleares: 0.16,        // +1.25%
+  Canarias: 0.0,         // IGIC territory — all IEDMT brackets = 0%
+  Ceuta: 0.0,            // IPSI territory — all IEDMT brackets = 0%
+  Melilla: 0.0,          // IPSI territory — all IEDMT brackets = 0%
+};
+
+// Regions where ALL IEDMT brackets (not just the top) are 0%
+const IEDMT_ALL_ZERO_REGIONS = new Set(["Canarias", "Ceuta", "Melilla"]);
+
 const FEES = {
-  DGT: 99.77,
-  ITV: 150.0, // ITV for Homologation is more expensive (~150-250)
-  PLATES: 200.0,
-  HOMOLOGATION: 1600.0, // Avg cost for individual homologation (range 500-2500)
+  DGT: 99.77,   // Tasa 1.1 DGT — permiso de circulación (BOE 2026)
+  ITV: 150.0,   // ITV for imported vehicles (~150-250 depending on centre)
+  PLATES: 50.0, // License plates (made by private suppliers, ~30-70€)
+  HOMOLOGATION: 1500.0, // Avg cost for individual homologation (range 500-2500)
 };
 
 export function getDepreciationFactor(
@@ -85,12 +105,26 @@ export function calculateImportCost(
   );
   const taxBase = input.officialFiscalValue * depreciationFactor;
 
-  // 2. Registration Tax (Impuesto de Matriculación)
+  // 2. Registration Tax (IEDMT — Impuesto Especial sobre Determinados Medios de Transporte)
+  // National brackets: 0% / 4.75% / 9.75% / 14.75%
+  // Regional overrides: some communities modify the top bracket; Canarias/Ceuta/Melilla = 0% always
+  const region = input.spanishRegion;
   let taxRate = 0;
-  if (input.co2Emissions <= 120) taxRate = 0;
-  else if (input.co2Emissions < 160) taxRate = 0.0475;
-  else if (input.co2Emissions < 200) taxRate = 0.0975;
-  else taxRate = 0.1475;
+  if (region && IEDMT_ALL_ZERO_REGIONS.has(region)) {
+    taxRate = 0;
+  } else if (input.co2Emissions <= 120) {
+    taxRate = 0;
+  } else if (input.co2Emissions < 160) {
+    taxRate = 0.0475;
+  } else if (input.co2Emissions < 200) {
+    taxRate = 0.0975;
+  } else {
+    // Top bracket: use regional override if confirmed, else national 14.75%
+    taxRate =
+      region && IEDMT_TOP_BRACKET_BY_REGION[region] !== undefined
+        ? IEDMT_TOP_BRACKET_BY_REGION[region]
+        : 0.1475;
+  }
 
   const registrationTax = taxBase * taxRate;
 
@@ -122,9 +156,8 @@ export function calculateImportCost(
       } else {
         // private seller
         vat = 0;
-        let defaultRate = 0.08;
-        if (taxBase > 20000) defaultRate = 0.1;
-        const rateITP = input.itpRate ?? defaultRate;
+        // Use selected region rate; fall back to national average (4%) if none provided
+        const rateITP = input.itpRate ?? DEFAULT_ITP_RATE;
         itpTax = taxBase * rateITP;
       }
     }

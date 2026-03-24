@@ -21,14 +21,16 @@ import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
 export default function CarPageContent({
   heroCar,
   queryModel,
+  displayBrand,
 }: {
   heroCar: Vehicle;
   queryModel: string;
+  displayBrand: string;
 }) {
   const { language } = useLanguage();
   const lang = language === "es" ? "es" : "en";
 
-  const displayName = `${heroCar.brand} ${queryModel}`;
+  const displayName = `${displayBrand} ${queryModel}`;
 
   return (
     <div className="bg-[var(--surface-dim)] min-h-screen">

@@ -2,6 +2,20 @@ import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog-data";
 import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
+import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
+
+const CITY_SLUGS = [
+  "madrid",
+  "barcelona",
+  "sevilla",
+  "valencia",
+  "zaragoza",
+  "bilbao",
+  "malaga",
+  "alicante",
+  "murcia",
+  "palma",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://importespana.com";
@@ -61,6 +75,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/preguntas-frecuentes`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/metodologia`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/importar-coche-dubai`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/valoracion-boe`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/coches`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 
   // Region-specific ITP / import pages (17 pages)
@@ -79,6 +123,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // City-specific pages (10 cities)
+  const cityPages: MetadataRoute.Sitemap = CITY_SLUGS.map((slug) => ({
+    url: `${baseUrl}/importar-coche-${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   // Blog post pages
   const posts = getAllPosts();
   const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
@@ -88,5 +140,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...regionPages, ...countryPages, ...blogPages];
+  // Car model pages
+  const carPages: MetadataRoute.Sitemap = TOP_SEO_MODELS.map((car) => ({
+    url: `${baseUrl}/coche/${slugify(`${car.brand}-${car.modelQuery}`)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticPages,
+    ...regionPages,
+    ...countryPages,
+    ...cityPages,
+    ...blogPages,
+    ...carPages,
+  ];
 }

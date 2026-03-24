@@ -7,6 +7,11 @@ export const metadata: Metadata = {
     "See how simple it is to import a car to Spain with ImportEspana. Calculate taxes, manage paperwork, and register your vehicle in 4 easy steps.",
   alternates: {
     canonical: "https://importespana.com/how-it-works",
+    languages: {
+      "es-ES": "https://importespana.com/how-it-works",
+      "en-US": "https://importespana.com/how-it-works",
+      "x-default": "https://importespana.com/how-it-works",
+    },
   },
 };
 

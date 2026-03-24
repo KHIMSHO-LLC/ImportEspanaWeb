@@ -1,11 +1,41 @@
 "use client";
 
-import { FAQ_DATA } from "@/constants/FaqData";
+import { FAQ_DATA, FAQItem } from "@/constants/FaqData";
 
-export default function SeoSchema() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface ArticleData {
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  url?: string;
+}
+
+interface SeoSchemaProps {
+  /** Custom breadcrumbs — if not provided, uses default homepage breadcrumbs */
+  breadcrumbs?: BreadcrumbItem[];
+  /** Custom FAQ items — if not provided and showHomeFaq is true, uses FAQ_DATA.es */
+  faqItems?: FAQItem[];
+  /** Pass article data to generate Article schema (for blog posts) */
+  articleData?: ArticleData;
+  /** Whether to include full home-page schemas (WebApplication, HowTo, etc.) */
+  showHomeSchemas?: boolean;
+}
+
+export default function SeoSchema({
+  breadcrumbs,
+  faqItems,
+  articleData,
+  showHomeSchemas = true,
+}: SeoSchemaProps = {}) {
+  const schemaGraph: object[] = [];
+
+  if (showHomeSchemas) {
+    schemaGraph.push(
       {
         "@type": "WebApplication",
         name: "ImportEspana — Calculadora de Impuestos de Matriculación",
@@ -31,17 +61,6 @@ export default function SeoSchema() {
           "Comparación de ITP por región",
           "Guía de importación por país de origen",
         ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: FAQ_DATA.es.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
       },
       {
         "@type": "Organization",
@@ -72,29 +91,6 @@ export default function SeoSchema() {
         },
       },
       {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Inicio",
-            item: "https://importespana.com",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Valoración BOE",
-            item: "https://importespana.com/valoracion-boe",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Impuesto ITP",
-            item: "https://importespana.com/itp",
-          },
-        ],
-      },
-      {
         "@type": "HowTo",
         name: "Cómo matricular un coche extranjero en España",
         description:
@@ -122,7 +118,66 @@ export default function SeoSchema() {
           },
         ],
       },
-    ],
+    );
+  }
+
+  // Breadcrumbs
+  const breadcrumbItems = breadcrumbs ?? [
+    { name: "Inicio", url: "https://importespana.com" },
+    { name: "Valoración BOE", url: "https://importespana.com/valoracion-boe" },
+    { name: "Impuesto ITP", url: "https://importespana.com/itp" },
+  ];
+  schemaGraph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  });
+
+  // FAQ
+  const faqData = faqItems ?? (showHomeSchemas ? FAQ_DATA.es : null);
+  if (faqData && faqData.length > 0) {
+    schemaGraph.push({
+      "@type": "FAQPage",
+      mainEntity: faqData.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    });
+  }
+
+  // Article (for blog posts or content pages)
+  if (articleData) {
+    schemaGraph.push({
+      "@type": "Article",
+      headline: articleData.title,
+      description: articleData.description,
+      datePublished: articleData.datePublished,
+      dateModified: articleData.dateModified ?? articleData.datePublished,
+      url: articleData.url,
+      author: {
+        "@type": "Organization",
+        name: "ImportEspana",
+        url: "https://importespana.com",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "ImportEspana",
+        url: "https://importespana.com",
+      },
+    });
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": schemaGraph,
   };
 
   return (

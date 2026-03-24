@@ -7,6 +7,11 @@ export const metadata: Metadata = {
     "Learn about ImportEspana, the leading tool for calculating vehicle import taxes in Spain. Our mission is to simplify the complex process of importing vehicles.",
   alternates: {
     canonical: "https://importespana.com/about",
+    languages: {
+      "es-ES": "https://importespana.com/about",
+      "en-US": "https://importespana.com/about",
+      "x-default": "https://importespana.com/about",
+    },
   },
 };
 

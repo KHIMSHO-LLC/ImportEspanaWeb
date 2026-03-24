@@ -7,7 +7,7 @@ import { StickyAdFooter } from "@/components/StickyAdFooter";
 
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { FaqSection } from "@/components/FaqSection";
-import { HeroStats } from "@/components/HeroStats";
+import { HeroStats, StatsBanner } from "@/components/HeroStats";
 import { OfficialSources } from "@/components/OfficialSources";
 import { MonthYearPicker } from "@/components/MonthYearPicker";
 import dynamic from "next/dynamic";
@@ -46,12 +46,17 @@ import {
   FileCheck,
   Gauge,
   Globe,
+  Link2,
   MapPin,
   RotateCcw,
   Truck,
   User,
   TrendingDown,
+  Shield,
+  Clock,
+  Star,
 } from "lucide-react";
+import { CITIES } from "@/data/cities";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -106,6 +111,52 @@ export function HomeContent({
     isManual: boolean;
     year?: number;
   } | null>(null);
+
+  // URL paste state
+  const [activeTab, setActiveTab] = useState<"manual" | "url">("manual");
+  const [listingUrl, setListingUrl] = useState("");
+  const [urlLoading, setUrlLoading] = useState(false);
+  const [urlError, setUrlError] = useState<string | null>(null);
+
+  const fetchListingData = async () => {
+    if (!listingUrl.trim()) return;
+    setUrlLoading(true);
+    setUrlError(null);
+    try {
+      const res = await fetch("/api/parse-listing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: listingUrl.trim() }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        setUrlError(data.error ?? "No se pudieron obtener los datos.");
+        return;
+      }
+      const v = data.data;
+      if (v.price) setPrice(v.price.toString());
+      if (v.co2 !== undefined) {
+        setCo2Emissions(v.co2.toString());
+        if (v.co2 === 0) setIsElectric(true);
+        setTouched((prev) => ({ ...prev, co2: true }));
+      }
+      if (v.make || v.model) {
+        setVehicleData({
+          value: 0,
+          brand: v.make,
+          model: v.model,
+          fuelType: v.fuelType,
+          isManual: false,
+          year: v.year,
+        });
+      }
+      setActiveTab("manual");
+    } catch {
+      setUrlError("Error al obtener los datos. Introduce los datos manualmente.");
+    } finally {
+      setUrlLoading(false);
+    }
+  };
 
   // Validation state
   const [touched, setTouched] = useState({
@@ -275,17 +326,67 @@ export function HomeContent({
     <div className="w-full space-y-8">
       <HeroStats />
 
-      <LiveMarketData />
-
-      <AdBanner
-        dataAdSlot="1957145426"
-        dataAdFormat="horizontal"
-        dataFullWidthResponsive={true}
-        className="hidden md:block"
-      />
-
       {/* Calculator — the instrument */}
       <div className="space-y-8">
+
+        {/* Tab switcher: manual vs URL paste */}
+        <div className="pill-group">
+          <button
+            onClick={() => setActiveTab("manual")}
+            className={`pill-option ${activeTab === "manual" ? "active" : ""}`}
+          >
+            <Euro size={14} />
+            {language === "es" ? "Introducir datos" : "Enter data"}
+          </button>
+          <button
+            onClick={() => setActiveTab("url")}
+            className={`pill-option ${activeTab === "url" ? "active" : ""}`}
+          >
+            <Link2 size={14} />
+            {language === "es" ? "Pegar enlace" : "Paste link"}
+            <span className="text-[9px] font-bold bg-[var(--brand-blue)] text-white px-1.5 py-0.5 rounded-full leading-none">NEW</span>
+          </button>
+        </div>
+
+        {/* URL paste tab */}
+        {activeTab === "url" && (
+          <div className="space-y-3">
+            <div className="space-y-2">
+              <label className="label-caps flex items-center gap-2">
+                <Link2 size={14} className="text-[var(--brand-blue)]" />
+                {language === "es" ? "URL de mobile.de o AutoScout24" : "mobile.de or AutoScout24 URL"}
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  value={listingUrl}
+                  onChange={(e) => { setListingUrl(e.target.value); setUrlError(null); }}
+                  placeholder="https://www.mobile.de/..."
+                  className="input-field flex-1"
+                />
+                <button
+                  onClick={fetchListingData}
+                  disabled={urlLoading || !listingUrl.trim()}
+                  className="btn-primary px-4 shrink-0"
+                >
+                  {urlLoading ? "..." : (language === "es" ? "Obtener" : "Fetch")}
+                </button>
+              </div>
+              {urlError && (
+                <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm">
+                  <AlertTriangle size={14} />
+                  {urlError}
+                </div>
+              )}
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {language === "es"
+                  ? "Pega el enlace del anuncio y autorellenaremos los campos."
+                  : "Paste the listing URL and we'll autofill the fields."}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Import Type Toggle */}
         <div className="pill-group">
           <button
@@ -421,7 +522,7 @@ export function HomeContent({
           <div className="space-y-2">
             <label className="label-caps flex items-center gap-2">
               <Calendar size={14} className="text-[var(--brand-blue)]" />
-              Date of First Registration (Month/Year)
+              {t("registrationDateLabel")}
             </label>
             <MonthYearPicker
               value={registrationDate}
@@ -438,10 +539,10 @@ export function HomeContent({
             />
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-[var(--text-primary)]">
-                Vehicle is {"<"} 6 months old OR has {"<"} 6,000 km
+                {t("newVehicleLabel")}
               </span>
               <span className="text-xs text-[var(--text-tertiary)] mt-0.5">
-                Subject to 21% VAT (IVA) instead of Transfer Tax (ITP)
+                {t("newVehicleDesc")}
               </span>
             </div>
           </label>
@@ -630,6 +731,66 @@ export function HomeContent({
         />
       </div>
 
+      {/* Stats banner — shown after calculator engagement */}
+      <StatsBanner />
+
+      {/* Cómo funciona — 3 step visual */}
+      <div className="space-y-3">
+        <h2 className="label-caps flex items-center gap-2">
+          <Star size={12} className="text-[var(--brand-blue)]" />
+          {language === "es" ? "Cómo funciona" : "How it works"}
+        </h2>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { step: "1", icon: "🔍", title: language === "es" ? "Busca tu coche" : "Find your car", desc: language === "es" ? "Introduce marca, modelo y precio" : "Enter make, model and price" },
+            { step: "2", icon: "🧮", title: language === "es" ? "Calcula impuestos" : "Calculate taxes", desc: language === "es" ? "Tablas BOE 2026 oficiales" : "Official 2026 BOE tables" },
+            { step: "3", icon: "✅", title: language === "es" ? "Ve el resultado" : "See result", desc: language === "es" ? "Desglose completo en segundos" : "Full breakdown in seconds" },
+          ].map((s) => (
+            <div key={s.step} className="card p-4 text-center space-y-2">
+              <div className="text-2xl">{s.icon}</div>
+              <div className="font-semibold text-[var(--text-primary)] text-sm">{s.title}</div>
+              <div className="text-xs text-[var(--text-tertiary)]">{s.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <LiveMarketData />
+
+      <AdBanner
+        dataAdSlot="1957145426"
+        dataAdFormat="horizontal"
+        dataFullWidthResponsive={true}
+        className="hidden md:block"
+      />
+
+      {/* Trust signals */}
+      <div className="space-y-3">
+        <h2 className="label-caps flex items-center gap-2">
+          <Shield size={12} className="text-[var(--brand-blue)]" />
+          {language === "es" ? "Por qué ImportEspana" : "Why ImportEspana"}
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { icon: <CheckCircle size={16} className="text-emerald-500" />, title: language === "es" ? "Datos oficiales BOE" : "Official BOE data", desc: language === "es" ? "Tablas actualizadas enero 2026" : "Tables updated January 2026" },
+            { icon: <Clock size={16} className="text-[var(--brand-blue)]" />, title: language === "es" ? "Resultado en segundos" : "Result in seconds", desc: language === "es" ? "Sin registro, sin esperas" : "No signup, no waiting" },
+            { icon: <Globe size={16} className="text-purple-500" />, title: language === "es" ? "17 comunidades" : "17 regions", desc: language === "es" ? "ITP exacto por comunidad" : "Exact ITP per region" },
+            { icon: <Shield size={16} className="text-amber-500" />, title: language === "es" ? "Gratuito siempre" : "Always free", desc: language === "es" ? "Sin anuncios ocultos" : "No hidden fees" },
+          ].map((item, i) => (
+            <div key={i} className="card p-4 flex gap-3 items-start">
+              <div className="shrink-0 mt-0.5">{item.icon}</div>
+              <div>
+                <div className="font-semibold text-[var(--text-primary)] text-sm">{item.title}</div>
+                <div className="text-xs text-[var(--text-tertiary)] mt-0.5">{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-[var(--text-tertiary)] text-right">
+          {language === "es" ? "Última actualización: Enero 2026 — Fuente: BOE" : "Last updated: January 2026 — Source: BOE"}
+        </p>
+      </div>
+
       <SeoContent />
       <FaqSection />
       <OfficialSources />
@@ -674,6 +835,44 @@ export function HomeContent({
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* City pages grid */}
+        <div>
+          <h3 className="label-caps mb-3 flex items-center gap-1.5">
+            <MapPin size={12} className="text-[var(--brand-blue)]" />
+            {language === "es" ? "Importar por ciudad" : "Import by city"}
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {CITIES.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/importar-coche-${city.slug}`}
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--brand-blue)] bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-2 rounded-xl transition-all duration-200 flex justify-between items-center"
+              >
+                <span className="font-medium">{city.name}</span>
+                <span className="text-[var(--text-tertiary)]">ITP {city.itpRate}%</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Dubai link */}
+        <div>
+          <Link
+            href="/importar-coche-dubai"
+            className="flex items-center gap-3 p-4 bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] rounded-xl transition-all duration-200"
+          >
+            <span className="text-2xl">🇦🇪</span>
+            <div>
+              <div className="text-sm font-semibold text-[var(--text-primary)]">
+                {language === "es" ? "Calculadora importación Dubái → España" : "Dubai → Spain import calculator"}
+              </div>
+              <div className="text-xs text-[var(--text-tertiary)]">
+                {language === "es" ? "Aranceles, IVA, homologación" : "Customs, VAT, homologation"}
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

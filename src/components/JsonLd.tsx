@@ -26,7 +26,7 @@ export default function JsonLd() {
         },
         sameAs: [
           "https://twitter.com/importespana",
-          "https://facebook.com/importespana", // Placeholders, update if real ones exist
+          "https://facebook.com/importespana",
         ],
         contactPoint: {
           "@type": "ContactPoint",
@@ -35,6 +35,29 @@ export default function JsonLd() {
           areaServed: "ES",
           availableLanguage: ["es", "en", "de", "fr", "ru"],
         },
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://importespana.com/#calculator",
+        name: "Calculadora de Impuestos de Importación de Coches a España",
+        url: "https://importespana.com",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "All",
+        inLanguage: ["es", "en", "de", "fr", "ru"],
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+        },
+        description:
+          "Calculadora gratuita del impuesto de matriculación (IEDMT), ITP, aranceles y demás costes de importar un coche a España desde la UE o terceros países. Usa datos oficiales del BOE.",
+        featureList: [
+          "Cálculo del Impuesto de Matriculación (IEDMT) con tramos CO2 oficiales",
+          "ITP por comunidad autónoma (19 regiones)",
+          "Aranceles aduaneros y IVA para importaciones extracomunitarias",
+          "Valor fiscal BOE actualizado (Enero 2026)",
+          "Cálculo de transporte, ITV, DGT y homologación",
+        ],
       },
     ],
   };

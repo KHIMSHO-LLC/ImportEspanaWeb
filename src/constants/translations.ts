@@ -141,6 +141,18 @@ export const translations = {
     hiw_cta_text: "Get precise tax estimates in seconds.",
     hiw_cta_button: "Go to Calculator",
     selectRegion: "Region (Comunidad Autónoma)",
+    // Calculator form labels
+    registrationDateLabel: "Date of First Registration (Month/Year)",
+    newVehicleLabel: "Vehicle is < 6 months old OR has < 6,000 km",
+    newVehicleDesc: "Subject to 21% VAT (IVA) instead of Transfer Tax (ITP)",
+    // Result page
+    calculating: "Calculating...",
+    loading: "Loading...",
+    shareResult: "Share result",
+    copied: "Copied!",
+    howWeCalculated: "How was this calculated?",
+    calcSource: "Source: BOE 2026 tables. Fiscal values updated annually.",
+    seeMethodology: "See full methodology →",
     // Cookie Consent
     cookie_banner_text:
       "We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our advertising and analytics partners.",
@@ -287,6 +299,18 @@ export const translations = {
     hiw_cta_text: "Obtén estimaciones precisas en segundos.",
     hiw_cta_button: "Ir a la Calculadora",
     selectRegion: "Región (Comunidad Autónoma)",
+    // Calculator form labels
+    registrationDateLabel: "Fecha de Primera Matriculación (Mes/Año)",
+    newVehicleLabel: "Vehículo < 6 meses o < 6.000 km",
+    newVehicleDesc: "Sujeto a 21% IVA en lugar del ITP",
+    // Result page
+    calculating: "Calculando...",
+    loading: "Cargando...",
+    shareResult: "Compartir resultado",
+    copied: "¡Copiado!",
+    howWeCalculated: "¿Cómo hemos calculado esto?",
+    calcSource: "Fuente: Tablas BOE 2026. Los valores fiscales se actualizan anualmente.",
+    seeMethodology: "Ver metodología completa →",
     // Cookie Consent
     cookie_banner_text:
       "Utilizamos cookies para personalizar contenido y anuncios, proporcionar funciones de redes sociales y analizar nuestro tráfico. También compartimos información sobre el uso de nuestro sitio con nuestros socios de publicidad y análisis.",
@@ -427,6 +451,18 @@ export const translations = {
     hiw_cta_text: "Получите точную оценку за секунды.",
     hiw_cta_button: "Перейти к калькулятору",
     selectRegion: "Регион (автономное сообщество)",
+    // Calculator form labels
+    registrationDateLabel: "Дата первой регистрации (Месяц/Год)",
+    newVehicleLabel: "Авто < 6 месяцев или < 6 000 км",
+    newVehicleDesc: "Облагается 21% НДС вместо налога ITP",
+    // Result page
+    calculating: "Вычисление...",
+    loading: "Загрузка...",
+    shareResult: "Поделиться результатом",
+    copied: "Скопировано!",
+    howWeCalculated: "Как это рассчитано?",
+    calcSource: "Источник: Таблицы BOE 2026. Значения обновляются ежегодно.",
+    seeMethodology: "Полная методология →",
     // Cookie Consent
     cookie_banner_text:
       "Мы используем файлы cookie для персонализации контента и рекламы, предоставления функций социальных сетей и анализа нашего трафика.",
@@ -566,6 +602,18 @@ export const translations = {
     hiw_cta_text: "Erhalten Sie präzise Schätzungen in Sekunden.",
     hiw_cta_button: "Zum Rechner",
     selectRegion: "Region (Autonome Gemeinschaft)",
+    // Calculator form labels
+    registrationDateLabel: "Erstzulassungsdatum (Monat/Jahr)",
+    newVehicleLabel: "Fahrzeug < 6 Monate oder < 6.000 km",
+    newVehicleDesc: "Unterliegt 21% MwSt. statt Übertragungssteuer (ITP)",
+    // Result page
+    calculating: "Berechnung...",
+    loading: "Laden...",
+    shareResult: "Ergebnis teilen",
+    copied: "Kopiert!",
+    howWeCalculated: "Wie wurde das berechnet?",
+    calcSource: "Quelle: BOE-Tabellen 2026. Steuerwerte jährlich aktualisiert.",
+    seeMethodology: "Vollständige Methodik →",
     // Cookie Consent
     cookie_banner_text:
       "Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren, Funktionen für soziale Medien anzubieten und unseren Datenverkehr zu analysieren.",
@@ -703,6 +751,18 @@ export const translations = {
     hiw_cta_text: "Obtenez des estimations précises.",
     hiw_cta_button: "Aller à la calculatrice",
     selectRegion: "Région (Communauté autonome)",
+    // Calculator form labels
+    registrationDateLabel: "Date de première immatriculation (Mois/Année)",
+    newVehicleLabel: "Véhicule < 6 mois ou < 6 000 km",
+    newVehicleDesc: "Soumis à 21% TVA au lieu de la taxe de transfert (ITP)",
+    // Result page
+    calculating: "Calcul en cours...",
+    loading: "Chargement...",
+    shareResult: "Partager le résultat",
+    copied: "Copié !",
+    howWeCalculated: "Comment a-t-on calculé ça ?",
+    calcSource: "Source : Tables BOE 2026. Valeurs fiscales mises à jour annuellement.",
+    seeMethodology: "Voir la méthodologie complète →",
     // Cookie Consent
     cookie_banner_text:
       "Nous utilisons des cookies pour personnaliser le contenu et les publicités, pour fournir des fonctionnalités de médias sociaux et pour analyser notre trafic.",

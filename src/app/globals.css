@@ -357,6 +357,21 @@ body {
 .stagger-4 { animation-delay: 0.2s; }
 .stagger-5 { animation-delay: 0.25s; }
 
+/* ===== Trust badges ===== */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
 /* ===== Skeleton loading ===== */
 .skeleton {
   background: linear-gradient(90deg, var(--surface-dim) 25%, var(--surface-border) 50%, var(--surface-dim) 75%);

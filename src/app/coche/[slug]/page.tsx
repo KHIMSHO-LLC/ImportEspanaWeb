@@ -74,7 +74,11 @@ export default async function CarModelPage({
 
   return (
     <>
-      <CarPageContent heroCar={heroCar} queryModel={carMatch.modelQuery} />
+      <CarPageContent
+        heroCar={heroCar}
+        queryModel={carMatch.modelQuery}
+        displayBrand={carMatch.brand}
+      />
 
       {/* JSON-LD Schema (server-rendered for SEO) */}
       <script

@@ -38,6 +38,7 @@ export interface CalculationInput {
   sellerType: "dealer" | "private";
   transportCost?: number;
   itpRate?: number; // Regional Transfer Tax Rate (Default 0.04)
+  spanishRegion?: string; // Spanish region name (for regional IEDMT overrides)
   customsAgentFee?: number;
   needsHomologation?: boolean;
   brand?: string;

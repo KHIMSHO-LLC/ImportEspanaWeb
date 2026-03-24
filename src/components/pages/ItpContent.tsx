@@ -223,6 +223,39 @@ export default function ItpContent() {
           {t.ctaButton} →
         </Link>
       </div>
+
+      {/* City pages internal links */}
+      {lang === "es" && (
+        <div className="mt-8">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
+            <MapPin size={18} className="text-[var(--brand-blue)]" />
+            ITP por ciudad
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {[
+              { city: "madrid", name: "Madrid", rate: "4%" },
+              { city: "barcelona", name: "Barcelona", rate: "6%" },
+              { city: "sevilla", name: "Sevilla", rate: "4%" },
+              { city: "valencia", name: "Valencia", rate: "6%" },
+              { city: "zaragoza", name: "Zaragoza", rate: "4%" },
+              { city: "bilbao", name: "Bilbao", rate: "4%" },
+              { city: "malaga", name: "Málaga", rate: "4%" },
+              { city: "alicante", name: "Alicante", rate: "6%" },
+              { city: "murcia", name: "Murcia", rate: "4%" },
+              { city: "palma", name: "Palma", rate: "4%" },
+            ].map((c) => (
+              <Link
+                key={c.city}
+                href={`/importar-coche-${c.city}`}
+                className="flex justify-between items-center text-sm bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-2 rounded-xl transition-all"
+              >
+                <span className="font-medium text-[var(--text-primary)]">{c.name}</span>
+                <span className="text-[var(--text-tertiary)] text-xs">ITP {c.rate}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
