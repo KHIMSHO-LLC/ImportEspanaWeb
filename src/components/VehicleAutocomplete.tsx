@@ -219,11 +219,11 @@ export function VehicleAutocomplete({
         />
 
         {showBrandSuggestions && filteredBrands.length > 0 && (
-          <div className="absolute z-10 w-full mt-2 bg-[var(--surface)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slideDown">
+          <div className="absolute z-10 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slideDown">
             {filteredBrands.map((item) => (
               <div
                 key={item}
-                className="px-4 py-3 hover:bg-[var(--surface-dim)] cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl"
+                className="px-4 py-3 hover:bg-white/10 cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl"
                 onClick={() => handleBrandSelect(item)}
               >
                 <div className="font-medium text-[var(--text-primary)]">{item}</div>
@@ -273,11 +273,11 @@ export function VehicleAutocomplete({
           />
 
           {showModelSuggestions && filteredModels.length > 0 && (
-            <div className="absolute z-10 w-full mt-2 bg-[var(--surface)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-72 overflow-y-auto animate-slideDown">
+            <div className="absolute z-10 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-72 overflow-y-auto animate-slideDown">
               {filteredModels.map((item) => (
                 <div
                   key={item.id}
-                  className="px-4 py-3 hover:bg-[var(--surface-dim)] cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl border-b border-[var(--surface-border)] last:border-0"
+                  className="px-4 py-3 hover:bg-white/10 cursor-pointer transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl border-b border-[var(--surface-border)] last:border-0"
                   onClick={() => handleModelSelect(item)}
                 >
                   <div className="font-medium text-[var(--text-primary)]">{item.model}</div>

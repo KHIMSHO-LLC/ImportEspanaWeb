@@ -16,11 +16,11 @@ const LiveMarketData = dynamic(
   () => import("@/components/LiveMarketData").then((mod) => mod.LiveMarketData),
   {
     loading: () => (
-      <div className="bg-white/80 backdrop-blur rounded-2xl border border-gray-200 p-5 animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-32 mb-4" />
+      <div className="glass-card p-5 animate-pulse">
+        <div className="skeleton h-4 w-32 mb-4" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-20 bg-gray-100 rounded-xl" />
+            <div key={i} className="skeleton h-20 rounded-xl" />
           ))}
         </div>
       </div>
@@ -327,7 +327,7 @@ export function HomeContent({
       <HeroStats />
 
       {/* Calculator — the instrument */}
-      <div className="space-y-8">
+      <div className="glass-card p-6 md:p-8 space-y-8">
 
         {/* Tab switcher: manual vs URL paste */}
         <div className="pill-group">
@@ -881,7 +881,7 @@ export function HomeContent({
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+    <div className="min-h-screen">
       <div className="flex justify-center items-start gap-8 max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-20">
         {/* Left Sidebar */}
         <SidebarAd side="left" />

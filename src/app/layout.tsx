@@ -2,6 +2,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { AdSense } from "@/components/AdSense";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { MouseSpotlight } from "@/components/MouseSpotlight";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -83,19 +85,28 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
-        style={{ background: 'var(--background)', color: 'var(--foreground)' }}
       >
         <GoogleAnalytics gaId="G-05KZ4XPMFR" />
         <AdSense pId="8296385442547902" />
         <JsonLd />
-        <LanguageProvider>
-          <div className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block">
-            <Header />
-            <main className="flex-1 pt-[72px] md:pt-[80px] print:pt-0">{children}</main>
-            <Footer />
-            <CookieConsent />
-          </div>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            {/* Cursor spotlight — renders behind everything */}
+            <MouseSpotlight />
+
+            <div
+              className="flex flex-col min-h-screen print:min-h-0 print:h-auto print:block"
+              style={{ position: "relative", zIndex: 1 }}
+            >
+              <Header />
+              <main className="flex-1 pt-[72px] md:pt-[80px] print:pt-0">
+                {children}
+              </main>
+              <Footer />
+              <CookieConsent />
+            </div>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

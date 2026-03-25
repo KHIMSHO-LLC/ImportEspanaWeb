@@ -426,7 +426,7 @@ function Row({
 
 export default function ResultPage() {
   return (
-    <main className="min-h-screen flex justify-center items-start gap-8 max-w-[1600px] mx-auto px-4 md:px-8 mt-6 pb-20 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none" style={{ background: 'var(--background)' }}>
+    <main className="min-h-screen flex justify-center items-start gap-8 max-w-[1600px] mx-auto px-4 md:px-8 mt-6 pb-20 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none">
       <SidebarAd side="left" />
 
       <div className="flex-1 w-full max-w-4xl print:max-w-none print:w-full">

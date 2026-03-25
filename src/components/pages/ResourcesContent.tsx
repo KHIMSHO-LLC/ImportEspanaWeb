@@ -212,32 +212,32 @@ const colorMap: Record<
   }
 > = {
   blue: {
-    bg: "bg-[var(--brand-blue)]/5/50",
-    border: "border-blue-100",
+    bg: "bg-[var(--surface-dim)]",
+    border: "border-[var(--surface-border)]",
     icon: "text-[var(--brand-blue)]",
-    highlightBg: "bg-[var(--brand-blue)]/5",
-    highlightBorder: "border-blue-300",
+    highlightBg: "bg-[var(--brand-blue)]/10",
+    highlightBorder: "border-[var(--brand-blue)]/40",
   },
   green: {
-    bg: "bg-green-50/50",
-    border: "border-green-100",
-    icon: "text-green-600",
-    highlightBg: "bg-green-50",
-    highlightBorder: "border-green-300",
+    bg: "bg-[var(--surface-dim)]",
+    border: "border-[var(--surface-border)]",
+    icon: "text-green-500",
+    highlightBg: "bg-green-500/10",
+    highlightBorder: "border-green-500/40",
   },
   orange: {
-    bg: "bg-orange-50/50",
-    border: "border-orange-100",
-    icon: "text-orange-600",
-    highlightBg: "bg-orange-50",
-    highlightBorder: "border-orange-300",
+    bg: "bg-[var(--surface-dim)]",
+    border: "border-[var(--surface-border)]",
+    icon: "text-amber-500",
+    highlightBg: "bg-amber-500/10",
+    highlightBorder: "border-amber-500/40",
   },
   purple: {
-    bg: "bg-purple-50/50",
-    border: "border-purple-100",
-    icon: "text-purple-600",
-    highlightBg: "bg-purple-50",
-    highlightBorder: "border-purple-300",
+    bg: "bg-[var(--surface-dim)]",
+    border: "border-[var(--surface-border)]",
+    icon: "text-purple-400",
+    highlightBg: "bg-purple-500/10",
+    highlightBorder: "border-purple-500/40",
   },
 };
 
@@ -290,7 +290,7 @@ export default function ResourcesContent() {
                     className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all group cursor-pointer ${
                       link.highlight
                         ? `${colors.highlightBg} ${colors.highlightBorder} hover:shadow-md`
-                        : "border-[var(--surface-border)] hover:border-blue-200 hover:bg-[var(--brand-blue)]/5/50 hover:shadow-sm"
+                        : "border-[var(--surface-border)] hover:border-[var(--brand-blue)]/40 hover:bg-[var(--brand-blue)]/5 hover:shadow-sm"
                     }`}
                   >
                     <div className="flex-1 mr-3">

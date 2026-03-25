@@ -36,8 +36,8 @@ export function BoeValuationTool() {
   const depreciatedValue = originalValue * Math.max(0, percentageRetained);
 
   return (
-    <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-lg border border-[var(--surface-border)] overflow-hidden">
-      <div className="bg-blue-600 p-6 md:p-8 text-white">
+    <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-lg border border-[var(--surface-border)]">
+      <div className="bg-blue-600 p-6 md:p-8 text-white rounded-t-2xl">
         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3 mb-3">
           <Calculator size={28} />
           {lang === "es"

@@ -72,7 +72,7 @@ export const StatsBanner = () => {
           key={i}
           className={`bg-[var(--surface)] p-4 sm:p-5 animate-fadeInUp stagger-${i + 1}`}
         >
-          <div className="number-display text-xl sm:text-2xl text-[var(--text-primary)]">
+          <div className="heading-display text-xl sm:text-2xl text-[var(--text-primary)] whitespace-nowrap">
             {stat.value}
           </div>
           <div className="text-xs text-[var(--text-tertiary)] mt-1 font-medium">

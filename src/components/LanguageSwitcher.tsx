@@ -55,7 +55,7 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 bg-[var(--surface-elevated)] border border-[var(--surface-border)] rounded-xl shadow-lg py-1 z-50 min-w-[140px] animate-slideDown">
+        <div className="absolute right-0 mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg py-1 z-50 min-w-[140px] animate-slideDown">
           {languages.map((lang) => (
             <button
               key={lang.code}
@@ -65,8 +65,8 @@ export function LanguageSwitcher() {
               }}
               className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors duration-150 ${
                 language === lang.code
-                  ? "bg-[var(--brand-blue)]/8 text-[var(--brand-blue)] font-medium"
-                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-dim)]"
+                  ? "bg-[var(--brand-blue)]/20 text-[var(--brand-blue)] font-medium"
+                  : "text-[var(--text-secondary)] hover:bg-white/10"
               }`}
             >
               <span className="text-base">{lang.flag}</span>

@@ -107,11 +107,11 @@ export default function ItpContent() {
                 return (
                   <tr
                     key={region.name}
-                    className={`border-b border-gray-50 ${
+                    className={`border-b border-[var(--surface-border)] ${
                       isLowest
-                        ? "bg-green-50"
+                        ? "bg-green-500/10"
                         : isHighest
-                          ? "bg-red-50"
+                          ? "bg-red-500/10"
                           : i % 2 === 0
                             ? "bg-[var(--surface-elevated)]"
                             : "bg-[var(--surface-dim)]/50"
@@ -121,12 +121,12 @@ export default function ItpContent() {
                       <div className="flex items-center gap-2">
                         {region.name}
                         {isLowest && (
-                          <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-semibold">
+                          <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full font-semibold">
                             {t.lowestLabel}
                           </span>
                         )}
                         {isHighest && (
-                          <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-semibold">
+                          <span className="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full font-semibold">
                             {t.highestLabel}
                           </span>
                         )}

@@ -17,17 +17,17 @@ export default function BlogPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">
+        <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-4">
           Blog ImportEspana
         </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+        <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
           Guías completas, consejos y novedades sobre la importación y
           matriculación de vehículos en España.
         </p>
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-center text-slate-500">
+        <p className="text-center text-[var(--text-tertiary)]">
           No hay artículos todavía. ¡Vuelve pronto!
         </p>
       ) : (
@@ -36,25 +36,25 @@ export default function BlogPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all duration-200 group"
+              className="block bg-[var(--surface-elevated)] rounded-xl border border-[var(--surface-border)] p-6 hover:shadow-lg hover:border-[var(--brand-blue-light)] transition-all duration-200 group"
             >
               <div className="flex flex-wrap gap-2 mb-3">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full"
+                    className="text-xs font-medium bg-[var(--brand-blue)]/10 text-[var(--brand-blue)] px-2.5 py-1 rounded-full"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-              <h2 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2">
+              <h2 className="text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors mb-2">
                 {post.title}
               </h2>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
                 {post.description}
               </p>
-              <div className="flex items-center gap-4 text-xs text-slate-400">
+              <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
                 <span>
                   📅{" "}
                   {new Date(post.date).toLocaleDateString("es-ES", {
