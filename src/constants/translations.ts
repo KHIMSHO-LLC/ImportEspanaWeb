@@ -159,6 +159,48 @@ export const translations = {
     cookie_accept: "Accept",
     cookie_decline: "Decline",
     cookie_learn_more: "Learn More",
+    // Lead Capture Form
+    leadFormTitle: "Want professional help with your import?",
+    leadFormSubtitle:
+      "Share your details and a specialist will contact you free of charge to guide you through the entire process.",
+    leadFormName: "Name",
+    leadFormPhone: "Phone",
+    leadFormEmail: "Email (optional)",
+    leadFormSubmit: "Request Free Consultation",
+    leadFormSubmitting: "Sending...",
+    leadFormError: "Failed to send. Please call us directly.",
+    leadFormSuccess: "Request received!",
+    leadFormSuccessMsg:
+      "A specialist will contact you within 24 hours to help with your import.",
+    leadFormDisclaimer: "No commitment. Your data will not be shared with third parties.",
+    leadFormNameLabel: "Name *",
+    leadFormPhoneLabel: "Phone *",
+    leadFormEmailLabel: "Email (optional)",
+    leadFormNamePlaceholder: "Your name",
+    leadFormPhonePlaceholder: "+34 600 000 000",
+    leadFormEmailPlaceholder: "your@email.com",
+    // Dubai Calculator
+    dubaiTitle: "Dubai Car Import Calculator",
+    dubaiQ1: "How much is the tariff for importing a car from Dubai to Spain?",
+    dubaiQ2: "Do I need homologation to import my car from Dubai?",
+    dubaiQ3: "How long does shipping take from Dubai to Spain?",
+    dubaiQ4: "Do imported electric cars from Dubai pay registration tax?",
+    dubaiQ5: "Do Dubai cars have the steering wheel on the left?",
+    dubaiQ6: "Which brands are cheaper in Dubai than in Spain?",
+    // BOE Valuation Tool
+    boeWhatToDoWithNumber: "What do I do with this number?",
+    boeWhatIsBoeValue: "What is the BOE Fiscal Value for?",
+    // Resources
+    resourcesDgtAppointment: "Book a DGT appointment for vehicle registration",
+    // ITP Content
+    itpWhatIs: "What is ITP?",
+    itpWhenApplies: "When is it applied?",
+    itpHowCalculated: "How is it calculated?",
+    // Country/Region Pages
+    countryCtaQuestion: "Importing a car from",
+    regionCtaQuestion: "Importing a car to",
+    // Coches Page
+    notFindCar: "Can't find your car?",
   },
   es: {
     originCountry: "País de Origen",
@@ -317,6 +359,48 @@ export const translations = {
     cookie_accept: "Aceptar",
     cookie_decline: "Rechazar",
     cookie_learn_more: "Más información",
+    // Lead Capture Form
+    leadFormTitle: "¿Quieres ayuda profesional con la importación?",
+    leadFormSubtitle:
+      "Déjanos tus datos y un asesor especializado te contactará gratis para guiarte en todo el proceso.",
+    leadFormName: "Nombre",
+    leadFormPhone: "Teléfono",
+    leadFormEmail: "Email (opcional)",
+    leadFormSubmit: "Solicitar asesoramiento gratuito",
+    leadFormSubmitting: "Enviando...",
+    leadFormError: "No se pudo enviar. Por favor, llámanos directamente.",
+    leadFormSuccess: "¡Solicitud recibida!",
+    leadFormSuccessMsg:
+      "Un asesor te contactará en menos de 24 horas para ayudarte con la importación.",
+    leadFormDisclaimer: "Sin compromiso. Tus datos no se compartirán con terceros.",
+    leadFormNameLabel: "Nombre *",
+    leadFormPhoneLabel: "Teléfono *",
+    leadFormEmailLabel: "Email (opcional)",
+    leadFormNamePlaceholder: "Tu nombre",
+    leadFormPhonePlaceholder: "+34 600 000 000",
+    leadFormEmailPlaceholder: "tu@email.com",
+    // Dubai Calculator
+    dubaiTitle: "Calculadora de importación de coches de Dubái",
+    dubaiQ1: "¿Cuánto es el arancel para importar un coche de Dubái a España?",
+    dubaiQ2: "¿Necesito homologación para importar mi coche de Dubái?",
+    dubaiQ3: "¿Cuánto tarda el transporte marítimo desde Dubái a España?",
+    dubaiQ4: "¿Los coches eléctricos importados de Dubái pagan impuesto de matriculación?",
+    dubaiQ5: "¿Los coches de Dubái tienen el volante a la izquierda?",
+    dubaiQ6: "¿Qué marcas son más baratas en Dubái que en España?",
+    // BOE Valuation Tool
+    boeWhatToDoWithNumber: "¿Qué hago con este número?",
+    boeWhatIsBoeValue: "¿Para qué sirve el Valor BOE?",
+    // Resources
+    resourcesDgtAppointment: "Solicitar cita previa en la DGT para la matriculación",
+    // ITP Content
+    itpWhatIs: "¿Qué es el ITP?",
+    itpWhenApplies: "¿Cuándo se aplica?",
+    itpHowCalculated: "¿Cómo se calcula?",
+    // Country/Region Pages
+    countryCtaQuestion: "¿Importando un coche de",
+    regionCtaQuestion: "¿Importando un coche a",
+    // Coches Page
+    notFindCar: "¿No encuentras tu modelo?",
   },
   ru: {
     originCountry: "Страна происхождения",
@@ -469,6 +553,48 @@ export const translations = {
     cookie_accept: "Принять",
     cookie_decline: "Отклонить",
     cookie_learn_more: "Подробнее",
+    // Lead Capture Form
+    leadFormTitle: "Нужна профессиональная помощь с импортом?",
+    leadFormSubtitle:
+      "Оставьте свои данные и специалист свяжется с вами бесплатно, чтобы помочь вам во всем процессе.",
+    leadFormName: "Имя",
+    leadFormPhone: "Телефон",
+    leadFormEmail: "Email (опционально)",
+    leadFormSubmit: "Запросить бесплатную консультацию",
+    leadFormSubmitting: "Отправка...",
+    leadFormError: "Ошибка отправки. Пожалуйста, позвоните нам напрямую.",
+    leadFormSuccess: "Запрос получен!",
+    leadFormSuccessMsg:
+      "Специалист свяжется с вами в течение 24 часов, чтобы помочь с импортом.",
+    leadFormDisclaimer: "Без обязательств. Ваши данные не будут переданы третьим лицам.",
+    leadFormNameLabel: "Имя *",
+    leadFormPhoneLabel: "Телефон *",
+    leadFormEmailLabel: "Email (опционально)",
+    leadFormNamePlaceholder: "Ваше имя",
+    leadFormPhonePlaceholder: "+34 600 000 000",
+    leadFormEmailPlaceholder: "ваш@email.com",
+    // Dubai Calculator
+    dubaiTitle: "Калькулятор импорта машин из Дубая",
+    dubaiQ1: "Сколько стоит тариф на импорт машины из Дубая в Испанию?",
+    dubaiQ2: "Нужна ли гомологация для импорта моей машины из Дубая?",
+    dubaiQ3: "Как долго доставляется груз из Дубая в Испанию?",
+    dubaiQ4: "Платят ли импортированные электромобили из Дубая налог на регистрацию?",
+    dubaiQ5: "Машины из Дубая имеют руль слева?",
+    dubaiQ6: "Какие марки дешевле в Дубае, чем в Испании?",
+    // BOE Valuation Tool
+    boeWhatToDoWithNumber: "Что мне делать с этим числом?",
+    boeWhatIsBoeValue: "Для чего нужна стоимость BOE?",
+    // Resources
+    resourcesDgtAppointment: "Запросить предварительное назначение DGT для регистрации",
+    // ITP Content
+    itpWhatIs: "Что такое ITP?",
+    itpWhenApplies: "Когда это применяется?",
+    itpHowCalculated: "Как это рассчитывается?",
+    // Country/Region Pages
+    countryCtaQuestion: "Импортируете машину из",
+    regionCtaQuestion: "Импортируете машину в",
+    // Coches Page
+    notFindCar: "Не можете найти свою машину?",
   },
   de: {
     originCountry: "Herkunftsland",
@@ -620,6 +746,48 @@ export const translations = {
     cookie_accept: "Akzeptieren",
     cookie_decline: "Ablehnen",
     cookie_learn_more: "Mehr erfahren",
+    // Lead Capture Form
+    leadFormTitle: "Benötigen Sie professionelle Hilfe beim Import?",
+    leadFormSubtitle:
+      "Hinterlassen Sie Ihre Daten und ein Spezialist wird Sie kostenlos anrufen, um Sie durch den gesamten Prozess zu führen.",
+    leadFormName: "Name",
+    leadFormPhone: "Telefon",
+    leadFormEmail: "Email (optional)",
+    leadFormSubmit: "Kostenlose Beratung anfordern",
+    leadFormSubmitting: "Wird gesendet...",
+    leadFormError: "Fehler beim Senden. Bitte rufen Sie uns direkt an.",
+    leadFormSuccess: "Anfrage erhalten!",
+    leadFormSuccessMsg:
+      "Ein Spezialist wird Sie innerhalb von 24 Stunden kontaktieren, um Ihnen beim Import zu helfen.",
+    leadFormDisclaimer: "Keine Verpflichtung. Ihre Daten werden nicht an Dritte weitergegeben.",
+    leadFormNameLabel: "Name *",
+    leadFormPhoneLabel: "Telefon *",
+    leadFormEmailLabel: "Email (optional)",
+    leadFormNamePlaceholder: "Ihr Name",
+    leadFormPhonePlaceholder: "+34 600 000 000",
+    leadFormEmailPlaceholder: "ihr@email.com",
+    // Dubai Calculator
+    dubaiTitle: "Dubai Auto-Importrechner",
+    dubaiQ1: "Wie hoch ist der Zolltarif für den Import eines Autos von Dubai nach Spanien?",
+    dubaiQ2: "Benötige ich eine Genehmigung zum Importieren meines Autos aus Dubai?",
+    dubaiQ3: "Wie lange dauert der Versand von Dubai nach Spanien?",
+    dubaiQ4: "Zahlen importierte Elektrofahrzeuge aus Dubai Zulassungssteuer?",
+    dubaiQ5: "Haben Autos aus Dubai das Lenkrad auf der linken Seite?",
+    dubaiQ6: "Welche Marken sind in Dubai billiger als in Spanien?",
+    // BOE Valuation Tool
+    boeWhatToDoWithNumber: "Was mache ich mit dieser Nummer?",
+    boeWhatIsBoeValue: "Wofür ist der BOE-Wert?",
+    // Resources
+    resourcesDgtAppointment: "DGT-Termin für Fahrzeugregistrierung anfordern",
+    // ITP Content
+    itpWhatIs: "Was ist ITP?",
+    itpWhenApplies: "Wann wird es angewendet?",
+    itpHowCalculated: "Wie wird es berechnet?",
+    // Country/Region Pages
+    countryCtaQuestion: "Auto aus",
+    regionCtaQuestion: "Auto nach",
+    // Coches Page
+    notFindCar: "Können Sie Ihr Auto nicht finden?",
   },
   fr: {
     originCountry: "Pays d'origine",
@@ -769,5 +937,47 @@ export const translations = {
     cookie_accept: "Accepter",
     cookie_decline: "Refuser",
     cookie_learn_more: "En savoir plus",
+    // Lead Capture Form
+    leadFormTitle: "Voulez-vous une aide professionnelle pour votre importation ?",
+    leadFormSubtitle:
+      "Laissez-nous vos coordonnées et un spécialiste vous contactera gratuitement pour vous guider dans tout le processus.",
+    leadFormName: "Nom",
+    leadFormPhone: "Téléphone",
+    leadFormEmail: "Email (optionnel)",
+    leadFormSubmit: "Demander une consultation gratuite",
+    leadFormSubmitting: "Envoi...",
+    leadFormError: "Impossible d'envoyer. Veuillez nous appeler directement.",
+    leadFormSuccess: "Demande reçue !",
+    leadFormSuccessMsg:
+      "Un spécialiste vous contactera dans les 24 heures pour vous aider avec votre importation.",
+    leadFormDisclaimer: "Sans engagement. Vos données ne seront pas partagées avec des tiers.",
+    leadFormNameLabel: "Nom *",
+    leadFormPhoneLabel: "Téléphone *",
+    leadFormEmailLabel: "Email (optionnel)",
+    leadFormNamePlaceholder: "Votre nom",
+    leadFormPhonePlaceholder: "+34 600 000 000",
+    leadFormEmailPlaceholder: "votre@email.com",
+    // Dubai Calculator
+    dubaiTitle: "Calculatrice d'importation de voitures de Dubaï",
+    dubaiQ1: "Quel est le tarif douanier pour importer une voiture de Dubaï vers l'Espagne ?",
+    dubaiQ2: "Ai-je besoin d'une homologation pour importer ma voiture de Dubaï ?",
+    dubaiQ3: "Combien de temps prend l'expédition maritime de Dubaï à l'Espagne ?",
+    dubaiQ4: "Les voitures électriques importées de Dubaï paient-elles la taxe d'immatriculation ?",
+    dubaiQ5: "Les voitures de Dubaï ont-elles le volant à gauche ?",
+    dubaiQ6: "Quelles marques sont moins chères à Dubaï qu'en Espagne ?",
+    // BOE Valuation Tool
+    boeWhatToDoWithNumber: "Que dois-je faire avec ce chiffre ?",
+    boeWhatIsBoeValue: "À quoi sert la valeur BOE ?",
+    // Resources
+    resourcesDgtAppointment: "Demander un rendez-vous DGT pour l'immatriculation",
+    // ITP Content
+    itpWhatIs: "Qu'est-ce que l'ITP ?",
+    itpWhenApplies: "Quand s'applique-t-il ?",
+    itpHowCalculated: "Comment est-il calculé ?",
+    // Country/Region Pages
+    countryCtaQuestion: "Importation d'une voiture de",
+    regionCtaQuestion: "Importation d'une voiture à",
+    // Coches Page
+    notFindCar: "Vous ne trouvez pas votre modèle ?",
   },
 };

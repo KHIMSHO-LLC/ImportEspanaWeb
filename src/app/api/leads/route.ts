@@ -69,6 +69,7 @@ Fecha: ${new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}
 `.trim();
 
   try {
+    console.log("[LEAD EMAIL SENDING] to:", toEmail);
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -76,15 +77,18 @@ Fecha: ${new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })}
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "ImportEspana <leads@importespana.com>",
+        from: "leads@importespana.com",
         to: [toEmail],
         subject: `Nuevo lead: ${payload.name} — ${payload.brand ?? "coche"} importación`,
         text: emailBody,
       }),
     });
 
+    const resText = await res.text();
+    console.log("[LEAD EMAIL RESPONSE]", res.status, resText);
+
     if (!res.ok) {
-      console.error("[LEAD EMAIL ERROR]", await res.text());
+      console.error("[LEAD EMAIL ERROR]", resText);
       // Still return success to the user — lead is captured even if email fails
     }
   } catch (err) {

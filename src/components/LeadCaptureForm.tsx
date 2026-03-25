@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Phone, Mail, User, CheckCircle, AlertTriangle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface LeadCaptureFormProps {
   vehicleContext?: {
@@ -15,6 +16,7 @@ interface LeadCaptureFormProps {
 }
 
 export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps) {
+  const { t } = useLanguage();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +46,7 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
       if (!res.ok) throw new Error("Error al enviar");
       setSubmitted(true);
     } catch {
-      setError("No se pudo enviar. Por favor, llámanos directamente.");
+      setError(t("leadFormError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -57,10 +59,10 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
           <CheckCircle size={24} className="text-emerald-500" />
         </div>
         <h3 className="font-bold text-[var(--text-primary)]">
-          ¡Solicitud recibida!
+          {t("leadFormSuccess")}
         </h3>
         <p className="text-sm text-[var(--text-secondary)]">
-          Un asesor te contactará en menos de 24 horas para ayudarte con la importación.
+          {t("leadFormSuccessMsg")}
         </p>
       </div>
     );
@@ -70,10 +72,10 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
     <div className="card p-6 space-y-4">
       <div className="space-y-1">
         <h3 className="font-bold text-[var(--text-primary)] text-lg">
-          ¿Quieres ayuda profesional con la importación?
+          {t("leadFormTitle")}
         </h3>
         <p className="text-sm text-[var(--text-secondary)]">
-          Déjanos tus datos y un asesor especializado te contactará gratis para guiarte en todo el proceso.
+          {t("leadFormSubtitle")}
         </p>
       </div>
 
@@ -82,13 +84,13 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
         <div className="space-y-1.5">
           <label className="label-caps flex items-center gap-1.5">
             <User size={12} className="text-[var(--brand-blue)]" />
-            Nombre *
+            {t("leadFormNameLabel")}
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Tu nombre"
+            placeholder={t("leadFormNamePlaceholder")}
             required
             className="input-field"
           />
@@ -98,13 +100,13 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
         <div className="space-y-1.5">
           <label className="label-caps flex items-center gap-1.5">
             <Phone size={12} className="text-[var(--brand-blue)]" />
-            Teléfono *
+            {t("leadFormPhoneLabel")}
           </label>
           <input
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="+34 600 000 000"
+            placeholder={t("leadFormPhonePlaceholder")}
             required
             className="input-field"
           />
@@ -114,13 +116,13 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
         <div className="space-y-1.5">
           <label className="label-caps flex items-center gap-1.5">
             <Mail size={12} className="text-[var(--text-tertiary)]" />
-            Email (opcional)
+            {t("leadFormEmailLabel")}
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="tu@email.com"
+            placeholder={t("leadFormEmailPlaceholder")}
             className="input-field"
           />
         </div>
@@ -137,11 +139,11 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
           disabled={isSubmitting || !name.trim() || !phone.trim()}
           className="btn-primary w-full py-3"
         >
-          {isSubmitting ? "Enviando..." : "Solicitar asesoramiento gratuito"}
+          {isSubmitting ? t("leadFormSubmitting") : t("leadFormSubmit")}
         </button>
 
         <p className="text-xs text-[var(--text-tertiary)] text-center">
-          Sin compromiso. Tus datos no se compartirán con terceros.
+          {t("leadFormDisclaimer")}
         </p>
       </form>
     </div>

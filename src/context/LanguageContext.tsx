@@ -14,7 +14,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("es");
+  const [language, setLanguageState] = useState<Language>("en");
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -25,13 +25,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     try {
       if (typeof window !== "undefined") {
         const saved = localStorage.getItem("app_language");
-        if (saved) {
+        if (saved && ["en", "es", "ru", "de", "fr"].includes(saved)) {
           setLanguageState(saved as Language);
         } else {
           // Auto-detect system language
           const systemLang = navigator.language.split("-")[0];
           if (systemLang && ["es", "ru", "de", "fr"].includes(systemLang)) {
             setLanguageState(systemLang as Language);
+          } else {
+            // Default to English if no match
+            setLanguageState("en");
           }
         }
       }

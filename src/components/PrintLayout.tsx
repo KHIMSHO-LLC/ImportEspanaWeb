@@ -1,4 +1,5 @@
 import { CalculationResult, CalculationInput } from "@/types";
+import { formatCurrency } from "@/utils/currency";
 import Image from "next/image";
 
 type PrintLayoutProps = {
@@ -66,10 +67,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
           <div className="flex justify-between">
             <span className="text-gray-600">Valor Fiscal (BOE):</span>
             <span className="font-medium text-gray-900">
-              {input.officialFiscalValue.toLocaleString("de-DE", {
-                style: "currency",
-                currency: "EUR",
-              })}
+              {formatCurrency(input.officialFiscalValue)}
             </span>
           </div>
           <div className="flex justify-between">
@@ -101,19 +99,13 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                 Precio del Vehículo (Estimado)
               </td>
               <td className="py-3 px-3 text-right font-medium text-gray-900">
-                {input.carPrice.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(input.carPrice)}
               </td>
             </tr>
             <tr className="even:bg-blue-50/50">
               <td className="py-3 px-3 text-gray-700">Transporte (Estimado)</td>
               <td className="py-3 px-3 text-right font-medium text-gray-900">
-                {(input.transportCost || 0).toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(input.transportCost || 0)}
               </td>
             </tr>
 
@@ -123,20 +115,14 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                 Impuesto de Matriculación (IEDMT)
               </td>
               <td className="py-3 px-3 text-right font-bold text-blue-900">
-                {result.registrationTax.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(result.registrationTax)}
               </td>
             </tr>
             {(result.duty || 0) > 0 && (
               <tr>
                 <td className="py-3 text-gray-600 pl-2">Arancel (10%)</td>
                 <td className="py-3 text-right font-medium text-gray-900">
-                  {(result.duty || 0).toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.duty || 0)}
                 </td>
               </tr>
             )}
@@ -144,10 +130,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
               <tr>
                 <td className="py-3 text-gray-600 pl-2">IVA (21%)</td>
                 <td className="py-3 text-right font-medium text-gray-900">
-                  {(result.vat || 0).toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.vat || 0)}
                 </td>
               </tr>
             )}
@@ -157,10 +140,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                   Impuesto Transmisiones (ITP)
                 </td>
                 <td className="py-3 text-right font-medium text-gray-900">
-                  {result.itpTax.toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.itpTax)}
                 </td>
               </tr>
             )}
@@ -169,28 +149,19 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
             <tr>
               <td className="py-3 text-gray-600">Tasa DGT (Matriculación)</td>
               <td className="py-3 text-right font-medium text-gray-900">
-                {result.dgtFee.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(result.dgtFee)}
               </td>
             </tr>
             <tr>
               <td className="py-3 text-gray-600">Inspección ITV</td>
               <td className="py-3 text-right font-medium text-gray-900">
-                {result.itvFee.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(result.itvFee)}
               </td>
             </tr>
             <tr>
               <td className="py-3 text-gray-600">Placas de Matrícula</td>
               <td className="py-3 text-right font-medium text-gray-900">
-                {result.platesFee.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(result.platesFee)}
               </td>
             </tr>
             {(result.customsAgentFee || 0) > 0 && (
@@ -199,10 +170,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                   Agente de Aduanas (Estimado)
                 </td>
                 <td className="py-3 text-right font-medium text-gray-900">
-                  {(result.customsAgentFee || 0).toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.customsAgentFee || 0)}
                 </td>
               </tr>
             )}
@@ -212,10 +180,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                   Homologación Individual/Ficha Reducida
                 </td>
                 <td className="py-3 text-right font-medium text-gray-900">
-                  {(result.homologationFee || 0).toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.homologationFee || 0)}
                 </td>
               </tr>
             )}
@@ -226,10 +191,7 @@ export const PrintLayout = ({ result, input, date }: PrintLayoutProps) => {
                 COSTE TOTAL ESTIMADO
               </td>
               <td className="py-4 text-xl font-black text-blue-700 text-right">
-                {result.totalCost.toLocaleString("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
-                })}
+                {formatCurrency(result.totalCost)}
               </td>
             </tr>
             <tr>

@@ -7,6 +7,7 @@ import LeadCaptureForm from "@/components/LeadCaptureForm";
 import { useLanguage } from "@/context/LanguageContext";
 import { CalculationInput } from "@/types";
 import { calculateImportCost } from "@/utils/taxCalculator";
+import { formatCurrency } from "@/utils/currency";
 import { ArrowLeft, Car, CheckCircle, ChevronDown, ChevronUp, Copy, Printer, Info } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -113,10 +114,7 @@ function ResultContent() {
                   {t("estimatedTotal")}
                 </div>
                 <div className="number-display text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6 animate-countUp print:text-3xl print:mb-1">
-                  {result.totalCost.toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.totalCost)}
                 </div>
                 <p className="text-white/50 text-sm print:text-white print:text-xs">
                   {t("includes")}
@@ -257,10 +255,7 @@ function ResultContent() {
                   {t("totalImportCost")}
                 </span>
                 <span className="number-display text-xl font-bold text-[var(--brand-blue)] print:text-black">
-                  {(result.totalCost - input.carPrice).toLocaleString("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
+                  {formatCurrency(result.totalCost - input.carPrice)}
                 </span>
               </div>
             </div>
@@ -418,7 +413,7 @@ function Row({
         {label}
       </span>
       <span className={`number-display ${accent ? "text-[var(--brand-blue)]" : "text-[var(--text-primary)]"} ${bold ? "font-bold" : "font-medium"}`}>
-        {value.toLocaleString("de-DE", { style: "currency", currency: "EUR" })}
+        {formatCurrency(value)}
       </span>
     </div>
   );

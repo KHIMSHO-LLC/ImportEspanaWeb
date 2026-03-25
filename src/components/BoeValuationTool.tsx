@@ -14,7 +14,7 @@ import { MonthYearPicker } from "@/components/MonthYearPicker";
 import { getDepreciationFactor } from "@/utils/taxCalculator";
 
 export function BoeValuationTool() {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const lang = language === "es" ? "es" : "en";
 
   const [vehicleData, setVehicleData] = useState<{
@@ -192,9 +192,7 @@ export function BoeValuationTool() {
 
             <div className="mt-8 bg-green-50 rounded-xl p-5 border border-green-200">
               <h4 className="font-bold text-green-900 mb-2 text-sm md:text-base">
-                {lang === "es"
-                  ? "¿Qué hago con este número?"
-                  : "What do I do with this number?"}
+                {t("boeWhatToDoWithNumber")}
               </h4>
               <ul className="text-green-800 text-sm space-y-2 list-disc list-inside">
                 <li>

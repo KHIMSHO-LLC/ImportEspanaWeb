@@ -3,6 +3,7 @@ import {
   slugify,
   getHeroCarForModel,
 } from "@/utils/seo/topCars";
+import { formatCurrency } from "@/utils/currency";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CarPageContent from "@/components/pages/CarPageContent";
@@ -31,7 +32,7 @@ export async function generateMetadata({
     ? `${heroCar.brand} ${heroCar.model}`
     : `${carMatch.brand} ${carMatch.modelQuery}`;
   const displayPrice = heroCar
-    ? ` (Valor Oficial BOE: €${heroCar.value.toLocaleString("de-DE")})`
+    ? ` (Valor Oficial BOE: ${formatCurrency(heroCar.value)})`
     : "";
 
   return {
