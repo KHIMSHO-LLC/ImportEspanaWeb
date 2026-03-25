@@ -153,7 +153,9 @@ export function HomeContent({
       }
       setActiveTab("manual");
     } catch {
-      setUrlError("Error al obtener los datos. Introduce los datos manualmente.");
+      setUrlError(
+        "Error al obtener los datos. Introduce los datos manualmente.",
+      );
     } finally {
       setUrlLoading(false);
     }
@@ -329,7 +331,6 @@ export function HomeContent({
 
       {/* Calculator — the instrument */}
       <div className="glass-card p-6 md:p-8 space-y-8">
-
         {/* Tab switcher: manual vs URL paste */}
         <div className="pill-group">
           <button
@@ -345,7 +346,9 @@ export function HomeContent({
           >
             <Link2 size={14} />
             {language === "es" ? "Pegar enlace" : "Paste link"}
-            <span className="text-[9px] font-bold bg-[var(--brand-blue)] text-white px-1.5 py-0.5 rounded-full leading-none">NEW</span>
+            <span className="text-[9px] font-bold bg-[var(--brand-blue)] text-white px-1.5 py-0.5 rounded-full leading-none">
+              NEW
+            </span>
           </button>
         </div>
 
@@ -355,13 +358,18 @@ export function HomeContent({
             <div className="space-y-2">
               <label className="label-caps flex items-center gap-2">
                 <Link2 size={14} className="text-[var(--brand-blue)]" />
-                {language === "es" ? "URL de mobile.de o AutoScout24" : "mobile.de or AutoScout24 URL"}
+                {language === "es"
+                  ? "URL de mobile.de o AutoScout24"
+                  : "mobile.de or AutoScout24 URL"}
               </label>
               <div className="flex gap-2">
                 <input
                   type="url"
                   value={listingUrl}
-                  onChange={(e) => { setListingUrl(e.target.value); setUrlError(null); }}
+                  onChange={(e) => {
+                    setListingUrl(e.target.value);
+                    setUrlError(null);
+                  }}
                   placeholder="https://www.mobile.de/..."
                   className="input-field flex-1"
                 />
@@ -370,7 +378,7 @@ export function HomeContent({
                   disabled={urlLoading || !listingUrl.trim()}
                   className="btn-primary px-4 shrink-0"
                 >
-                  {urlLoading ? "..." : (language === "es" ? "Obtener" : "Fetch")}
+                  {urlLoading ? "..." : language === "es" ? "Obtener" : "Fetch"}
                 </button>
               </div>
               {urlError && (
@@ -692,7 +700,9 @@ export function HomeContent({
                 {needsHomologation && <CheckCircle size={14} color="white" />}
               </div>
               <div className="flex-1">
-                <p className={`text-sm font-semibold ${needsHomologation ? "text-[var(--brand-blue)]" : "text-[var(--text-primary)]"}`}>
+                <p
+                  className={`text-sm font-semibold ${needsHomologation ? "text-[var(--brand-blue)]" : "text-[var(--text-primary)]"}`}
+                >
                   {t("homologation")}
                 </p>
                 <p className="text-xs text-[var(--text-tertiary)] mt-0.5">
@@ -743,14 +753,43 @@ export function HomeContent({
         </h2>
         <div className="grid grid-cols-3 gap-3">
           {[
-            { step: "1", icon: "🔍", title: language === "es" ? "Busca tu coche" : "Find your car", desc: language === "es" ? "Introduce marca, modelo y precio" : "Enter make, model and price" },
-            { step: "2", icon: "🧮", title: language === "es" ? "Calcula impuestos" : "Calculate taxes", desc: language === "es" ? "Tablas BOE 2026 oficiales" : "Official 2026 BOE tables" },
-            { step: "3", icon: "✅", title: language === "es" ? "Ve el resultado" : "See result", desc: language === "es" ? "Desglose completo en segundos" : "Full breakdown in seconds" },
+            {
+              step: "1",
+              icon: "🔍",
+              title: language === "es" ? "Busca tu coche" : "Find your car",
+              desc:
+                language === "es"
+                  ? "Introduce marca, modelo y precio"
+                  : "Enter make, model and price",
+            },
+            {
+              step: "2",
+              icon: "🧮",
+              title:
+                language === "es" ? "Calcula impuestos" : "Calculate taxes",
+              desc:
+                language === "es"
+                  ? "Tablas BOE 2026 oficiales"
+                  : "Official 2026 BOE tables",
+            },
+            {
+              step: "3",
+              icon: "✅",
+              title: language === "es" ? "Ve el resultado" : "See result",
+              desc:
+                language === "es"
+                  ? "Desglose completo en segundos"
+                  : "Full breakdown in seconds",
+            },
           ].map((s) => (
             <div key={s.step} className="card p-4 text-center space-y-2">
               <div className="text-2xl">{s.icon}</div>
-              <div className="font-semibold text-[var(--text-primary)] text-sm">{s.title}</div>
-              <div className="text-xs text-[var(--text-tertiary)]">{s.desc}</div>
+              <div className="font-semibold text-[var(--text-primary)] text-sm">
+                {s.title}
+              </div>
+              <div className="text-xs text-[var(--text-tertiary)]">
+                {s.desc}
+              </div>
             </div>
           ))}
         </div>
@@ -773,22 +812,58 @@ export function HomeContent({
         </h2>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { icon: <CheckCircle size={16} className="text-emerald-500" />, title: language === "es" ? "Datos oficiales BOE" : "Official BOE data", desc: language === "es" ? "Tablas actualizadas enero 2026" : "Tables updated January 2026" },
-            { icon: <Clock size={16} className="text-[var(--brand-blue)]" />, title: language === "es" ? "Resultado en segundos" : "Result in seconds", desc: language === "es" ? "Sin registro, sin esperas" : "No signup, no waiting" },
-            { icon: <Globe size={16} className="text-purple-500" />, title: language === "es" ? "17 comunidades" : "17 regions", desc: language === "es" ? "ITP exacto por comunidad" : "Exact ITP per region" },
-            { icon: <Shield size={16} className="text-amber-500" />, title: language === "es" ? "Gratuito siempre" : "Always free", desc: language === "es" ? "Sin anuncios ocultos" : "No hidden fees" },
+            {
+              icon: <CheckCircle size={16} className="text-emerald-500" />,
+              title:
+                language === "es" ? "Datos oficiales BOE" : "Official BOE data",
+              desc:
+                language === "es"
+                  ? "Tablas actualizadas enero 2026"
+                  : "Tables updated January 2026",
+            },
+            {
+              icon: <Clock size={16} className="text-[var(--brand-blue)]" />,
+              title:
+                language === "es"
+                  ? "Resultado en segundos"
+                  : "Result in seconds",
+              desc:
+                language === "es"
+                  ? "Sin registro, sin esperas"
+                  : "No signup, no waiting",
+            },
+            {
+              icon: <Globe size={16} className="text-purple-500" />,
+              title: language === "es" ? "17 comunidades" : "17 regions",
+              desc:
+                language === "es"
+                  ? "ITP exacto por comunidad"
+                  : "Exact ITP per region",
+            },
+            {
+              icon: <Shield size={16} className="text-amber-500" />,
+              title: language === "es" ? "Gratuito siempre" : "Always free",
+              desc:
+                language === "es" ? "Sin anuncios ocultos" : "No hidden fees",
+            },
           ].map((item, i) => (
             <div key={i} className="card p-4 flex gap-3 items-start">
               <div className="shrink-0 mt-0.5">{item.icon}</div>
               <div>
-                <div className="font-semibold text-[var(--text-primary)] text-sm">{item.title}</div>
-                <div className="text-xs text-[var(--text-tertiary)] mt-0.5">{item.desc}</div>
+                <div className="font-semibold text-[var(--text-primary)] text-sm">
+                  {item.title}
+                </div>
+                <div className="text-xs text-[var(--text-tertiary)] mt-0.5">
+                  {item.desc}
+                </div>
               </div>
             </div>
           ))}
         </div>
         <p className="text-xs text-[var(--text-tertiary)] text-right">
-          {language === "es" ? "Última actualización: Enero 2026 — Fuente: BOE" : "Last updated: January 2026 — Source: BOE"}
+          {language === "es"
+            ? "Última actualización: Enero 2026 — Fuente: BOE"
+            : "Last updated: January 2026 — Source: BOE"}
         </p>
       </div>
 
@@ -852,7 +927,9 @@ export function HomeContent({
                 className="text-xs text-[var(--text-secondary)] hover:text-[var(--brand-blue)] bg-[var(--surface)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-2 rounded-xl transition-all duration-200 flex justify-between items-center"
               >
                 <span className="font-medium">{city.name}</span>
-                <span className="text-[var(--text-tertiary)]">ITP {city.itpRate}%</span>
+                <span className="text-[var(--text-tertiary)]">
+                  ITP {city.itpRate}%
+                </span>
               </Link>
             ))}
           </div>
@@ -867,10 +944,14 @@ export function HomeContent({
             <span className="text-2xl">🇦🇪</span>
             <div>
               <div className="text-sm font-semibold text-[var(--text-primary)]">
-                {language === "es" ? "Calculadora importación Dubái → España" : "Dubai → Spain import calculator"}
+                {language === "es"
+                  ? "Calculadora importación Dubái → España"
+                  : "Dubai → Spain import calculator"}
               </div>
               <div className="text-xs text-[var(--text-tertiary)]">
-                {language === "es" ? "Aranceles, IVA, homologación" : "Customs, VAT, homologation"}
+                {language === "es"
+                  ? "Aranceles, IVA, homologación"
+                  : "Customs, VAT, homologation"}
               </div>
             </div>
           </Link>
@@ -906,7 +987,8 @@ export default function Home() {
         <SidebarAd side="right" />
       </div>
 
-      <StickyAdFooter />
+      {/* for AI, when we add ads uncomment this */}
+      {/* <StickyAdFooter /> */}
     </div>
   );
 }

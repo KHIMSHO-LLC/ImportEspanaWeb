@@ -68,16 +68,16 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       {/* Breadcrumb */}
-      <nav className="text-sm text-slate-500 mb-8">
-        <Link href="/" className="hover:text-blue-600">
+      <nav className="text-sm mb-8" style={{ color: "var(--text-tertiary)" }}>
+        <Link href="/" className="transition-colors" style={{ color: "var(--brand-blue)" }}>
           Inicio
         </Link>
         <span className="mx-2">/</span>
-        <Link href="/blog" className="hover:text-blue-600">
+        <Link href="/blog" className="transition-colors" style={{ color: "var(--brand-blue)" }}>
           Blog
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-slate-700">{post.title}</span>
+        <span>{post.title}</span>
       </nav>
 
       {/* Tags */}
@@ -85,7 +85,12 @@ export default async function BlogPostPage({ params }: Props) {
         {post.tags.map((tag) => (
           <span
             key={tag}
-            className="text-xs font-medium bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full"
+            className="text-xs font-medium px-2.5 py-1 rounded-full"
+            style={{
+              background: "var(--pill-active-bg)",
+              color: "var(--brand-blue-light)",
+              border: "1px solid var(--pill-active-border)",
+            }}
           >
             {tag}
           </span>
@@ -93,12 +98,12 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight" style={{ color: "var(--text-primary)" }}>
         {post.title}
       </h1>
 
       {/* Meta */}
-      <div className="flex items-center gap-4 text-sm text-slate-500 mb-8 pb-8 border-b border-gray-200">
+      <div className="flex items-center gap-4 text-sm mb-8 pb-8 border-b" style={{ color: "var(--text-tertiary)", borderBottomColor: "var(--glass-border)" }}>
         <span>
           📅{" "}
           {new Date(post.date).toLocaleDateString("es-ES", {
@@ -112,14 +117,17 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* Content */}
       <article
-        className="prose prose-lg prose-slate max-w-none prose-headings:text-slate-900 prose-a:text-blue-600 prose-strong:text-slate-900"
+        className="max-w-none"
+        style={{
+          color: "var(--text-primary)",
+        }}
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
 
       {/* Related Posts */}
       {related.length > 0 && (
-        <div className="mt-16 pt-8 border-t border-gray-200">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
+        <div className="mt-16 pt-8" style={{ borderTopColor: "var(--glass-border)" }}>
+          <h2 className="text-2xl font-bold mb-6 heading-section">
             Artículos Relacionados
           </h2>
           <div className="grid gap-4">
@@ -127,10 +135,19 @@ export default async function BlogPostPage({ params }: Props) {
               <Link
                 key={r.slug}
                 href={`/blog/${r.slug}`}
-                className="block bg-gray-50 rounded-lg p-4 hover:bg-blue-50 transition-colors"
+                className="block rounded-lg p-4 transition-all"
+                style={{
+                  background: "var(--glass-bg)",
+                  border: "1px solid var(--glass-border)",
+                  color: "var(--text-primary)",
+                }}
               >
-                <h3 className="font-semibold text-slate-900 mb-1">{r.title}</h3>
-                <p className="text-sm text-slate-500">{r.description}</p>
+                <h3 className="font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+                  {r.title}
+                </h3>
+                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                  {r.description}
+                </p>
               </Link>
             ))}
           </div>
@@ -141,7 +158,8 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="mt-12 text-center">
         <Link
           href="/blog"
-          className="text-blue-600 hover:text-blue-800 font-medium"
+          className="font-medium transition-colors"
+          style={{ color: "var(--brand-blue)" }}
         >
           ← Volver al Blog
         </Link>
