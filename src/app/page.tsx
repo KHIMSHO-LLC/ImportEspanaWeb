@@ -118,11 +118,13 @@ export function HomeContent({
   const [listingUrl, setListingUrl] = useState("");
   const [urlLoading, setUrlLoading] = useState(false);
   const [urlError, setUrlError] = useState<string | null>(null);
+  const [urlSuccess, setUrlSuccess] = useState<string | null>(null);
 
   const fetchListingData = async () => {
     if (!listingUrl.trim()) return;
     setUrlLoading(true);
     setUrlError(null);
+    setUrlSuccess(null);
     try {
       const res = await fetch("/api/parse-listing", {
         method: "POST",
@@ -135,11 +137,20 @@ export function HomeContent({
         return;
       }
       const v = data.data;
-      if (v.price) setPrice(v.price.toString());
+      const extractedFields: string[] = [];
+
+      if (v.price) {
+        setPrice(v.price.toString());
+        extractedFields.push("precio");
+      }
       if (v.co2 !== undefined) {
         setCo2Emissions(v.co2.toString());
         if (v.co2 === 0) setIsElectric(true);
         setTouched((prev) => ({ ...prev, co2: true }));
+        extractedFields.push("CO2");
+      }
+      if (v.mileage) {
+        extractedFields.push(`${v.mileage.toLocaleString()}km`);
       }
       if (v.make || v.model) {
         setVehicleData({
@@ -150,8 +161,13 @@ export function HomeContent({
           isManual: false,
           year: v.year,
         });
+        if (v.make) extractedFields.push(v.make);
+        if (v.model) extractedFields.push(v.model);
+        if (v.year) extractedFields.push(v.year.toString());
       }
-      setActiveTab("manual");
+
+      setUrlSuccess(`✓ Datos extraídos: ${extractedFields.join(", ")}`);
+      setTimeout(() => setActiveTab("manual"), 1500);
     } catch {
       setUrlError(
         "Error al obtener los datos. Introduce los datos manualmente.",
@@ -359,8 +375,8 @@ export function HomeContent({
               <label className="label-caps flex items-center gap-2">
                 <Link2 size={14} className="text-[var(--brand-blue)]" />
                 {language === "es"
-                  ? "URL de mobile.de o AutoScout24"
-                  : "mobile.de or AutoScout24 URL"}
+                  ? "URL de AutoScout24"
+                  : "AutoScout24 URL"}
               </label>
               <div className="flex gap-2">
                 <input
@@ -370,7 +386,7 @@ export function HomeContent({
                     setListingUrl(e.target.value);
                     setUrlError(null);
                   }}
-                  placeholder="https://www.mobile.de/..."
+                  placeholder="https://www.autoscout24.es/anuncios/..."
                   className="input-field flex-1"
                 />
                 <button
@@ -385,6 +401,12 @@ export function HomeContent({
                 <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm">
                   <AlertTriangle size={14} />
                   {urlError}
+                </div>
+              )}
+              {urlSuccess && (
+                <div className="flex items-center gap-2 text-green-500 text-sm font-medium">
+                  <CheckCircle size={14} />
+                  {urlSuccess}
                 </div>
               )}
               <p className="text-xs text-[var(--text-tertiary)]">

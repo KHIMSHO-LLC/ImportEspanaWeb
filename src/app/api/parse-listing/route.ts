@@ -33,13 +33,14 @@ function isAllowedUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.toLowerCase();
+
+    // Allow all AutoScout24 regional domains (.de, .es, .fr, .it, .nl, .be, .at, .ch, .com, etc.)
+    // and mobile.de
     return (
+      host.includes("autoscout24.") ||
+      host === "autoscout24" ||
       host === "mobile.de" ||
-      host.endsWith(".mobile.de") ||
-      host === "autoscout24.es" ||
-      host.endsWith(".autoscout24.es") ||
-      host === "autoscout24.com" ||
-      host.endsWith(".autoscout24.com")
+      host.endsWith(".mobile.de")
     );
   } catch {
     return false;
@@ -149,8 +150,31 @@ function parseAutoScout24(html: string): ParsedVehicle {
   for (const match of jsonLdMatches) {
     try {
       const data = JSON.parse(match[1]);
+
+      // Handle Product type (common in AutoScout24)
+      if (data["@type"] === "Product") {
+        // Try to get car from offers.itemOffered
+        const car = data.offers?.itemOffered;
+        if (car && (car["@type"] === "Car" || car["@type"] === "Vehicle")) {
+          // Extract from nested car object
+          if (car.manufacturer && !result.make) result.make = car.manufacturer;
+          if (car.model && !result.model) result.model = car.model;
+          if (data.offers?.price && !result.price) {
+            result.price = parseFloat(data.offers.price);
+          }
+          if (car.mileageFromOdometer?.value && !result.mileage) {
+            result.mileage = parseInt(car.mileageFromOdometer.value);
+          }
+          if (car.productionDate && !result.year) {
+            result.year = parseInt(car.productionDate.substring(0, 4));
+          }
+        }
+      }
+
+      // Handle direct Car/Vehicle type
       if (data["@type"] === "Car" || data["@type"] === "Vehicle") {
         if (data.brand?.name && !result.make) result.make = data.brand.name;
+        if (data.manufacturer && !result.make) result.make = data.manufacturer;
         if (data.model && !result.model) result.model = data.model;
         if (data.offers?.price && !result.price) {
           result.price = parseFloat(data.offers.price);
@@ -161,9 +185,12 @@ function parseAutoScout24(html: string): ParsedVehicle {
         if (data.vehicleModelDate && !result.year) {
           result.year = parseInt(data.vehicleModelDate);
         }
+        if (data.productionDate && !result.year) {
+          result.year = parseInt(data.productionDate.substring(0, 4));
+        }
       }
     } catch {
-      // ignore
+      // ignore parse errors
     }
   }
 
@@ -224,17 +251,32 @@ export async function POST(request: NextRequest) {
     const response = await fetch(url, {
       headers: {
         "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "es-ES,es;q=0.9,de;q=0.8,en;q=0.7",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "es-ES,es;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
       },
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(15000),
     });
 
     if (!response.ok) {
+      // Better error messages based on status code
+      let errorMsg = "No se pudo obtener el anuncio. Intenta de nuevo.";
+      if (response.status === 403) {
+        errorMsg = "El sitio ha bloqueado esta solicitud. Intenta más tarde.";
+      } else if (response.status === 404) {
+        errorMsg = "El anuncio no existe o ha sido eliminado.";
+      } else if (response.status === 429) {
+        errorMsg = "Demasiadas solicitudes. Espera unos minutos y vuelve a intentar.";
+      }
       return NextResponse.json(
-        { success: false, error: "No se pudo obtener el anuncio. Intenta de nuevo." },
+        { success: false, error: errorMsg },
         { status: 502 },
       );
     }
