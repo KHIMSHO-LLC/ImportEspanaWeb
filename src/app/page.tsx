@@ -346,7 +346,17 @@ export function HomeContent({
       <HeroStats />
 
       {/* Calculator — the instrument */}
-      <div className="glass-card p-6 md:p-8 space-y-8">
+      <div className="glass-card calculator-instrument p-6 md:p-8 space-y-8">
+        {/* Calculator mini-header */}
+        <div className="flex items-center justify-between pb-4 border-b border-[var(--glass-border)]">
+          <span className="hero-eyebrow" style={{ fontSize: "0.5625rem" }}>
+            {language === "es" ? "Calculadora de Importación" : "Import Calculator"}
+          </span>
+          <span className="text-[0.5625rem] text-[var(--text-tertiary)] font-medium tracking-[0.18em] uppercase">
+            BOE · 2026
+          </span>
+        </div>
+
         {/* Tab switcher: manual vs URL paste */}
         <div className="pill-group">
           <button
@@ -768,9 +778,9 @@ export function HomeContent({
       <StatsBanner />
 
       {/* Cómo funciona — 3 step visual */}
-      <div className="space-y-3">
-        <h2 className="label-caps flex items-center gap-2">
-          <Star size={12} className="text-[var(--brand-blue)]" />
+      <div className="space-y-4">
+        <h2 className="section-eyebrow">
+          <div className="w-4 h-px bg-[var(--brand-amber)] opacity-50 shrink-0" />
           {language === "es" ? "Cómo funciona" : "How it works"}
         </h2>
         <div className="grid grid-cols-3 gap-3">
@@ -804,12 +814,13 @@ export function HomeContent({
                   : "Full breakdown in seconds",
             },
           ].map((s) => (
-            <div key={s.step} className="card p-4 text-center space-y-2">
-              <div className="text-2xl">{s.icon}</div>
-              <div className="font-semibold text-[var(--text-primary)] text-sm">
+            <div key={s.step} className="step-card">
+              <span className="step-number">{s.step}</span>
+              <div className="text-xl mb-2 relative z-10">{s.icon}</div>
+              <div className="font-semibold text-[var(--text-primary)] text-sm relative z-10">
                 {s.title}
               </div>
-              <div className="text-xs text-[var(--text-tertiary)]">
+              <div className="text-xs text-[var(--text-tertiary)] mt-1 relative z-10">
                 {s.desc}
               </div>
             </div>
@@ -827,15 +838,15 @@ export function HomeContent({
       />
 
       {/* Trust signals */}
-      <div className="space-y-3">
-        <h2 className="label-caps flex items-center gap-2">
-          <Shield size={12} className="text-[var(--brand-blue)]" />
+      <div className="space-y-4">
+        <h2 className="section-eyebrow">
+          <div className="w-4 h-px bg-[var(--brand-amber)] opacity-50 shrink-0" />
           {language === "es" ? "Por qué ImportEspana" : "Why ImportEspana"}
         </h2>
         <div className="grid grid-cols-2 gap-3">
           {[
             {
-              icon: <CheckCircle size={16} className="text-emerald-500" />,
+              icon: <CheckCircle size={16} className="text-emerald-500 shrink-0 mt-0.5" />,
               title:
                 language === "es" ? "Datos oficiales BOE" : "Official BOE data",
               desc:
@@ -844,7 +855,7 @@ export function HomeContent({
                   : "Tables updated January 2026",
             },
             {
-              icon: <Clock size={16} className="text-[var(--brand-blue)]" />,
+              icon: <Clock size={16} className="text-[var(--brand-blue)] shrink-0 mt-0.5" />,
               title:
                 language === "es"
                   ? "Resultado en segundos"
@@ -855,7 +866,7 @@ export function HomeContent({
                   : "No signup, no waiting",
             },
             {
-              icon: <Globe size={16} className="text-purple-500" />,
+              icon: <Globe size={16} className="text-purple-400 shrink-0 mt-0.5" />,
               title: language === "es" ? "17 comunidades" : "17 regions",
               desc:
                 language === "es"
@@ -863,14 +874,14 @@ export function HomeContent({
                   : "Exact ITP per region",
             },
             {
-              icon: <Shield size={16} className="text-amber-500" />,
+              icon: <Shield size={16} className="text-[var(--brand-amber)] shrink-0 mt-0.5" />,
               title: language === "es" ? "Gratuito siempre" : "Always free",
               desc:
                 language === "es" ? "Sin anuncios ocultos" : "No hidden fees",
             },
           ].map((item, i) => (
-            <div key={i} className="card p-4 flex gap-3 items-start">
-              <div className="shrink-0 mt-0.5">{item.icon}</div>
+            <div key={i} className="trust-card">
+              {item.icon}
               <div>
                 <div className="font-semibold text-[var(--text-primary)] text-sm">
                   {item.title}
@@ -896,8 +907,8 @@ export function HomeContent({
       {/* Internal Links — SEO */}
       <div className="mt-12 space-y-8">
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <MapPin size={12} className="text-[var(--brand-blue)]" />
+          <h3 className="section-eyebrow mb-3">
+            <div className="w-3 h-px bg-[var(--brand-amber)] opacity-50 shrink-0" />
             {language === "es"
               ? "Importar coches por comunidad autónoma"
               : "Import cars by region"}
@@ -916,8 +927,8 @@ export function HomeContent({
         </div>
 
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <Globe size={12} className="text-[var(--success)]" />
+          <h3 className="section-eyebrow mb-3">
+            <div className="w-3 h-px bg-[var(--brand-amber)] opacity-50 shrink-0" />
             {language === "es"
               ? "Importar desde otros países"
               : "Import from other countries"}
@@ -937,8 +948,8 @@ export function HomeContent({
 
         {/* City pages grid */}
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <MapPin size={12} className="text-[var(--brand-blue)]" />
+          <h3 className="section-eyebrow mb-3">
+            <div className="w-3 h-px bg-[var(--brand-amber)] opacity-50 shrink-0" />
             {language === "es" ? "Importar por ciudad" : "Import by city"}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -985,7 +996,17 @@ export function HomeContent({
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Ambient hero warmth — amber radial glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute top-[-80px] left-1/2 -translate-x-1/2 w-[750px] h-[520px] animate-ambient"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 45% at 50% 25%, rgba(192,145,71,0.07) 0%, transparent 70%)",
+          filter: "blur(40px)",
+        }}
+      />
       <div className="flex justify-center items-start gap-8 max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-20">
         {/* Left Sidebar */}
         <SidebarAd side="left" />

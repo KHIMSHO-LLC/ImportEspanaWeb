@@ -918,6 +918,210 @@ article img {
   margin: 1em 0;
 }
 
+/* ================================================================
+   LUXURY DESIGN EXTENSIONS — Precision Española
+   Cormorant Garamond · Warm Amber · Cinematic Depth
+   ================================================================ */
+
+:root {
+  /* Amber luxury accent — Spanish sun, saffron warmth */
+  --brand-amber: #C09147;
+  --brand-amber-light: #D4AD6A;
+  --brand-amber-dim: rgba(192, 145, 71, 0.10);
+  --brand-amber-border: rgba(192, 145, 71, 0.28);
+
+  /* Display font — loaded via next/font */
+  --font-display: var(--font-cormorant, 'Cormorant Garamond', Georgia, serif);
+}
+
+/* ── Hero Display Typography ─────────────────────────────────── */
+
+.hero-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: var(--text-primary);
+}
+
+.hero-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand-amber);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.stat-number-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+/* ── Section Labels ──────────────────────────────────────────── */
+
+.section-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand-amber);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Calculator Instrument Card ──────────────────────────────── */
+
+.calculator-instrument {
+  position: relative;
+  overflow: hidden;
+}
+
+.calculator-instrument::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--brand-amber) 25%,
+    var(--brand-amber-light) 50%,
+    var(--brand-amber) 75%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Step Cards ──────────────────────────────────────────────── */
+
+.step-card {
+  position: relative;
+  padding: 20px 16px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--brand-amber-dim) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out-expo);
+}
+
+.step-card:hover {
+  border-color: var(--brand-amber-border);
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.step-card:hover::before {
+  opacity: 1;
+}
+
+.step-number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--brand-amber);
+  opacity: 0.13;
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Trust Cards ─────────────────────────────────────────────── */
+
+.trust-card {
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.trust-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--brand-amber), var(--brand-amber-light));
+  transition: height var(--duration-slow) var(--ease-out-expo);
+  border-radius: 0 0 2px 2px;
+}
+
+.trust-card:hover {
+  border-color: var(--brand-amber-border);
+}
+
+.trust-card:hover::before {
+  height: 100%;
+}
+
+/* ── Stats Banner Enhanced ───────────────────────────────────── */
+
+.stats-item-rule {
+  height: 1px;
+  width: 32px;
+  background: var(--brand-amber);
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+/* ── Ambient Hero Glow ───────────────────────────────────────── */
+
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+@keyframes amber-line-grow {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 0.4; }
+}
+
+.animate-ambient {
+  animation: ambient-pulse 10s ease-in-out infinite;
+}
+
+/* ── Extra stagger helpers ───────────────────────────────────── */
+
+.stagger-6 { animation-delay: 0.30s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.40s; }
+
+/* ================================================================
+   PRINT
+   ================================================================ */
+
 @media print {
   @page {
     margin: 0;
