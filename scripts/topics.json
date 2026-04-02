@@ -256,7 +256,7 @@
     "keyword": "importar coche residente vs no residente",
     "title_hint": "Importar Coche como Residente vs No Residente en España",
     "title_hint_en": "Importing a Car as a Resident vs Non-Resident in Spain",
-    "done": false
+    "done": true
   },
   {
     "slug": "financiar-coche-importado",
