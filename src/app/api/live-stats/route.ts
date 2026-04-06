@@ -29,28 +29,32 @@ export async function GET() {
     let dieselPrice = 1.45; // Fallback
 
     try {
+      const fuelController = new AbortController();
+      const fuelTimeout = setTimeout(() => fuelController.abort(), 8000);
       const fuelResponse = await fetch(
-        "https://sedeapl.mincotur.gob.es/ServiciosRESTCarworlds/ServiciosREST/BuscarEESSTerrestres",
+        "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/",
         {
           next: { revalidate: 86400 }, // Cache fuel for 24h
+          signal: fuelController.signal,
         },
       );
+      clearTimeout(fuelTimeout);
 
       if (fuelResponse.ok) {
         // The Spanish Gov API is heavy, we'd normally parse the whole thing to average it,
         // but for a quick SEO widget, we can grab the first 50 stations and average the diesel price.
         const fuelData = await fuelResponse.json();
-        if (fuelData && fuelData.ListaEESSTerrestres) {
+        if (fuelData && fuelData.ListaEESSPrecio) {
           let total = 0;
           let count = 0;
 
           // "Precio Gasoleo A" is standard diesel
           for (
             let i = 0;
-            i < Math.min(100, fuelData.ListaEESSTerrestres.length);
+            i < Math.min(100, fuelData.ListaEESSPrecio.length);
             i++
           ) {
-            const station = fuelData.ListaEESSTerrestres[i];
+            const station = fuelData.ListaEESSPrecio[i];
             const priceStr = station["Precio Gasoleo A"];
             if (priceStr) {
               // gov API uses commas for decimals

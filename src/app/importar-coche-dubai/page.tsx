@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import DubaiCalculatorContent from "@/components/pages/DubaiCalculatorContent";
-import { SidebarAd } from "@/components/SidebarAd";
 
 export const metadata: Metadata = {
   title: "Importar Coche desde Dubái a España — Calculadora 2026",
@@ -28,12 +27,8 @@ export const metadata: Metadata = {
 export default function DubaiPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--background)" }}>
-      <div className="flex justify-center items-start gap-8 max-w-7xl mx-auto px-4 md:px-8 pt-4 pb-20">
-        <SidebarAd side="left" />
-        <div className="flex-1 max-w-3xl w-full">
-          <DubaiCalculatorContent />
-        </div>
-        <SidebarAd side="right" />
+      <div className="max-w-3xl mx-auto px-4 md:px-8 pt-4 pb-20">
+        <DubaiCalculatorContent />
       </div>
     </div>
   );

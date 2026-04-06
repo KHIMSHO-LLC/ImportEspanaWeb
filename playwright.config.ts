@@ -10,12 +10,14 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "chromium-1",
+      name: "desktop",
       use: { ...devices["Desktop Chrome"] },
+      testMatch: /(?!responsive).*\.spec\.ts/,
     },
     {
-      name: "chromium-2",
+      name: "responsive",
       use: { ...devices["Desktop Chrome"] },
+      testMatch: /responsive\.spec\.ts/,
     },
   ],
   // Don't start a dev server automatically — user runs it separately

@@ -1,5 +1,4 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { AdSense } from "@/components/AdSense";
 import JsonLd from "@/components/JsonLd";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -71,9 +70,6 @@ export const metadata: Metadata = {
     description:
       "Calcula cuánto cuesta matricular tu coche extranjero en España.",
   },
-  other: {
-    "google-adsense-account": "ca-pub-8296385442547902",
-  },
 };
 
 export default function RootLayout({
@@ -87,7 +83,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
         <GoogleAnalytics gaId="G-05KZ4XPMFR" />
-        <AdSense pId="8296385442547902" />
         <JsonLd />
         <ThemeProvider>
           <LanguageProvider>

@@ -1,9 +1,6 @@
 "use client";
 
-import { AdBanner } from "@/components/AdBanner";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { SidebarAd } from "@/components/SidebarAd";
-import { StickyAdFooter } from "@/components/StickyAdFooter";
 import { formatCurrency } from "@/utils/currency";
 
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
@@ -517,15 +514,6 @@ export function HomeContent({
           </div>
         )}
 
-        {/* Mobile In-Feed Ad */}
-        <div className="md:hidden">
-          <AdBanner
-            dataAdSlot="6734103034"
-            dataAdFormat="horizontal"
-            dataFullWidthResponsive={true}
-          />
-        </div>
-
         {/* Car Price */}
         <div className="space-y-2">
           <label className="label-caps flex items-center gap-2">
@@ -757,11 +745,6 @@ export function HomeContent({
           </button>
         </div>
 
-        <AdBanner
-          dataAdSlot="2479889603"
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-        />
       </div>
 
       {/* Stats banner — shown after calculator engagement */}
@@ -818,13 +801,6 @@ export function HomeContent({
       </div>
 
       <LiveMarketData />
-
-      <AdBanner
-        dataAdSlot="1957145426"
-        dataAdFormat="horizontal"
-        dataFullWidthResponsive={true}
-        className="hidden md:block"
-      />
 
       {/* Trust signals */}
       <div className="space-y-3">
@@ -986,31 +962,19 @@ export function HomeContent({
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <div className="flex justify-center items-start gap-8 max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-20">
-        {/* Left Sidebar */}
-        <SidebarAd side="left" />
-
-        {/* Main Content */}
-        <div className="flex-1 max-w-3xl w-full">
-          <Suspense
-            fallback={
-              <div className="space-y-6 py-12">
-                <div className="skeleton h-12 w-3/4" />
-                <div className="skeleton h-6 w-1/2" />
-                <div className="skeleton h-64 w-full" />
-              </div>
-            }
-          >
-            <HomeContent />
-          </Suspense>
-        </div>
-
-        {/* Right Sidebar */}
-        <SidebarAd side="right" />
+      <div className="max-w-3xl mx-auto px-4 md:px-8 pt-6 pb-20">
+        <Suspense
+          fallback={
+            <div className="space-y-6 py-12">
+              <div className="skeleton h-12 w-3/4" />
+              <div className="skeleton h-6 w-1/2" />
+              <div className="skeleton h-64 w-full" />
+            </div>
+          }
+        >
+          <HomeContent />
+        </Suspense>
       </div>
-
-      {/* for AI, when we add ads uncomment this */}
-      {/* <StickyAdFooter /> */}
     </div>
   );
 }

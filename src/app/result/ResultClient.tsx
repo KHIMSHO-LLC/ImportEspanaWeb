@@ -1,7 +1,5 @@
 "use client";
 
-import { AdBanner } from "@/components/AdBanner";
-import { SidebarAd } from "@/components/SidebarAd";
 import { PrintLayout } from "@/components/PrintLayout";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import { useLanguage } from "@/context/LanguageContext";
@@ -88,13 +86,6 @@ function ResultContent() {
     <>
       <PrintLayout result={result} input={input} />
       <div className="w-full print:hidden space-y-6">
-        <AdBanner
-          dataAdSlot="8470582888"
-          dataAdFormat="horizontal"
-          dataFullWidthResponsive={true}
-          className="print:hidden"
-        />
-
         {/* Back button — minimal */}
         <button
           onClick={() => router.push(`/?${searchParams.toString()}`)}
@@ -130,13 +121,6 @@ function ResultContent() {
                 )}
               </div>
             </div>
-
-            <AdBanner
-              dataAdSlot="5939896116"
-              dataAdFormat="horizontal"
-              dataFullWidthResponsive={true}
-              className="print:hidden"
-            />
 
             {/* Vehicle Info Card */}
             <div className="card p-5 md:p-6 animate-fadeInUp stagger-2 print:shadow-none print:border-gray-200 print:p-4 print:rounded-lg">
@@ -189,15 +173,6 @@ function ResultContent() {
                 {copied ? t("copied") : t("shareResult")}
               </button>
             </div>
-          </div>
-
-          {/* Mobile In-Feed Ad */}
-          <div className="md:hidden print:hidden">
-            <AdBanner
-              dataAdSlot="2048644761"
-              dataAdFormat="rectangle"
-              dataFullWidthResponsive={true}
-            />
           </div>
 
           {/* Right Col: Breakdown */}
@@ -282,12 +257,6 @@ function ResultContent() {
               </div>
             </div>
 
-            <AdBanner
-              dataAdSlot="5089848873"
-              dataAdFormat="rectangle"
-              dataFullWidthResponsive={true}
-              className="print:hidden mt-6"
-            />
           </div>
         </div>
 
@@ -421,25 +390,19 @@ function Row({
 
 export default function ResultClient() {
   return (
-    <main className="min-h-screen flex justify-center items-start gap-8 max-w-[1600px] mx-auto px-4 md:px-8 mt-6 pb-20 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none">
-      <SidebarAd side="left" />
-
-      <div className="flex-1 w-full max-w-4xl print:max-w-none print:w-full">
-        <Suspense
-          fallback={
-            <div className="min-h-[60vh] flex items-center justify-center">
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm text-[var(--text-tertiary)]">…</span>
-              </div>
+    <main className="min-h-screen max-w-4xl mx-auto px-4 md:px-8 mt-6 pb-20 print:block print:min-h-0 print:m-0 print:p-0 print:max-w-none">
+      <Suspense
+        fallback={
+          <div className="min-h-[60vh] flex items-center justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-2 border-[var(--brand-blue)] border-t-transparent rounded-full animate-spin" />
+              <span className="text-sm text-[var(--text-tertiary)]">…</span>
             </div>
-          }
-        >
-          <ResultContent />
-        </Suspense>
-      </div>
-
-      <SidebarAd side="right" />
+          </div>
+        }
+      >
+        <ResultContent />
+      </Suspense>
     </main>
   );
 }
