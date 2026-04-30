@@ -265,6 +265,16 @@ body::before {
   font-variant-numeric: tabular-nums;
 }
 
+/* Fluid hero number — scales smoothly with viewport, never overflows. */
+.number-hero {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  font-size: clamp(2.25rem, 11vw, 4.5rem);
+}
+
 /* ================================================================
    GLASS CARD SYSTEM
    ================================================================ */
@@ -593,17 +603,38 @@ select.input-field option {
    ================================================================ */
 
 .chip {
-  padding: 10px 14px;
+  padding: 9px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-out-expo);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip.text-xs {
+  font-size: 0.75rem;
+  padding: 8px 10px;
+  min-height: 34px;
+}
+
+@media (max-width: 360px) {
+  .chip {
+    padding: 8px 10px;
+    font-size: 0.75rem;
+  }
 }
 
 .chip:hover {

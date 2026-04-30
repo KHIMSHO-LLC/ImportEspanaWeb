@@ -44,6 +44,7 @@ import {
   FileCheck,
   Gauge,
   Globe,
+  Info,
   Link2,
   MapPin,
   RotateCcw,
@@ -86,6 +87,7 @@ export function HomeContent({
   const [fiscalValue, setFiscalValue] = useState("");
   const [isElectric, setIsElectric] = useState(false);
   const [transportCost, setTransportCost] = useState("");
+  const [insuranceCost, setInsuranceCost] = useState("");
   const [needsHomologation, setNeedsHomologation] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState(
     prefilledRegion || "Madrid",
@@ -293,6 +295,10 @@ export function HomeContent({
       });
     }
 
+    const regionRate =
+      SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ??
+      DEFAULT_ITP_RATE;
+
     const params = new URLSearchParams({
       importType,
       originCountry,
@@ -304,13 +310,12 @@ export function HomeContent({
       co2Emissions: co2Emissions || "0",
       sellerType,
       transportCost: transportCost,
+      insuranceCost: insuranceCost,
       needsHomologation: needsHomologation.toString(),
+      spanishRegion: selectedRegion,
       itpRate:
         sellerType === "private" && importType === "EU"
-          ? (
-              SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ??
-              DEFAULT_ITP_RATE
-            ).toString()
+          ? regionRate.toString()
           : "",
       brand: vehicleData?.brand || "",
       model: vehicleData?.model || "",
@@ -460,6 +465,44 @@ export function HomeContent({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Destination region (always shown — used for IEDMT regional overrides
+            and special territories Canarias/Ceuta/Melilla, plus ITP). */}
+        <div className="space-y-3">
+          <label className="label-caps flex items-center gap-2">
+            <MapPin size={14} className="text-[var(--brand-blue)]" />
+            {language === "es"
+              ? "Comunidad de matriculación"
+              : language === "de"
+              ? "Zulassungsregion"
+              : language === "fr"
+              ? "Région d'immatriculation"
+              : language === "ru"
+              ? "Регион регистрации"
+              : "Region of registration"}
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {SPANISH_REGIONS.map((region) => (
+              <button
+                key={region.name}
+                onClick={() => setSelectedRegion(region.name)}
+                className={`chip text-xs ${selectedRegion === region.name ? "active" : ""}`}
+              >
+                {region.label}
+              </button>
+            ))}
+          </div>
+          {(selectedRegion === "Canarias" ||
+            selectedRegion === "Ceuta" ||
+            selectedRegion === "Melilla") && (
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
+              <Info size={14} className="mt-0.5 shrink-0 text-blue-500" />
+              {language === "es"
+                ? "Este territorio aplica IGIC/IPSI en lugar de IVA — IEDMT e ITP al 0%."
+                : "This territory uses IGIC/IPSI instead of VAT — IEDMT and ITP at 0%."}
+            </div>
+          )}
         </div>
 
         <div className="divider" />
@@ -654,22 +697,11 @@ export function HomeContent({
               </div>
             )}
             {sellerType === "private" && (
-              <div className="space-y-3 mt-2">
-                <label className="label-caps flex items-center gap-2">
-                  <MapPin size={14} className="text-[var(--brand-blue)]" />
-                  {t("selectRegion")}
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {SPANISH_REGIONS.map((region) => (
-                    <button
-                      key={region.name}
-                      onClick={() => setSelectedRegion(region.name)}
-                      className={`chip text-xs ${selectedRegion === region.name ? "active" : ""}`}
-                    >
-                      {region.label}
-                    </button>
-                  ))}
-                </div>
+              <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
+                <Info size={14} className="mt-0.5 shrink-0 text-blue-500" />
+                {language === "es"
+                  ? `ITP en ${selectedRegion}: ${((SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ?? DEFAULT_ITP_RATE) * 100).toFixed(0)}% sobre el valor fiscal.`
+                  : `ITP in ${selectedRegion}: ${((SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ?? DEFAULT_ITP_RATE) * 100).toFixed(0)}% on the fiscal value.`}
               </div>
             )}
           </div>
@@ -690,6 +722,30 @@ export function HomeContent({
                 placeholder="1500"
                 className="input-field"
               />
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {language === "es"
+                  ? "Flete marítimo / terrestre. Se incluye en el valor CIF para el cálculo del arancel y el IVA."
+                  : "Sea / land freight. Included in CIF value for customs duty and VAT calculation."}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <label className="label-caps flex items-center gap-2">
+                <Shield size={14} className="text-[var(--brand-blue)]" />
+                {language === "es" ? "Seguro de transporte" : "Marine cargo insurance"}
+              </label>
+              <input
+                type="number"
+                value={insuranceCost}
+                onChange={(e) => setInsuranceCost(e.target.value)}
+                placeholder={language === "es" ? "Estimado: 0,5% del precio" : "Estimate: 0.5% of price"}
+                className="input-field"
+              />
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {language === "es"
+                  ? "Si lo dejas vacío, estimamos un 0,5% del precio del coche (estándar para cargo marítimo)."
+                  : "If left blank, we estimate 0.5% of the car price (standard marine cargo)."}
+              </p>
             </div>
 
             <div

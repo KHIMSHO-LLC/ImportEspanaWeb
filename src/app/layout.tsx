@@ -24,11 +24,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://importespana.com"),
   title: {
-    default: "ImportEspana - Calculadora Impuestos Matriculación España",
+    default:
+      "ImportEspana 2026 — Calculadora IEDMT, ITP y Aranceles para Importar Coches a España",
     template: "%s | ImportEspana",
   },
   description:
-    "Calculadora gratuita de impuestos de matriculación para coches importados en España. Calcula el coste de importar coche de Alemania, Francia o cualquier parte de la UE.",
+    "Calculadora oficial 2026: IEDMT (Ley 38/1992), ITP por comunidad, arancel 10% e IVA 21% para coches importados a España. Tablas BOE Orden HAC/1501/2025. Compara comunidades y coste real de propiedad. Gratis.",
   keywords: SEO_KEYWORDS,
   authors: [{ name: "KHIMSHO LLC" }],
   creator: "KHIMSHO LLC",
@@ -56,20 +57,23 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "ImportEspana - Calculadora Impuesto Matriculación",
+    title:
+      "ImportEspana — Calculadora IEDMT, ITP y aranceles para importar coches (2026)",
     description:
-      "Calcula el coste exacto de importar y matricular tu coche en España. Datos oficiales del BOE.",
+      "Datos oficiales BOE 2026. IEDMT, ITP por comunidad (con exenciones), arancel 10% e IVA 21%, comparativa entre comunidades y coste real de propiedad.",
     url: "https://importespana.com",
     siteName: "ImportEspana",
     locale: "es_ES",
+    alternateLocale: ["en_US", "de_DE", "fr_FR", "ru_RU"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ImportEspana - Calculadora Importación Coches",
+    title: "ImportEspana — Calcula impuestos de importación de coches a España (2026)",
     description:
-      "Calcula cuánto cuesta matricular tu coche extranjero en España.",
+      "IEDMT, ITP, aranceles, IVA y trámites. Tablas BOE oficiales y comparativa por comunidad.",
   },
+  category: "finance",
 };
 
 export default function RootLayout({

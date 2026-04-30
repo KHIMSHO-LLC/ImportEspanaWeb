@@ -6,6 +6,9 @@ import { useLanguage } from "@/context/LanguageContext";
 import { CalculationInput } from "@/types";
 import { calculateImportCost } from "@/utils/taxCalculator";
 import { formatCurrency } from "@/utils/currency";
+import { AuditRiskBadge } from "@/components/AuditRiskBadge";
+import { TcoPanel } from "@/components/TcoPanel";
+import { RegionComparator } from "@/components/RegionComparator";
 import { ArrowLeft, Car, CheckCircle, ChevronDown, ChevronUp, Copy, Printer, Info } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -34,20 +37,31 @@ function ResultContent() {
       return;
     }
 
+    const registrationDate = searchParams.get("registrationDate") || undefined;
+    const isNewCondition = searchParams.get("isNewCondition") === "true";
+    const spanishRegion = searchParams.get("spanishRegion") || undefined;
+    const insuranceCostParam = searchParams.get("insuranceCost");
+
     const calculatedInput: CalculationInput = {
       importType: searchParams.get("importType") as any,
       originCountry,
       carPrice,
       officialFiscalValue,
       carAge,
+      registrationDate,
+      isNewCondition,
       co2Emissions,
       sellerType,
       transportCost: searchParams.get("transportCost")
         ? parseFloat(searchParams.get("transportCost")!)
         : undefined,
+      insuranceCost: insuranceCostParam
+        ? parseFloat(insuranceCostParam)
+        : undefined,
       customsAgentFee: searchParams.get("importType") === "NonEU" ? 200 : 0,
       needsHomologation: searchParams.get("needsHomologation") === "true",
       itpRate: itpRateParam ? parseFloat(itpRateParam) : undefined,
+      spanishRegion,
       brand: brand || undefined,
       model: model || undefined,
     };
@@ -104,7 +118,7 @@ function ResultContent() {
                 <div className="label-caps text-white/60 mb-3 print:text-white print:mb-1 print:text-xs">
                   {t("estimatedTotal")}
                 </div>
-                <div className="number-display text-5xl md:text-6xl lg:text-7xl text-white mb-4 md:mb-6 animate-countUp print:text-3xl print:mb-1">
+                <div className="number-hero text-white mb-4 md:mb-6 animate-countUp print:text-3xl print:mb-1">
                   {formatCurrency(result.totalCost)}
                 </div>
                 <p className="text-white/50 text-sm print:text-white print:text-xs">
@@ -259,6 +273,58 @@ function ResultContent() {
 
           </div>
         </div>
+
+        {/* ITP exemption note */}
+        {result.itpExemptReason && (
+          <div className="card p-4 flex items-start gap-3 border-emerald-500/30 bg-emerald-500/[0.04]">
+            <CheckCircle size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+            <div className="text-sm">
+              <div className="font-semibold text-[var(--text-primary)]">
+                {language === "es"
+                  ? "Exención o reducción de ITP aplicada"
+                  : "ITP exemption or reduction applied"}
+              </div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">
+                {result.itpExemptReason === "cat_zero_emissions" &&
+                  (language === "es"
+                    ? "Cataluña: vehículos con etiqueta cero emisiones están exentos desde el 27 de junio de 2025 (Decreto-ley 5/2025)."
+                    : "Cataluña: zero-emissions vehicles exempt since 27 June 2025 (Decree-Law 5/2025).")}
+                {result.itpExemptReason === "cat_old_low_value" &&
+                  (language === "es"
+                    ? "Cataluña: vehículos de 10 o más años con valor original inferior a 40.000€ están exentos."
+                    : "Cataluña: vehicles 10+ years old with original value under €40,000 are exempt.")}
+                {result.itpExemptReason === "and_zero_emissions" &&
+                  (language === "es"
+                    ? "Andalucía: tipo reducido del 1% para vehículos cero emisiones (Ley 5/2021)."
+                    : "Andalucía: reduced 1% rate for zero-emissions vehicles (Law 5/2021).")}
+                {result.itpExemptReason === "special_territory" &&
+                  (language === "es"
+                    ? "Territorio especial (IGIC/IPSI): no se aplica ITP."
+                    : "Special territory (IGIC/IPSI): ITP does not apply.")}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Audit-risk badge — only meaningful for EU imports with declared price */}
+        {input.importType === "EU" && (
+          <AuditRiskBadge
+            risk={result.auditRisk}
+            ratio={result.auditRiskRatio}
+            declaredPrice={input.carPrice}
+            marketValue={result.marketValue}
+          />
+        )}
+
+        {/* Total cost of ownership */}
+        <TcoPanel
+          totalImportCost={result.totalCost}
+          co2Emissions={input.co2Emissions}
+          carPrice={input.carPrice}
+        />
+
+        {/* Region comparator */}
+        <RegionComparator input={input} current={result.totalCost} />
 
         {/* "How we calculated this" expandable */}
         <div className="card p-5 print:hidden animate-fadeInUp">

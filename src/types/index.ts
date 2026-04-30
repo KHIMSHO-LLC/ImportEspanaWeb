@@ -29,39 +29,51 @@ export type CarAge =
 export interface CalculationInput {
   importType?: ImportType;
   originCountry: Country;
-  carPrice: number; // Purchase Price (Market Value)
-  officialFiscalValue: number; // BOE Value (Brand new value according to Hacienda)
+  carPrice: number;                 // Invoice/transaction price the buyer pays.
+  officialFiscalValue: number;      // BOE "precios medios" — original new value per Orden HAC.
   carAge?: CarAge;
-  registrationDate?: string; // Format: YYYY-MM
-  isNewCondition?: boolean; // True if < 6 months OR < 6,000km
-  co2Emissions: number;
+  registrationDate?: string;        // YYYY-MM (preferred; overrides carAge).
+  isNewCondition?: boolean;         // True if ≤ 6 months OR ≤ 6,000 km (intracommunity new).
+  co2Emissions: number;             // g/km. 0 ⇒ zero-emissions / electric.
   sellerType: "dealer" | "private";
-  transportCost?: number;
-  itpRate?: number; // Regional Transfer Tax Rate (Default 0.04)
-  spanishRegion?: string; // Spanish region name (for regional IEDMT overrides)
+  transportCost?: number;           // Freight (€).
+  insuranceCost?: number;           // Marine cargo insurance (Non-EU CIF).
+  itpRate?: number;                 // Default regional ITP rate (0.04 ÷ 0.08).
+  spanishRegion?: string;           // For ITP and IEDMT regional overrides.
   customsAgentFee?: number;
   needsHomologation?: boolean;
   brand?: string;
   model?: string;
 }
 
+export type ItpExemptReasonCode =
+  | "special_territory"
+  | "cat_zero_emissions"
+  | "cat_old_low_value"
+  | "and_zero_emissions";
+
 export interface CalculationResult {
   purchasePrice: number;
-  taxBase: number; // Base Imponible (Fiscal Value * Depreciation)
-  registrationTax: number; // IEDMT
-  itpTax: number; // ITP (if private)
-  duty?: number; // Arancel (Non-EU)
-  vat?: number; // IVA (Non-EU)
+  taxBase: number;                  // Base Imponible (used for IEDMT and ITP).
+  marketValue: number;              // BOE × depreciation — used for audit-risk check.
+  registrationTax: number;          // IEDMT.
+  itpTax: number;                   // ITP private second-hand.
+  itpRateApplied: number;           // Effective ITP rate after exemptions/reductions.
+  itpExemptReason?: ItpExemptReasonCode;
+  duty?: number;                    // Arancel TARIC 8703 (Non-EU).
+  vat?: number;                     // IVA (intracommunity new or Non-EU import).
   customsAgentFee?: number;
   homologationFee?: number;
   dgtFee: number;
   itvFee: number;
   platesFee: number;
   transportCost: number;
-  totalImportTaxes: number; // Sum of taxes/fees (excluding car price)
-  totalCost: number; // Final Check to write
-  taxRateApplied: number;
-  depreciationPercentage: number; // The % value RETAINED (e.g., 0.84)
+  totalImportTaxes: number;
+  totalCost: number;
+  taxRateApplied: number;           // Effective IEDMT rate.
+  depreciationPercentage: number;   // % value retained (0..1).
+  auditRisk: "low" | "medium" | "high";
+  auditRiskRatio: number;           // declared / market — informational.
 }
 
 export interface Vehicle {
