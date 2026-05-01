@@ -4,10 +4,24 @@ import Link from "next/link";
 import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { CITIES, CityData } from "@/data/cities";
+import { CITIES_I18N } from "@/i18n/cities";
 import SeoSchema from "@/components/SeoSchema";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props {
   citySlug: string;
+}
+
+const NUMBER_LOCALES: Record<string, string> = {
+  en: "en-US",
+  es: "es-ES",
+  ru: "ru-RU",
+  de: "de-DE",
+  fr: "fr-FR",
+};
+
+function fill(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -35,34 +49,39 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function CityPageContent({ citySlug }: Props) {
+  const { language, t } = useLanguage();
   const city = CITIES.find((c) => c.slug === citySlug);
 
   if (!city) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-12">
-        <p className="text-[var(--text-secondary)]">Ciudad no encontrada.</p>
+        <p className="text-[var(--text-secondary)]">{t("cityNotFound")}</p>
       </main>
     );
   }
+
+  const i18n = CITIES_I18N[language]?.[citySlug] ?? CITIES_I18N.en[citySlug] ?? CITIES_I18N.es[citySlug];
 
   const relatedCities = city.relatedCities
     .map((slug) => CITIES.find((c) => c.slug === slug))
     .filter((c): c is CityData => !!c);
 
   const breadcrumbs = [
-    { name: "Inicio", url: "https://importespana.com" },
-    { name: "Importar coche", url: "https://importespana.com/" },
+    { name: t("home"), url: "https://importespana.com" },
+    { name: t("cityImportCar"), url: "https://importespana.com/" },
     {
       name: city.name,
       url: `https://importespana.com/importar-coche-${city.slug}`,
     },
   ];
 
+  const itpExample = (20000 * city.itpRate / 100).toLocaleString(NUMBER_LOCALES[language] ?? "es-ES");
+
   return (
     <>
       <SeoSchema
         breadcrumbs={breadcrumbs}
-        faqItems={city.faq}
+        faqItems={i18n.faq}
         showHomeSchemas={false}
       />
 
@@ -70,7 +89,7 @@ export default function CityPageContent({ citySlug }: Props) {
         {/* Breadcrumb */}
         <nav className="text-sm text-[var(--text-tertiary)] mb-8 flex items-center gap-2">
           <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
-            Inicio
+            {t("home")}
           </Link>
           <span>/</span>
           <Link
@@ -90,11 +109,15 @@ export default function CityPageContent({ citySlug }: Props) {
             {city.regionName} — ITP {city.itpRate}%
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4 leading-tight">
-            Importar Coche en {city.name} — Guía Completa 2026
+            {fill(t("cityH1Pattern"), { city: city.name })}
           </h1>
           <p className="text-[var(--text-secondary)] text-lg">
-            Calcula el coste exacto de importar y matricular tu coche en {city.name} ({city.regionName}).{" "}
-            ITP: <strong>{city.itpRate}%</strong>. Población: {city.population}.
+            {fill(t("cityHeroDesc"), {
+              city: city.name,
+              region: city.regionName,
+              rate: city.itpRate,
+              pop: i18n.population,
+            })}
           </p>
         </div>
 
@@ -105,11 +128,10 @@ export default function CityPageContent({ citySlug }: Props) {
           </div>
           <div>
             <div className="font-semibold text-[var(--text-primary)]">
-              ITP en {city.regionName}
+              {fill(t("cityItpInRegion"), { region: city.regionName })}
             </div>
             <div className="text-sm text-[var(--text-secondary)]">
-              Impuesto de Transmisiones Patrimoniales — se aplica al comprar a particular.
-              Para un coche de 20.000 € de valor fiscal: <strong>{(20000 * city.itpRate / 100).toLocaleString("es-ES")} €</strong>.
+              {fill(t("cityItpExplain"), { example: itpExample })}
             </div>
           </div>
         </div>
@@ -117,36 +139,36 @@ export default function CityPageContent({ citySlug }: Props) {
         {/* Calculator CTA */}
         <div className="card-hero p-6 mb-8 text-center space-y-3">
           <h2 className="text-xl font-bold text-white">
-            Calcula tu importación a {city.name}
+            {fill(t("cityCalcCtaTitle"), { city: city.name })}
           </h2>
           <p className="text-white/70 text-sm">
-            Usa nuestra calculadora con el ITP de {city.regionName} preconfigurado.
+            {fill(t("cityCalcCtaText"), { region: city.regionName })}
           </p>
           <Link
             href={`/?region=${city.regionName}`}
             className="inline-block bg-white text-[var(--brand-blue)] font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
           >
-            Abrir Calculadora →
+            {t("cityCalcCtaButton")}
           </Link>
         </div>
 
         {/* Unique paragraph */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
-            Importar un coche en {city.name}
+            {fill(t("cityImportInTitle"), { city: city.name })}
           </h2>
           <p className="text-[var(--text-secondary)] leading-relaxed">
-            {city.uniqueParagraph}
+            {i18n.uniqueParagraph}
           </p>
         </div>
 
         {/* FAQ */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-[var(--text-primary)] mb-5">
-            Preguntas frecuentes — {city.name}
+            {fill(t("cityFaqTitle"), { city: city.name })}
           </h2>
           <div className="space-y-3">
-            {city.faq.map((item, i) => (
+            {i18n.faq.map((item, i) => (
               <FaqItem key={i} q={item.question} a={item.answer} />
             ))}
           </div>
@@ -155,7 +177,7 @@ export default function CityPageContent({ citySlug }: Props) {
         {/* Related cities */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
-            También te puede interesar
+            {t("cityRelatedTitle")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {relatedCities.map((c) => (
@@ -176,12 +198,12 @@ export default function CityPageContent({ citySlug }: Props) {
         {/* Region link */}
         <div className="p-4 bg-[var(--surface-dim)] rounded-xl border border-[var(--surface-border)] text-sm">
           <p className="text-[var(--text-secondary)]">
-            ¿Buscas información sobre toda la comunidad?{" "}
+            {t("cityRegionLinkPrompt")}{" "}
             <Link
               href={`/importar-coche/${city.regionSlug}`}
               className="text-[var(--brand-blue)] hover:underline font-medium"
             >
-              Ver guía completa de {city.regionName} →
+              {fill(t("cityRegionLinkLabel"), { region: city.regionName })}
             </Link>
           </p>
         </div>

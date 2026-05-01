@@ -5,39 +5,15 @@ import Link from "next/link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { FAQ_DATA } from "@/constants/FaqData";
 import SeoSchema from "@/components/SeoSchema";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CATEGORIES = [
-  {
-    id: "costes",
-    title: "Costes e Impuestos",
-    icon: "💶",
-    range: [0, 6],
-  },
-  {
-    id: "proceso",
-    title: "Proceso y Trámites",
-    icon: "📋",
-    range: [6, 12],
-  },
-  {
-    id: "vehiculos",
-    title: "Tipos de Vehículos",
-    icon: "🚗",
-    range: [12, 17],
-  },
-  {
-    id: "comparativas",
-    title: "Comparativas Regionales",
-    icon: "🗺️",
-    range: [17, 21],
-  },
-  {
-    id: "dubai",
-    title: "Importar desde Dubái",
-    icon: "🇦🇪",
-    range: [21, 28],
-  },
-];
+  { id: "costes", titleKey: "faqCategoryCosts", icon: "💶", range: [0, 6] },
+  { id: "proceso", titleKey: "faqCategoryProcess", icon: "📋", range: [6, 12] },
+  { id: "vehiculos", titleKey: "faqCategoryVehicles", icon: "🚗", range: [12, 17] },
+  { id: "comparativas", titleKey: "faqCategoryRegional", icon: "🗺️", range: [17, 21] },
+  { id: "dubai", titleKey: "faqCategoryDubai", icon: "🇦🇪", range: [21, 28] },
+] as const;
 
 function AccordionItem({
   question,
@@ -75,12 +51,13 @@ function AccordionItem({
 }
 
 export default function FaqPageContent() {
-  const allFaqs = FAQ_DATA.es;
+  const { language, t } = useLanguage();
+  const allFaqs = FAQ_DATA[language] ?? FAQ_DATA.en;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const breadcrumbs = [
-    { name: "Inicio", url: "https://importespana.com" },
-    { name: "Preguntas Frecuentes", url: "https://importespana.com/preguntas-frecuentes" },
+    { name: t("home"), url: "https://importespana.com" },
+    { name: t("faqPageBreadcrumb"), url: "https://importespana.com/preguntas-frecuentes" },
   ];
 
   return (
@@ -95,17 +72,17 @@ export default function FaqPageContent() {
         {/* Breadcrumb */}
         <nav className="text-sm text-[var(--text-tertiary)] mb-8 flex items-center gap-2">
           <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
-            Inicio
+            {t("home")}
           </Link>
           <span>/</span>
-          <span className="text-[var(--text-primary)]">Preguntas Frecuentes</span>
+          <span className="text-[var(--text-primary)]">{t("faqPageBreadcrumb")}</span>
         </nav>
 
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
-          Preguntas Frecuentes sobre Importar Coches a España
+          {t("faqPageTitle")}
         </h1>
         <p className="text-[var(--text-secondary)] mb-10 text-lg">
-          Todo lo que necesitas saber sobre costes, trámites, impuestos y cómo importar un coche desde Alemania, Dubái y otros países a España.
+          {t("faqPageSubtitle")}
         </p>
 
         <div className="space-y-12">
@@ -116,7 +93,7 @@ export default function FaqPageContent() {
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-2xl">{cat.icon}</span>
                   <h2 className="text-xl font-bold text-[var(--text-primary)]">
-                    {cat.title}
+                    {t(cat.titleKey)}
                   </h2>
                 </div>
                 <div className="space-y-3">
@@ -143,23 +120,17 @@ export default function FaqPageContent() {
         {/* CTA links */}
         <div className="mt-12 p-6 bg-[var(--surface-dim)] rounded-2xl border border-[var(--surface-border)]">
           <h3 className="font-bold text-[var(--text-primary)] mb-3">
-            ¿Listo para calcular tu importación?
+            {t("faqReadyTitle")}
           </h3>
           <p className="text-sm text-[var(--text-secondary)] mb-4">
-            Usa nuestra calculadora gratuita para obtener el coste exacto con los datos oficiales del BOE.
+            {t("faqReadyText")}
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href="/"
-              className="btn-primary text-sm px-5 py-2.5"
-            >
-              Calcular ahora
+            <Link href="/" className="btn-primary text-sm px-5 py-2.5">
+              {t("faqCalculateNow")}
             </Link>
-            <Link
-              href="/importar-coche-dubai"
-              className="btn-secondary text-sm px-5 py-2.5"
-            >
-              Importar desde Dubái
+            <Link href="/importar-coche-dubai" className="btn-secondary text-sm px-5 py-2.5">
+              {t("faqImportFromDubai")}
             </Link>
           </div>
         </div>
@@ -167,14 +138,14 @@ export default function FaqPageContent() {
         {/* Internal links */}
         <div className="mt-8 pt-8 border-t border-[var(--surface-border)]">
           <h3 className="font-semibold text-[var(--text-secondary)] mb-4 text-sm uppercase tracking-wider">
-            También puede interesarte
+            {t("faqAlsoInteresting")}
           </h3>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { href: "/itp", label: "Tabla ITP por comunidad" },
-              { href: "/how-it-works", label: "Cómo funciona la importación" },
-              { href: "/metodologia", label: "Metodología del cálculo" },
-              { href: "/blog", label: "Blog sobre importación" },
+              { href: "/itp", label: t("faqLinkItpTable") },
+              { href: "/how-it-works", label: t("faqLinkHowItWorks") },
+              { href: "/metodologia", label: t("faqLinkMethodology") },
+              { href: "/blog", label: t("faqLinkBlog") },
             ].map((link) => (
               <Link
                 key={link.href}
