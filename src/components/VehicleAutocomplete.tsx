@@ -199,7 +199,7 @@ export function VehicleAutocomplete({
   return (
     <div className="space-y-5">
       {/* Brand Search */}
-      <div className="relative" ref={brandInputRef}>
+      <div className="relative z-30" ref={brandInputRef}>
         <label className="label-caps flex items-center gap-2 mb-2">
           {t("brand")}
           <InfoTooltip text={t("vehicleSearchInfo")} />
@@ -219,7 +219,7 @@ export function VehicleAutocomplete({
         />
 
         {showBrandSuggestions && filteredBrands.length > 0 && (
-          <div className="absolute z-10 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slideDown">
+          <div className="absolute z-50 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-60 overflow-y-auto animate-slideDown">
             {filteredBrands.map((item) => (
               <div
                 key={item}
@@ -254,7 +254,7 @@ export function VehicleAutocomplete({
 
       {/* Model Search */}
       {selectedBrand && (
-        <div className="relative animate-fadeInUp" ref={modelInputRef}>
+        <div className="relative z-30 animate-fadeInUp" ref={modelInputRef}>
           <label className="label-caps flex items-center gap-2 mb-2">
             {t("model")}
             <InfoTooltip text={t("vehicleSearchInfo")} />
@@ -273,7 +273,7 @@ export function VehicleAutocomplete({
           />
 
           {showModelSuggestions && filteredModels.length > 0 && (
-            <div className="absolute z-10 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-72 overflow-y-auto animate-slideDown">
+            <div className="absolute z-50 w-full mt-2 bg-[var(--surface-popover)] border border-[var(--surface-border)] rounded-xl shadow-lg max-h-72 overflow-y-auto animate-slideDown">
               {filteredModels.map((item) => (
                 <div
                   key={item.id}
