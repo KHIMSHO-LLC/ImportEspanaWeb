@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/blog-data";
+import { getAllPosts, getCounterpartSlug, isEnglishSlug } from "@/lib/blog-data";
 import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
 import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
@@ -20,18 +20,14 @@ const CITY_SLUGS = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://importespana.com";
 
+  // Note: /result is intentionally excluded — it's noindex,nofollow
+  // (personalized calculation output, no SEO value).
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/result`,
-      lastModified: new Date(),
-      changeFrequency: "always",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/about`,
@@ -131,14 +127,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Blog post pages
+  // Blog post pages — emit hreflang alternates linking ES↔EN pairs so Google
+  // treats them as language alternates instead of duplicate content.
   const posts = getAllPosts();
-  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => {
+    const isEnglish = isEnglishSlug(post.slug);
+    const counterpart = getCounterpartSlug(post.slug);
+    const selfUrl = `${baseUrl}/blog/${post.slug}`;
+    const counterpartUrl = counterpart
+      ? `${baseUrl}/blog/${counterpart}`
+      : null;
+
+    const esUrl = isEnglish ? counterpartUrl : selfUrl;
+    const enUrl = isEnglish ? selfUrl : counterpartUrl;
+
+    const languages: Record<string, string> = {};
+    if (esUrl) languages["es-ES"] = esUrl;
+    if (enUrl) languages["en-US"] = enUrl;
+    languages["x-default"] = esUrl ?? selfUrl;
+
+    return {
+      url: selfUrl,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+      alternates: { languages },
+    };
+  });
 
   // Car model pages
   const carPages: MetadataRoute.Sitemap = TOP_SEO_MODELS.map((car) => ({

@@ -1,7 +1,15 @@
-import { getAllSlugs, getPostBySlug, getAllPosts } from "@/lib/blog-data";
+import {
+  getAllSlugs,
+  getPostBySlug,
+  getAllPosts,
+  getCounterpartSlug,
+  isEnglishSlug,
+} from "@/lib/blog-data";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+const BASE = "https://importespana.com";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -17,11 +25,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
 
+  const isEnglish = isEnglishSlug(slug);
+  const counterpart = getCounterpartSlug(slug);
+
+  const selfUrl = `${BASE}/blog/${slug}`;
+  const esUrl = isEnglish
+    ? counterpart
+      ? `${BASE}/blog/${counterpart}`
+      : null
+    : selfUrl;
+  const enUrl = isEnglish
+    ? selfUrl
+    : counterpart
+      ? `${BASE}/blog/${counterpart}`
+      : null;
+
+  const languages: Record<string, string> = {};
+  if (esUrl) languages["es-ES"] = esUrl;
+  if (enUrl) languages["en-US"] = enUrl;
+  // x-default points to the Spanish version when available (primary language),
+  // otherwise the page itself.
+  languages["x-default"] = esUrl ?? selfUrl;
+
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `https://importespana.com/blog/${slug}`,
+      canonical: selfUrl,
+      languages,
     },
     openGraph: {
       title: post.title,
@@ -29,6 +60,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       tags: post.tags,
+      locale: isEnglish ? "en_US" : "es_ES",
+      url: selfUrl,
     },
   };
 }
@@ -39,14 +72,19 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound();
 
+  const isEnglish = isEnglishSlug(slug);
   const allPosts = getAllPosts();
-  const related = allPosts.filter((p) => p.slug !== slug).slice(0, 3);
+  // Match related posts to the current language so we don't mix ES/EN links.
+  const related = allPosts
+    .filter((p) => p.slug !== slug && isEnglishSlug(p.slug) === isEnglish)
+    .slice(0, 3);
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.description,
+    inLanguage: isEnglish ? "en" : "es",
     datePublished: post.date,
     dateModified: post.date,
     author: {
@@ -61,7 +99,7 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-3xl mx-auto px-4 py-12" lang={isEnglish ? "en" : "es"}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -70,7 +108,7 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Breadcrumb */}
       <nav className="text-sm mb-8" style={{ color: "var(--text-tertiary)" }}>
         <Link href="/" className="transition-colors" style={{ color: "var(--brand-blue)" }}>
-          Inicio
+          {isEnglish ? "Home" : "Inicio"}
         </Link>
         <span className="mx-2">/</span>
         <Link href="/blog" className="transition-colors" style={{ color: "var(--brand-blue)" }}>
@@ -106,13 +144,13 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="flex items-center gap-4 text-sm mb-8 pb-8 border-b" style={{ color: "var(--text-tertiary)", borderBottomColor: "var(--glass-border)" }}>
         <span>
           📅{" "}
-          {new Date(post.date).toLocaleDateString("es-ES", {
+          {new Date(post.date).toLocaleDateString(isEnglish ? "en-US" : "es-ES", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
         </span>
-        <span>⏱ {post.readingTime} min lectura</span>
+        <span>⏱ {post.readingTime} min {isEnglish ? "read" : "lectura"}</span>
       </div>
 
       {/* Content */}
@@ -128,7 +166,7 @@ export default async function BlogPostPage({ params }: Props) {
       {related.length > 0 && (
         <div className="mt-16 pt-8" style={{ borderTopColor: "var(--glass-border)" }}>
           <h2 className="text-2xl font-bold mb-6 heading-section">
-            Artículos Relacionados
+            {isEnglish ? "Related Articles" : "Artículos Relacionados"}
           </h2>
           <div className="grid gap-4">
             {related.map((r) => (
@@ -161,7 +199,7 @@ export default async function BlogPostPage({ params }: Props) {
           className="font-medium transition-colors"
           style={{ color: "var(--brand-blue)" }}
         >
-          ← Volver al Blog
+          {isEnglish ? "← Back to Blog" : "← Volver al Blog"}
         </Link>
       </div>
     </div>

@@ -90,3 +90,20 @@ export function getAllSlugs(): string[] {
     .filter((f) => f.endsWith(".md"))
     .map((f) => f.replace(/\.md$/, ""));
 }
+
+export function isEnglishSlug(slug: string): boolean {
+  return slug.endsWith("-en");
+}
+
+// Maps an ES↔EN pair when both files exist on disk; returns null otherwise.
+export function getCounterpartSlug(slug: string): string | null {
+  if (!fs.existsSync(BLOG_DIR)) return null;
+
+  const candidate = isEnglishSlug(slug)
+    ? slug.slice(0, -3) // strip trailing "-en"
+    : `${slug}-en`;
+
+  return fs.existsSync(path.join(BLOG_DIR, `${candidate}.md`))
+    ? candidate
+    : null;
+}
