@@ -3,34 +3,79 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { Vehicle } from "@/types";
 import Link from "next/link";
-import { Suspense } from "react";
+import { useState } from "react";
 import {
   Car,
   Calculator,
-  Info,
   Euro,
   Gauge,
   Calendar,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   TrendingDown,
+  Info,
   ArrowRight,
 } from "lucide-react";
-import { HomeContent } from "@/app/page";
-import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
+import { getCarContent } from "@/data/cars";
+import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-[var(--surface-border)] rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between p-4 text-left bg-[var(--surface)] hover:bg-[var(--surface-dim)] transition-colors"
+      >
+        <span className="font-semibold text-[var(--text-primary)] pr-4 text-sm">
+          {q}
+        </span>
+        {open ? (
+          <ChevronUp size={16} className="text-[var(--brand-blue)] shrink-0" />
+        ) : (
+          <ChevronDown size={16} className="text-[var(--text-tertiary)] shrink-0" />
+        )}
+      </button>
+      {open && (
+        <div className="px-4 pb-4 pt-2 bg-[var(--surface-dim)] text-sm text-[var(--text-secondary)] leading-relaxed">
+          {a}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function CarPageContent({
   heroCar,
   queryModel,
   displayBrand,
+  slug,
 }: {
   heroCar: Vehicle;
   queryModel: string;
   displayBrand: string;
+  slug: string;
 }) {
   const { language } = useLanguage();
   const lang = language === "es" ? "es" : "en";
 
   const displayName = `${displayBrand} ${queryModel}`;
+  const content = getCarContent(slug);
+
+  // Resolve related cars (only if they're still in TOP_SEO_MODELS).
+  const relatedCars =
+    content?.relatedSlugs
+      ?.map((relatedSlug) => {
+        const match = TOP_SEO_MODELS.find(
+          (c) => slugify(`${c.brand}-${c.modelQuery}`) === relatedSlug,
+        );
+        return match ? { slug: relatedSlug, ...match } : null;
+      })
+      .filter((c): c is { slug: string; brand: string; modelQuery: string } => !!c) ?? [];
+
+  // Pre-fill the homepage calculator with this car via query params.
+  const calculatorHref = `/?brand=${encodeURIComponent(displayBrand)}&model=${encodeURIComponent(queryModel)}`;
 
   return (
     <div className="bg-[var(--surface-dim)] min-h-screen">
@@ -94,7 +139,9 @@ export default function CarPageContent({
               <div className="text-lg font-bold text-[var(--text-primary)]">
                 {heroCar.cv} cv
               </div>
-              <div className="text-xs text-[var(--text-tertiary)] font-medium">Potencia</div>
+              <div className="text-xs text-[var(--text-tertiary)] font-medium">
+                {lang === "es" ? "Potencia" : "Power"}
+              </div>
             </div>
             <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
               <TrendingDown size={20} className="text-amber-600 mx-auto mb-2" />
@@ -102,13 +149,13 @@ export default function CarPageContent({
                 {heroCar.co2 ? `${heroCar.co2}g` : "--"}
               </div>
               <div className="text-xs text-[var(--text-tertiary)] font-medium">
-                Emisiones CO₂
+                {lang === "es" ? "Emisiones CO₂" : "CO₂ Emissions"}
               </div>
             </div>
             <div className="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
               <Calendar size={20} className="text-purple-600 mx-auto mb-2" />
               <div className="text-lg font-bold text-[var(--text-primary)]">
-                {heroCar.startYear} - {heroCar.endYear || "Hoy"}
+                {heroCar.startYear} - {heroCar.endYear || (lang === "es" ? "Hoy" : "Today")}
               </div>
               <div className="text-xs text-[var(--text-tertiary)] font-medium">
                 {lang === "es" ? "Fabricación" : "Years"}
@@ -120,34 +167,42 @@ export default function CarPageContent({
 
       {/* Main Content Area */}
       <div className="max-w-4xl mx-auto px-4 space-y-8 pb-20">
-        {/* Live Interactive Calculator for this specific Car */}
-        <section className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm p-4 md:p-6 border border-blue-100">
-          <h2 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-2 border-b pb-4">
-            <Calculator size={24} className="text-[var(--brand-blue)]" />
+        {/* Compact Calculator CTA (replaces embedded homepage) */}
+        <section className="bg-gradient-to-br from-[var(--brand-blue)] to-blue-700 rounded-2xl shadow-md p-6 md:p-8 text-center text-white">
+          <Calculator size={32} className="mx-auto mb-3 opacity-90" />
+          <h2 className="text-xl md:text-2xl font-bold mb-2">
             {lang === "es"
-              ? `Calculadora Exacta para ${displayName}`
-              : `Exact Calculator for ${displayName}`}
+              ? `Calcula los impuestos exactos de tu ${displayName}`
+              : `Calculate exact taxes for your ${displayName}`}
           </h2>
-          <p className="text-sm text-[var(--text-tertiary)] mb-6 font-medium">
+          <p className="text-white/80 text-sm mb-5 max-w-xl mx-auto">
             {lang === "es"
-              ? "Introduce los meses que tiene el coche y el precio de compra para calcular los impuestos de matriculación al céntimo."
-              : "Enter the months the car has been registered and purchase price to calculate import taxes to the cent."}
+              ? "Abre la calculadora con la marca y modelo precargados. Introduce el precio de compra y la fecha de matriculación para obtener el coste total al céntimo."
+              : "Open the calculator pre-filled with this brand and model. Enter the purchase price and registration date to get the total cost to the cent."}
           </p>
-
-          <Suspense
-            fallback={
-              <div className="p-10 text-center text-[var(--text-tertiary)]">
-                Cargando calculadora...
-              </div>
-            }
+          <Link
+            href={calculatorHref}
+            className="inline-flex items-center gap-2 bg-white text-[var(--brand-blue)] font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
           >
-            {/* 
-              TODO: HomeContent does not natively accept a 'prefilledVehicle' prop yet, 
-              but it picks up from URL or local storage if we adjust it. For now, it defaults.
-            */}
-            <HomeContent />
-          </Suspense>
+            {lang === "es" ? "Abrir calculadora" : "Open calculator"}
+            <ArrowRight size={18} />
+          </Link>
         </section>
+
+        {/* Unique model paragraph (only when content exists) */}
+        {content?.uniqueParagraph && (
+          <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
+            <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
+              <Info size={22} className="text-[var(--brand-blue)]" />
+              {lang === "es"
+                ? `Importar un ${displayName} desde ${content.commonOrigin}`
+                : `Importing a ${displayName} from ${content.commonOrigin}`}
+            </h2>
+            <p className="text-[var(--text-secondary)] leading-relaxed">
+              {content.uniqueParagraph}
+            </p>
+          </section>
+        )}
 
         {/* Depreciation Table Explanation */}
         <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
@@ -180,13 +235,13 @@ export default function CarPageContent({
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {[
-                  { label: "< 12 meses", pct: 100 },
-                  { label: "12 a 23 meses", pct: 84 },
-                  { label: "2 a 3 años", pct: 67 },
-                  { label: "3 a 4 años", pct: 56 },
-                  { label: "4 a 5 años", pct: 47 },
-                  { label: "8 a 9 años", pct: 24 },
-                  { label: "12+ años (Antiguos)", pct: 10 },
+                  { label: lang === "es" ? "< 12 meses" : "< 12 months", pct: 100 },
+                  { label: lang === "es" ? "12 a 23 meses" : "12 to 23 months", pct: 84 },
+                  { label: lang === "es" ? "2 a 3 años" : "2 to 3 years", pct: 67 },
+                  { label: lang === "es" ? "3 a 4 años" : "3 to 4 years", pct: 56 },
+                  { label: lang === "es" ? "4 a 5 años" : "4 to 5 years", pct: 47 },
+                  { label: lang === "es" ? "8 a 9 años" : "8 to 9 years", pct: 24 },
+                  { label: lang === "es" ? "12+ años (Antiguos)" : "12+ years (Old)", pct: 10 },
                 ].map((row, i) => (
                   <tr key={i} className="hover:bg-[var(--surface-dim)] transition-colors">
                     <td className="px-4 py-3 text-center font-medium text-[var(--text-primary)]">
@@ -207,6 +262,47 @@ export default function CarPageContent({
             </table>
           </div>
         </section>
+
+        {/* FAQ (only when content exists) */}
+        {content && content.faq.length > 0 && (
+          <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
+            <h2 className="text-xl font-bold text-[var(--text-primary)] mb-5">
+              {lang === "es"
+                ? `Preguntas frecuentes sobre el ${displayName}`
+                : `FAQ about the ${displayName}`}
+            </h2>
+            <div className="space-y-3">
+              {content.faq.map((item, i) => (
+                <FaqItem key={i} q={item.question} a={item.answer} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Related cars */}
+        {relatedCars.length > 0 && (
+          <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
+            <h2 className="text-xl font-bold text-[var(--text-primary)] mb-5">
+              {lang === "es" ? "Otros modelos relacionados" : "Related models"}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {relatedCars.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/coche/${c.slug}`}
+                  className="border border-[var(--surface-border)] rounded-xl p-4 hover:border-[var(--brand-blue)] hover:bg-[var(--surface-dim)] transition-colors"
+                >
+                  <div className="font-semibold text-[var(--text-primary)]">
+                    {c.brand} {c.modelQuery}
+                  </div>
+                  <div className="text-xs text-[var(--text-tertiary)] mt-1">
+                    {lang === "es" ? "Ver impuestos" : "View taxes"}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

@@ -227,6 +227,9 @@ export function HomeContent({
       const pOrigin = searchParams.get("originCountry") as Country;
       if (pOrigin) setOriginCountry(pOrigin);
 
+      const pRegion = searchParams.get("region");
+      if (pRegion) setSelectedRegion(pRegion);
+
       const pPrice = searchParams.get("carPrice");
       if (pPrice) setPrice(pPrice);
 

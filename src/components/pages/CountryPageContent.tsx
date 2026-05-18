@@ -14,8 +14,6 @@ import {
   ChevronRight,
   Car,
 } from "lucide-react";
-import { Suspense } from "react";
-import { HomeContent } from "@/app/page";
 
 const texts = {
   es: {
@@ -237,24 +235,20 @@ export default function CountryPageContent({ slug }: { slug: string }) {
           </div>
         </section>
 
-        {/* Live Interactive Calculator for this Country */}
-        <section className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm p-4 md:p-6 mb-8 border border-blue-100">
-          <h2 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-6 border-b pb-4">
-            <Calculator size={24} className="text-[var(--brand-blue)]" />
-            Calculadora de Impuestos para coches de {countryName}
+        {/* CTA — opens calculator prefilled for this country */}
+        <section className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 text-center text-white">
+          <h2 className="text-xl font-bold mb-2">
+            {t.ctaQuestion} {countryName}?
           </h2>
-          <Suspense
-            fallback={
-              <div className="p-10 text-center text-[var(--text-tertiary)]">
-                Cargando calculadora...
-              </div>
-            }
+          <p className="text-blue-100 text-sm mb-4">{t.ctaDesc}</p>
+          <Link
+            href={`/?originCountry=${encodeURIComponent(country.name)}&importType=${country.isEU ? "EU" : "NonEU"}`}
+            className="inline-flex items-center justify-center gap-2 bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
           >
-            <HomeContent
-              prefilledCountry={country.name as import("@/types").Country}
-              prefilledImportType={country.isEU ? "EU" : "NonEU"}
-            />
-          </Suspense>
+            <Calculator size={18} />
+            {t.ctaButton} {countryName}
+            <ArrowRight size={16} />
+          </Link>
         </section>
 
         {/* Other Countries */}

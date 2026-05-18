@@ -4,6 +4,7 @@ import {
   getHeroCarForModel,
 } from "@/utils/seo/topCars";
 import { formatCurrency } from "@/utils/currency";
+import { getCarContent } from "@/data/cars";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CarPageContent from "@/components/pages/CarPageContent";
@@ -73,15 +74,19 @@ export default async function CarModelPage({
   const heroCar = getHeroCarForModel(carMatch.brand, carMatch.modelQuery);
   if (!heroCar) notFound();
 
+  const content = getCarContent(slug);
+  const displayName = `${carMatch.brand} ${carMatch.modelQuery}`;
+
   return (
     <>
       <CarPageContent
         heroCar={heroCar}
         queryModel={carMatch.modelQuery}
         displayBrand={carMatch.brand}
+        slug={slug}
       />
 
-      {/* JSON-LD Schema (server-rendered for SEO) */}
+      {/* Product JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,6 +109,28 @@ export default async function CarModelPage({
           }),
         }}
       />
+
+      {/* FAQPage JSON-LD — emitted only when per-car FAQ content exists */}
+      {content && content.faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              name: `Preguntas frecuentes sobre el ${displayName}`,
+              mainEntity: content.faq.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
     </>
   );
 }

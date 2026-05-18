@@ -1,7 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
-
 import { REGIONS, getRegionBySlug } from "@/constants/Regions";
 import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
@@ -18,7 +16,6 @@ import {
   Percent,
   ChevronRight,
 } from "lucide-react";
-import { HomeContent } from "@/app/page";
 
 const texts = {
   es: {
@@ -238,23 +235,6 @@ export default function RegionContent({ slug }: { slug: string }) {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 space-y-6 pb-20">
-        {/* Live Interactive Calculator for this Region */}
-        <section className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm p-4 md:p-6 mb-8 border border-blue-100">
-          <h2 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-6 border-b pb-4">
-            <Calculator size={24} className="text-[var(--brand-blue)]" />
-            Calculadora de Costes para {regionName}
-          </h2>
-          <Suspense
-            fallback={
-              <div className="p-10 text-center text-[var(--text-tertiary)]">
-                Cargando calculadora...
-              </div>
-            }
-          >
-            <HomeContent prefilledRegion={region.name} />
-          </Suspense>
-        </section>
-
         {/* DGT Office */}
         <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
           <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
@@ -349,15 +329,15 @@ export default function RegionContent({ slug }: { slug: string }) {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* CTA — opens calculator with this region preselected */}
         <section className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 text-center text-white">
           <h2 className="text-xl font-bold mb-2">
             {t.ctaQuestion} {regionName}?
           </h2>
           <p className="text-blue-100 text-sm mb-4">{t.ctaDesc}</p>
           <Link
-            href="/"
-            className="flex items-center justify-center gap-2 w-full sm:w-auto bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
+            href={`/?region=${encodeURIComponent(region.name)}`}
+            className="inline-flex items-center justify-center gap-2 bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
           >
             <Calculator size={18} />
             {t.ctaButton}
