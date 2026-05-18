@@ -50,3 +50,6 @@ next-env.d.ts
 # Claude Code
 CLAUDE.local.md
 .claude/settings.local.json
+
+# EEA CO2 aggregate cache (reproducible via scripts/fetch_eea_co2.py)
+scripts/co2_data/
