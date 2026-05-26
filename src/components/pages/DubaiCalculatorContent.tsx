@@ -155,6 +155,7 @@ export default function DubaiCalculatorContent() {
             <HomeContent
               prefilledCountry="UAE"
               prefilledImportType="NonEU"
+              compact
             />
           </Suspense>
         </div>

@@ -2,6 +2,7 @@
 
 import { PrintLayout } from "@/components/PrintLayout";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
+import { AppCallout } from "@/components/AppCallout";
 import { useLanguage } from "@/context/LanguageContext";
 import { CalculationInput } from "@/types";
 import { calculateImportCost } from "@/utils/taxCalculator";
@@ -412,6 +413,11 @@ function ResultContent() {
               </p>
             </div>
           )}
+        </div>
+
+        {/* App callout — peak intent moment after calculation */}
+        <div className="print:hidden">
+          <AppCallout source="result_top" variant="hero" />
         </div>
 
         {/* Lead capture form */}

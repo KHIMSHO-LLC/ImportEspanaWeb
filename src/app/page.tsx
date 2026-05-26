@@ -28,6 +28,7 @@ const LiveMarketData = dynamic(
 );
 import { SeoContent } from "@/components/SeoContent";
 import SeoSchema from "@/components/SeoSchema";
+import { AppCallout } from "@/components/AppCallout";
 import Link from "next/link";
 import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
@@ -63,10 +64,17 @@ export function HomeContent({
   prefilledRegion,
   prefilledCountry,
   prefilledImportType,
+  compact = false,
 }: {
   prefilledRegion?: string;
   prefilledCountry?: Country;
   prefilledImportType?: ImportType;
+  /**
+   * When true, hides hero, trust signals, SEO content, FAQ, and the large
+   * internal-linking blocks. Used when HomeContent is embedded inside another
+   * SEO page (e.g. Dubai) to avoid duplicate-content issues with the homepage.
+   */
+  compact?: boolean;
 }) {
   const { t, language } = useLanguage();
   const router = useRouter();
@@ -348,7 +356,7 @@ export function HomeContent({
 
   return (
     <div className="w-full space-y-8">
-      <HeroStats />
+      {!compact && <HeroStats />}
 
       {/* Calculator — the instrument */}
       <div className="glass-card p-6 md:p-8 space-y-8">
@@ -807,8 +815,12 @@ export function HomeContent({
       </div>
 
       {/* Stats banner — shown after calculator engagement */}
-      <StatsBanner />
+      {!compact && <StatsBanner />}
 
+      {/* App callout — moment of intent: right after the calculator */}
+      {!compact && <AppCallout source="home_after_calc" variant="hero" />}
+
+      {!compact && <>
       {/* Cómo funciona — 3 step visual */}
       <div className="space-y-3">
         <h2 className="label-caps flex items-center gap-2">
@@ -1014,6 +1026,7 @@ export function HomeContent({
           </Link>
         </div>
       </div>
+      </>}
     </div>
   );
 }

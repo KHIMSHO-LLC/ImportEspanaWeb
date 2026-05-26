@@ -8,6 +8,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Sun, Moon } from "lucide-react";
 
+function trackAppClick(source: string) {
+  if (typeof window !== "undefined" && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
+    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag("event", "app_store_click", {
+      source,
+      platform: "ios",
+      variant: "header",
+    });
+  }
+}
+
 const navLinks = [
   { href: "/valoracion-boe", label: "Valoración BOE" },
   { href: "/blog", label: "Blog" },
@@ -136,9 +146,10 @@ export const Header = () => {
             />
 
             <a
-              href="https://apps.apple.com/ar/app/importespana/id6759112789"
+              href="https://apps.apple.com/ar/app/importespana/id6759112789?utm_source=website&utm_medium=header&utm_campaign=app_install"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackAppClick("header_desktop")}
               className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200"
               style={{
                 background: "var(--glass-bg)",
@@ -254,9 +265,10 @@ export const Header = () => {
           />
 
           <a
-            href="https://apps.apple.com/ar/app/importespana/id6759112789"
+            href="https://apps.apple.com/ar/app/importespana/id6759112789?utm_source=website&utm_medium=header&utm_campaign=app_install"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackAppClick("header_mobile")}
             className="flex items-center justify-center gap-2 mt-1 px-4 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-[0.98]"
             style={{
               background: "var(--glass-bg)",

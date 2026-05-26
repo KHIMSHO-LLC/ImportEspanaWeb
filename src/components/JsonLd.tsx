@@ -25,8 +25,7 @@ export default function JsonLd() {
           height: 512,
         },
         sameAs: [
-          "https://twitter.com/importespana",
-          "https://facebook.com/importespana",
+          "https://apps.apple.com/ar/app/importespana/id6759112789",
         ],
         contactPoint: {
           "@type": "ContactPoint",
@@ -35,6 +34,21 @@ export default function JsonLd() {
           areaServed: "ES",
           availableLanguage: ["es", "en", "de", "fr", "ru"],
         },
+      },
+      {
+        "@type": "MobileApplication",
+        "@id": "https://importespana.com/#mobileapp",
+        name: "ImportEspana",
+        operatingSystem: "iOS",
+        applicationCategory: "FinanceApplication",
+        downloadUrl: "https://apps.apple.com/ar/app/importespana/id6759112789",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+        },
+        description:
+          "App iOS para calcular impuestos de importación de coches a España. Cálculos ilimitados, historial guardado y exportación PDF en la versión Pro.",
       },
       {
         "@type": "WebApplication",

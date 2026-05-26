@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { getCarContent } from "@/data/cars";
 import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
+import { AppCallout } from "@/components/AppCallout";
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -262,6 +263,9 @@ export default function CarPageContent({
             </table>
           </div>
         </section>
+
+        {/* App callout — after meaty content, before FAQ */}
+        <AppCallout source={`car_${slug}`} variant="inline" />
 
         {/* FAQ (only when content exists) */}
         {content && content.faq.length > 0 && (
