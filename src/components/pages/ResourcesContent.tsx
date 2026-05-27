@@ -1,15 +1,6 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import {
-  ExternalLink,
-  FileText,
-  Building,
-  Car,
-  Scale,
-  Globe,
-  ArrowRight,
-} from "lucide-react";
 import Link from "next/link";
 
 const resources = {
@@ -20,7 +11,6 @@ const resources = {
     sections: [
       {
         title: "Hacienda y Tasas",
-        icon: Building,
         color: "blue",
         links: [
           {
@@ -45,7 +35,6 @@ const resources = {
       },
       {
         title: "DGT — Tráfico",
-        icon: Car,
         color: "green",
         links: [
           {
@@ -70,7 +59,6 @@ const resources = {
       },
       {
         title: "ITV — Inspección técnica",
-        icon: Scale,
         color: "orange",
         links: [
           {
@@ -89,7 +77,6 @@ const resources = {
       },
       {
         title: "Aduanas",
-        icon: Globe,
         color: "purple",
         links: [
           {
@@ -113,7 +100,6 @@ const resources = {
     sections: [
       {
         title: "Tax Authorities",
-        icon: Building,
         color: "blue",
         links: [
           {
@@ -138,7 +124,6 @@ const resources = {
       },
       {
         title: "DGT — Traffic Authority",
-        icon: Car,
         color: "green",
         links: [
           {
@@ -163,7 +148,6 @@ const resources = {
       },
       {
         title: "ITV — Vehicle Inspection",
-        icon: Scale,
         color: "orange",
         links: [
           {
@@ -182,7 +166,6 @@ const resources = {
       },
       {
         title: "Customs",
-        icon: Globe,
         color: "purple",
         links: [
           {
@@ -250,8 +233,7 @@ export default function ResourcesContent() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
-          <FileText size={14} />
+        <div className="inline-block bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
           {lang === "es" ? "Enlaces verificados 2026" : "Verified links 2026"}
         </div>
         <h1 className="text-3xl font-extrabold text-[var(--text-primary)] mb-3">
@@ -273,8 +255,7 @@ export default function ResourcesContent() {
               <div
                 className={`px-6 py-4 ${colors.bg} border-b ${colors.border}`}
               >
-                <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
-                  <section.icon size={20} className={colors.icon} />
+                <h2 className="text-lg font-bold text-[var(--text-primary)]">
                   {section.title}
                 </h2>
               </div>
@@ -287,30 +268,20 @@ export default function ResourcesContent() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center justify-between p-4 rounded-xl border-2 transition-all group cursor-pointer ${
+                    className={`block p-4 rounded-xl border-2 transition-all group cursor-pointer ${
                       link.highlight
                         ? `${colors.highlightBg} ${colors.highlightBorder} hover:shadow-md`
                         : "border-[var(--surface-border)] hover:border-[var(--brand-blue)]/40 hover:bg-[var(--brand-blue)]/5 hover:shadow-sm"
                     }`}
                   >
-                    <div className="flex-1 mr-3">
-                      <span
-                        className={`text-sm font-bold ${link.highlight ? "text-[var(--text-primary)]" : "text-[var(--brand-blue)]"} group-hover:text-[var(--brand-blue)]`}
-                      >
-                        {link.name}
-                      </span>
-                      <p className="text-xs text-[var(--text-tertiary)] mt-0.5">
-                        {link.desc}
-                      </p>
-                    </div>
-                    <div
-                      className={`flex items-center gap-1 shrink-0 ${link.highlight ? "text-[var(--brand-blue)]" : "text-[var(--text-tertiary)] group-hover:text-blue-500"}`}
+                    <span
+                      className={`block text-sm font-bold ${link.highlight ? "text-[var(--text-primary)]" : "text-[var(--brand-blue)]"} group-hover:text-[var(--brand-blue)]`}
                     >
-                      <span className="text-xs font-medium hidden sm:inline">
-                        {lang === "es" ? "Abrir" : "Open"}
-                      </span>
-                      <ArrowRight size={16} />
-                    </div>
+                      {link.name}
+                    </span>
+                    <p className="text-xs text-[var(--text-tertiary)] mt-0.5">
+                      {link.desc}
+                    </p>
                   </a>
                 ))}
               </div>

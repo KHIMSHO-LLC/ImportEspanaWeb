@@ -10,7 +10,7 @@ import { formatCurrency } from "@/utils/currency";
 import { AuditRiskBadge } from "@/components/AuditRiskBadge";
 import { TcoPanel } from "@/components/TcoPanel";
 import { RegionComparator } from "@/components/RegionComparator";
-import { ArrowLeft, Car, CheckCircle, ChevronDown, ChevronUp, Copy, Printer, Info } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -139,8 +139,7 @@ function ResultContent() {
 
             {/* Vehicle Info Card */}
             <div className="card p-5 md:p-6 animate-fadeInUp stagger-2 print:shadow-none print:border-gray-200 print:p-4 print:rounded-lg">
-              <h3 className="label-caps mb-4 flex items-center gap-2 print:mb-2">
-                <Car size={14} className="text-[var(--brand-blue)]" />
+              <h3 className="label-caps mb-4 print:mb-2">
                 {t("vehicleSearch")}
               </h3>
               <div className="space-y-3 text-sm print:space-y-2">
@@ -175,16 +174,14 @@ function ResultContent() {
             <div className="print:hidden flex flex-wrap gap-2">
               <button
                 onClick={() => window.print()}
-                className="btn-secondary flex items-center gap-2"
+                className="btn-secondary"
               >
-                <Printer size={16} />
                 {t("printResult")}
               </button>
               <button
                 onClick={handleShare}
-                className="btn-secondary flex items-center gap-2"
+                className="btn-secondary"
               >
-                <Copy size={16} />
                 {copied ? t("copied") : t("shareResult")}
               </button>
             </div>
@@ -277,8 +274,7 @@ function ResultContent() {
 
         {/* ITP exemption note */}
         {result.itpExemptReason && (
-          <div className="card p-4 flex items-start gap-3 border-emerald-500/30 bg-emerald-500/[0.04]">
-            <CheckCircle size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+          <div className="card p-4 border-emerald-500/30 bg-emerald-500/[0.04]">
             <div className="text-sm">
               <div className="font-semibold text-[var(--text-primary)]">
                 {language === "es"
@@ -333,8 +329,7 @@ function ResultContent() {
             onClick={() => setShowCalcDetails(!showCalcDetails)}
             className="w-full flex items-center justify-between text-left"
           >
-            <span className="font-semibold text-[var(--text-primary)] flex items-center gap-2">
-              <Info size={16} className="text-[var(--brand-blue)]" />
+            <span className="font-semibold text-[var(--text-primary)]">
               {t("howWeCalculated")}
             </span>
             {showCalcDetails ? (

@@ -1,6 +1,5 @@
 "use client";
 
-import { AlertTriangle, ShieldCheck, ShieldAlert } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { formatCurrency } from "@/utils/currency";
 
@@ -97,19 +96,16 @@ export function AuditRiskBadge({ risk, ratio, declaredPrice, marketValue }: Prop
     low: {
       bg: "bg-emerald-500/[0.06]",
       border: "border-emerald-500/30",
-      icon: <ShieldCheck size={20} className="text-emerald-500" />,
       title: "text-emerald-700 dark:text-emerald-300",
     },
     medium: {
       bg: "bg-amber-500/[0.06]",
       border: "border-amber-500/30",
-      icon: <ShieldAlert size={20} className="text-amber-500" />,
       title: "text-amber-700 dark:text-amber-300",
     },
     high: {
       bg: "bg-red-500/[0.06]",
       border: "border-red-500/30",
-      icon: <AlertTriangle size={20} className="text-red-500" />,
       title: "text-red-700 dark:text-red-300",
     },
   }[risk];
@@ -117,10 +113,9 @@ export function AuditRiskBadge({ risk, ratio, declaredPrice, marketValue }: Prop
   const pct = Math.round(ratio * 100);
   return (
     <div
-      className={`p-4 rounded-xl border ${palette.bg} ${palette.border} flex gap-3 items-start`}
+      className={`p-4 rounded-xl border ${palette.bg} ${palette.border}`}
     >
-      <div className="shrink-0 mt-0.5">{palette.icon}</div>
-      <div className="flex-1 space-y-1">
+      <div className="space-y-1">
         <div className={`font-semibold text-sm ${palette.title}`}>{c.title}</div>
         <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
           {c.body}

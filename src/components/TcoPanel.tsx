@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Coins, Fuel, Gauge, Wrench } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { formatCurrency } from "@/utils/currency";
 
@@ -62,8 +61,7 @@ export function TcoPanel({ totalImportCost, co2Emissions, carPrice }: Props) {
     <div className="card p-5 md:p-6 space-y-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h3 className="heading-section text-lg flex items-center gap-2">
-            <Coins size={18} className="text-[var(--brand-blue)]" />
+          <h3 className="heading-section text-lg">
             {t(
               "Coste real de propiedad",
               "Total cost of ownership",
@@ -97,30 +95,16 @@ export function TcoPanel({ totalImportCost, co2Emissions, carPrice }: Props) {
 
       <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
         <Stat
-          icon={<Gauge size={14} className="text-[var(--brand-blue)]" />}
           label={t("Seguro", "Insurance")}
           value={ANNUAL_DEFAULT.insurance * years}
         />
+        <Stat label="IVTM" value={ANNUAL_DEFAULT.ivtm * years} />
         <Stat
-          icon={<Calendar size={14} className="text-purple-500" />}
-          label="IVTM"
-          value={ANNUAL_DEFAULT.ivtm * years}
-        />
-        <Stat
-          icon={<Wrench size={14} className="text-amber-500" />}
           label={t("Mantenim.", "Maintenance")}
           value={ANNUAL_DEFAULT.maintenance * years}
         />
-        <Stat
-          icon={<Fuel size={14} className="text-emerald-500" />}
-          label={t("Combustible", "Fuel")}
-          value={fuel * years}
-        />
-        <Stat
-          icon={<Calendar size={14} className="text-[var(--text-tertiary)]" />}
-          label="ITV"
-          value={ANNUAL_DEFAULT.itv * years}
-        />
+        <Stat label={t("Combustible", "Fuel")} value={fuel * years} />
+        <Stat label="ITV" value={ANNUAL_DEFAULT.itv * years} />
       </div>
 
       <div className="flex justify-between items-baseline pt-3 border-t border-[var(--surface-border)]">
@@ -144,19 +128,16 @@ export function TcoPanel({ totalImportCost, co2Emissions, carPrice }: Props) {
 }
 
 function Stat({
-  icon,
   label,
   value,
 }: {
-  icon: React.ReactNode;
   label: string;
   value: number;
 }) {
   return (
     <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-dim)] p-2.5 sm:p-3 min-w-0">
-      <div className="flex items-center gap-1 text-[10px] sm:text-xs text-[var(--text-tertiary)] mb-1 truncate">
-        {icon}
-        <span className="truncate">{label}</span>
+      <div className="text-[10px] sm:text-xs text-[var(--text-tertiary)] mb-1 truncate">
+        {label}
       </div>
       <div className="number-display text-[13px] sm:text-sm font-semibold text-[var(--text-primary)] truncate">
         {formatCurrency(value)}

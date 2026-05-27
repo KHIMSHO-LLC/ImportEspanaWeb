@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, User, CheckCircle, AlertTriangle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface LeadCaptureFormProps {
@@ -55,9 +54,6 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
   if (submitted) {
     return (
       <div className="card p-6 text-center space-y-3 animate-fadeInUp">
-        <div className="w-12 h-12 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto">
-          <CheckCircle size={24} className="text-emerald-500" />
-        </div>
         <h3 className="font-bold text-[var(--text-primary)]">
           {t("leadFormSuccess")}
         </h3>
@@ -82,8 +78,7 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
       <form onSubmit={handleSubmit} className="space-y-3">
         {/* Name */}
         <div className="space-y-1.5">
-          <label className="label-caps flex items-center gap-1.5">
-            <User size={12} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {t("leadFormNameLabel")}
           </label>
           <input
@@ -98,8 +93,7 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
 
         {/* Phone */}
         <div className="space-y-1.5">
-          <label className="label-caps flex items-center gap-1.5">
-            <Phone size={12} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {t("leadFormPhoneLabel")}
           </label>
           <input
@@ -114,8 +108,7 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
 
         {/* Email (optional) */}
         <div className="space-y-1.5">
-          <label className="label-caps flex items-center gap-1.5">
-            <Mail size={12} className="text-[var(--text-tertiary)]" />
+          <label className="label-caps">
             {t("leadFormEmailLabel")}
           </label>
           <input
@@ -128,8 +121,7 @@ export default function LeadCaptureForm({ vehicleContext }: LeadCaptureFormProps
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm">
-            <AlertTriangle size={14} />
+          <div className="text-[var(--brand-red)] text-sm">
             {error}
           </div>
         )}

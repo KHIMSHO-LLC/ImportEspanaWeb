@@ -3,23 +3,12 @@
 import { COUNTRIES, getCountryBySlug } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
-import {
-  Globe,
-  Truck,
-  Calculator,
-  FileCheck,
-  Lightbulb,
-  ArrowRight,
-  AlertTriangle,
-  ChevronRight,
-  Car,
-} from "lucide-react";
 
 const texts = {
   es: {
     guideComplete: "Guía completa 2026",
     euStatus: "UE — Sin aduanas",
-    nonEuStatus: "⚠️ No UE — Aduanas",
+    nonEuStatus: "No UE — Aduanas",
     status: "Estatus",
     transport: "Transporte",
     mostImported: "Más importada",
@@ -41,7 +30,7 @@ const texts = {
   en: {
     guideComplete: "Complete guide 2026",
     euStatus: "EU — No customs",
-    nonEuStatus: "⚠️ Non-EU — Customs",
+    nonEuStatus: "Non-EU — Customs",
     status: "Status",
     transport: "Transport",
     mostImported: "Top import",
@@ -82,13 +71,13 @@ export default function CountryPageContent({ slug }: { slug: string }) {
       {/* Breadcrumbs */}
       <div className="max-w-4xl mx-auto px-4 pt-4">
         <nav
-          className="flex items-center gap-1 text-xs text-[var(--text-tertiary)]"
+          className="text-xs text-[var(--text-tertiary)]"
           aria-label="Breadcrumb"
         >
           <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
             ImportEspana
           </Link>
-          <ChevronRight size={12} />
+          <span className="mx-2">/</span>
           <span className="text-[var(--text-secondary)]">
             {t.importFrom} {countryName}
           </span>
@@ -113,11 +102,7 @@ export default function CountryPageContent({ slug }: { slug: string }) {
           </div>
 
           {!country.isEU && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4 flex items-start gap-2">
-              <AlertTriangle
-                size={18}
-                className="text-amber-600 flex-shrink-0 mt-0.5"
-              />
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
               <p className="text-sm text-amber-800">
                 <strong>
                   {t.nonEuWarningTemplate
@@ -139,28 +124,24 @@ export default function CountryPageContent({ slug }: { slug: string }) {
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
             <div className="bg-[var(--brand-blue)]/5 rounded-xl p-3 text-center">
-              <Globe size={18} className="text-[var(--brand-blue)] mx-auto mb-1" />
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 {country.isEU ? t.eu : t.nonEu}
               </div>
               <div className="text-xs text-[var(--text-tertiary)]">{t.status}</div>
             </div>
             <div className="bg-green-50 rounded-xl p-3 text-center">
-              <Truck size={18} className="text-green-600 mx-auto mb-1" />
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 {country.avgTransportCost}
               </div>
               <div className="text-xs text-[var(--text-tertiary)]">{t.transport}</div>
             </div>
             <div className="bg-purple-50 rounded-xl p-3 text-center">
-              <Car size={18} className="text-purple-600 mx-auto mb-1" />
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 {country.popularBrands[0]}
               </div>
               <div className="text-xs text-[var(--text-tertiary)]">{t.mostImported}</div>
             </div>
             <div className="bg-amber-50 rounded-xl p-3 text-center">
-              <Calculator size={18} className="text-amber-600 mx-auto mb-1" />
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 {country.vatRate}%
               </div>
@@ -176,8 +157,7 @@ export default function CountryPageContent({ slug }: { slug: string }) {
       <div className="max-w-4xl mx-auto px-4 space-y-6 pb-20">
         {/* Steps */}
         <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
-            <FileCheck size={20} className="text-[var(--brand-blue)]" />
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
             {t.stepsTitle} {countryName}
           </h2>
           <ol className="space-y-4">
@@ -199,8 +179,7 @@ export default function CountryPageContent({ slug }: { slug: string }) {
 
         {/* Tips */}
         <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
-            <Lightbulb size={20} className="text-amber-500" />
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
             {t.tipsTitle} {countryName}
           </h2>
           <ul className="space-y-3">
@@ -243,11 +222,9 @@ export default function CountryPageContent({ slug }: { slug: string }) {
           <p className="text-blue-100 text-sm mb-4">{t.ctaDesc}</p>
           <Link
             href={`/?originCountry=${encodeURIComponent(country.name)}&importType=${country.isEU ? "EU" : "NonEU"}`}
-            className="inline-flex items-center justify-center gap-2 bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
+            className="inline-block bg-[var(--surface-elevated)] text-[var(--brand-blue)] px-6 py-3.5 rounded-xl text-sm font-bold hover:bg-[var(--brand-blue)]/5 transition-colors"
           >
-            <Calculator size={18} />
             {t.ctaButton} {countryName}
-            <ArrowRight size={16} />
           </Link>
         </section>
 

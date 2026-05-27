@@ -1,7 +1,6 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { BookOpen, Calculator, Info } from "lucide-react";
 
 export const SeoContent = () => {
   const { language } = useLanguage();
@@ -25,9 +24,8 @@ const ContentES = () => (
   <article className="mt-16">
     <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Calculator className="text-[var(--brand-blue)]" size={20} />
-          ¿Cómo calcular el Impuesto de Matriculación en España?
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+¿Cómo calcular el Impuesto de Matriculación en España?
         </h2>
         <p className="mb-4">
           Importar un coche a España implica varios trámites y costes, siendo el
@@ -46,9 +44,8 @@ const ContentES = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Info className="text-[var(--brand-blue)]" size={20} />
-          Tramos del Impuesto de Matriculación 2024
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Tramos del Impuesto de Matriculación 2024
         </h2>
         <ul className="grid md:grid-cols-2 gap-3">
           <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
@@ -83,9 +80,8 @@ const ContentES = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <BookOpen className="text-[var(--brand-blue)]" size={20} />
-          Pasos para Matricular un Coche Extranjero
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Pasos para Matricular un Coche Extranjero
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
@@ -121,9 +117,8 @@ const ContentEN = () => (
   <article className="mt-16">
     <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Calculator className="text-[var(--brand-blue)]" size={20} />
-          How to Calculate Car Import Tax in Spain?
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+How to Calculate Car Import Tax in Spain?
         </h2>
         <p className="mb-4">
           Importing a car to Spain involves several procedures and costs, with
@@ -141,9 +136,8 @@ const ContentEN = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Info className="text-[var(--brand-blue)]" size={20} />
-          Registration Tax Brackets 2024
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Registration Tax Brackets 2024
         </h2>
         <ul className="grid md:grid-cols-2 gap-3">
           <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
@@ -178,9 +172,8 @@ const ContentEN = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <BookOpen className="text-[var(--brand-blue)]" size={20} />
-          Steps to Register a Foreign Car
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Steps to Register a Foreign Car
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
@@ -212,9 +205,8 @@ const ContentDE = () => (
   <article className="mt-16">
     <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Calculator className="text-[var(--brand-blue)]" size={20} />
-          Wie berechnet man die Zulassungssteuer in Spanien?
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Wie berechnet man die Zulassungssteuer in Spanien?
         </h2>
         <p className="mb-4">
           Der Import eines Autos nach Spanien ist mit verschiedenen Verfahren
@@ -234,9 +226,8 @@ const ContentDE = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Info className="text-[var(--brand-blue)]" size={20} />
-          Steuersätze der Zulassungssteuer 2024
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Steuersätze der Zulassungssteuer 2024
         </h2>
         <ul className="grid md:grid-cols-2 gap-3">
           <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
@@ -273,9 +264,8 @@ const ContentDE = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <BookOpen className="text-[var(--brand-blue)]" size={20} />
-          Schritte zur Zulassung eines Importfahrzeugs
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Schritte zur Zulassung eines Importfahrzeugs
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
@@ -307,9 +297,8 @@ const ContentFR = () => (
   <article className="mt-16">
     <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Calculator className="text-[var(--brand-blue)]" size={20} />
-          Comment calculer la taxe d'immatriculation en Espagne ?
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Comment calculer la taxe d'immatriculation en Espagne ?
         </h2>
         <p className="mb-4">
           Importer une voiture en Espagne implique plusieurs démarches et coûts,
@@ -329,9 +318,8 @@ const ContentFR = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Info className="text-[var(--brand-blue)]" size={20} />
-          Tranches de la Taxe d'Immatriculation 2024
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Tranches de la Taxe d'Immatriculation 2024
         </h2>
         <ul className="grid md:grid-cols-2 gap-3">
           <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
@@ -368,9 +356,8 @@ const ContentFR = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <BookOpen className="text-[var(--brand-blue)]" size={20} />
-          Étapes pour immatriculer une voiture étrangère
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Étapes pour immatriculer une voiture étrangère
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>
@@ -406,9 +393,8 @@ const ContentRU = () => (
   <article className="mt-16">
     <div className="space-y-10 text-[var(--text-secondary)] leading-relaxed">
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Calculator className="text-[var(--brand-blue)]" size={20} />
-          Как рассчитать налог на регистрацию в Испании?
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Как рассчитать налог на регистрацию в Испании?
         </h2>
         <p className="mb-4">
           Импорт автомобиля в Испанию включает несколько процедур и расходов, из
@@ -427,9 +413,8 @@ const ContentRU = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <Info className="text-[var(--brand-blue)]" size={20} />
-          Ставки налога на регистрацию 2024
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Ставки налога на регистрацию 2024
         </h2>
         <ul className="grid md:grid-cols-2 gap-3">
           <li className="p-4 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-elevated)] flex items-start gap-3">
@@ -466,9 +451,8 @@ const ContentRU = () => (
       </section>
 
       <section>
-        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <BookOpen className="text-[var(--brand-blue)]" size={20} />
-          Шаги для регистрации иностранного авто
+        <h2 className="heading-section text-xl md:text-2xl text-[var(--text-primary)] mb-4">
+Шаги для регистрации иностранного авто
         </h2>
         <ol className="list-decimal pl-5 space-y-3 font-medium">
           <li>

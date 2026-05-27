@@ -1,6 +1,5 @@
 "use client";
 
-import { Info } from "lucide-react";
 import { useRef, useState } from "react";
 
 interface InfoTooltipProps {
@@ -52,12 +51,13 @@ export function InfoTooltip({ text }: InfoTooltipProps) {
       <button
         ref={buttonRef}
         type="button"
-        className="text-gray-400 hover:text-blue-500 transition-colors focus:outline-none"
+        aria-label="More info"
+        className="inline-flex items-center justify-center w-4 h-4 rounded-full border border-gray-400 text-gray-400 hover:border-blue-500 hover:text-blue-500 text-[10px] font-semibold leading-none transition-colors focus:outline-none"
         onMouseEnter={show}
         onMouseLeave={hide}
         onClick={() => (isVisible ? hide() : show())}
       >
-        <Info size={16} />
+        ?
       </button>
 
       {isVisible && (

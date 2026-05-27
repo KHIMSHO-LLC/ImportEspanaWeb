@@ -4,19 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { Vehicle } from "@/types";
 import Link from "next/link";
 import { useState } from "react";
-import {
-  Car,
-  Calculator,
-  Euro,
-  Gauge,
-  Calendar,
-  ChevronRight,
-  ChevronDown,
-  ChevronUp,
-  TrendingDown,
-  Info,
-  ArrowRight,
-} from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { getCarContent } from "@/data/cars";
 import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
 import { AppCallout } from "@/components/AppCallout";
@@ -89,14 +77,14 @@ export default function CarPageContent({
           <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
             ImportEspana
           </Link>
-          <ChevronRight size={12} />
+          <span className="mx-1">/</span>
           <Link
             href="/coches"
             className="hover:text-[var(--brand-blue)] transition-colors"
           >
             {lang === "es" ? "Coches" : "Cars"}
           </Link>
-          <ChevronRight size={12} />
+          <span className="mx-1">/</span>
           <span className="text-[var(--text-secondary)] truncate max-w-[200px]">
             {displayName}
           </span>
@@ -106,10 +94,7 @@ export default function CarPageContent({
       {/* Hero */}
       <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
         <div className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
-          <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 bg-[var(--brand-blue)]/5 rounded-xl hidden sm:block">
-              <Car className="text-[var(--brand-blue)]" size={32} />
-            </div>
+          <div className="mb-6">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-[var(--text-primary)] leading-tight">
                 {lang === "es"
@@ -127,7 +112,6 @@ export default function CarPageContent({
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-[var(--brand-blue)]/5 rounded-xl p-4 text-center border border-blue-100">
-              <Euro size={20} className="text-[var(--brand-blue)] mx-auto mb-2" />
               <div className="text-lg font-bold text-[var(--text-primary)]">
                 €{heroCar.value.toLocaleString("de-DE")}
               </div>
@@ -136,7 +120,6 @@ export default function CarPageContent({
               </div>
             </div>
             <div className="bg-green-50 rounded-xl p-4 text-center border border-green-100">
-              <Gauge size={20} className="text-green-600 mx-auto mb-2" />
               <div className="text-lg font-bold text-[var(--text-primary)]">
                 {heroCar.cv} cv
               </div>
@@ -145,7 +128,6 @@ export default function CarPageContent({
               </div>
             </div>
             <div className="bg-amber-50 rounded-xl p-4 text-center border border-amber-100">
-              <TrendingDown size={20} className="text-amber-600 mx-auto mb-2" />
               <div className="text-lg font-bold text-[var(--text-primary)]">
                 {heroCar.co2 ? `${heroCar.co2}g` : "--"}
               </div>
@@ -154,7 +136,6 @@ export default function CarPageContent({
               </div>
             </div>
             <div className="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
-              <Calendar size={20} className="text-purple-600 mx-auto mb-2" />
               <div className="text-lg font-bold text-[var(--text-primary)]">
                 {heroCar.startYear} - {heroCar.endYear || (lang === "es" ? "Hoy" : "Today")}
               </div>
@@ -170,7 +151,6 @@ export default function CarPageContent({
       <div className="max-w-4xl mx-auto px-4 space-y-8 pb-20">
         {/* Compact Calculator CTA (replaces embedded homepage) */}
         <section className="bg-gradient-to-br from-[var(--brand-blue)] to-blue-700 rounded-2xl shadow-md p-6 md:p-8 text-center text-white">
-          <Calculator size={32} className="mx-auto mb-3 opacity-90" />
           <h2 className="text-xl md:text-2xl font-bold mb-2">
             {lang === "es"
               ? `Calcula los impuestos exactos de tu ${displayName}`
@@ -183,18 +163,16 @@ export default function CarPageContent({
           </p>
           <Link
             href={calculatorHref}
-            className="inline-flex items-center gap-2 bg-white text-[var(--brand-blue)] font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
+            className="inline-block bg-white text-[var(--brand-blue)] font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
           >
             {lang === "es" ? "Abrir calculadora" : "Open calculator"}
-            <ArrowRight size={18} />
           </Link>
         </section>
 
         {/* Unique model paragraph (only when content exists) */}
         {content?.uniqueParagraph && (
           <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
-            <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
-              <Info size={22} className="text-[var(--brand-blue)]" />
+            <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
               {lang === "es"
                 ? `Importar un ${displayName} desde ${content.commonOrigin}`
                 : `Importing a ${displayName} from ${content.commonOrigin}`}
@@ -207,8 +185,7 @@ export default function CarPageContent({
 
         {/* Depreciation Table Explanation */}
         <section className="bg-[var(--surface-elevated)] rounded-2xl border border-[var(--surface-border)] shadow-sm p-6 md:p-8">
-          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 mb-4">
-            <TrendingDown size={22} className="text-amber-600" />
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
             {lang === "es"
               ? `Proyección de Depreciación BOE: ${displayName}`
               : `BOE Depreciation Table: ${displayName}`}

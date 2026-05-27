@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { CITIES, CityData } from "@/data/cities";
 import { CITIES_I18N } from "@/i18n/cities";
@@ -104,8 +104,7 @@ export default function CityPageContent({ citySlug }: Props) {
 
         {/* Hero */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-[var(--brand-blue)] font-semibold text-sm mb-2">
-            <MapPin size={14} />
+          <div className="text-[var(--brand-blue)] font-semibold text-sm mb-2">
             {city.regionName} — ITP {city.itpRate}%
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4 leading-tight">

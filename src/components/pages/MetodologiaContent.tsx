@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, Calculator, FileText, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function MetodologiaContent() {
@@ -74,8 +73,7 @@ export default function MetodologiaContent() {
       </nav>
 
       {/* Last updated badge */}
-      <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
-        <RefreshCw size={12} />
+      <div className="inline-block bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
         {t("methUpdatedBadge")}
       </div>
 
@@ -89,14 +87,9 @@ export default function MetodologiaContent() {
       <div className="space-y-10">
         {/* IEDMT */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <Calculator size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methIedmtTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methIedmtTitle")}
+          </h2>
           <div className="prose prose-sm max-w-none text-[var(--text-secondary)] space-y-3">
             <p>{t("methIedmtIntro")}</p>
             <div className="bg-[var(--surface-dim)] border border-[var(--surface-border)] rounded-xl p-4 font-mono text-sm">
@@ -142,14 +135,9 @@ export default function MetodologiaContent() {
 
         {/* Depreciation Table */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <Calculator size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methDeprecTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methDeprecTitle")}
+          </h2>
           <div className="prose prose-sm max-w-none text-[var(--text-secondary)] space-y-3">
             <p>{t("methDeprecIntro")}</p>
             <div className="overflow-x-auto">
@@ -177,14 +165,9 @@ export default function MetodologiaContent() {
 
         {/* ITP */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <FileText size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methItpTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methItpTitle")}
+          </h2>
           <div className="prose prose-sm max-w-none text-[var(--text-secondary)] space-y-3">
             <p>{t("methItpIntro")}</p>
             <div className="bg-[var(--surface-dim)] border border-[var(--surface-border)] rounded-xl p-4 font-mono text-sm">
@@ -208,14 +191,9 @@ export default function MetodologiaContent() {
 
         {/* Customs (Non-EU) */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <Calculator size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methCustomsTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methCustomsTitle")}
+          </h2>
           <div className="prose prose-sm max-w-none text-[var(--text-secondary)] space-y-3">
             <div className="bg-[var(--surface-dim)] border border-[var(--surface-border)] rounded-xl p-4 font-mono text-sm space-y-1">
               <div>Valor_CIF = Precio + Transporte + Seguro</div>
@@ -228,14 +206,9 @@ export default function MetodologiaContent() {
 
         {/* Fixed fees */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <FileText size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methFeesTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methFeesTitle")}
+          </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
@@ -260,14 +233,9 @@ export default function MetodologiaContent() {
 
         {/* Sources */}
         <section>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-[var(--brand-blue)]/10 rounded-lg flex items-center justify-center">
-              <BookOpen size={16} className="text-[var(--brand-blue)]" />
-            </div>
-            <h2 className="text-xl font-bold text-[var(--text-primary)]">
-              {t("methSourcesTitle")}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
+            {t("methSourcesTitle")}
+          </h2>
           <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
             {sources.map((s) => (
               <li key={s.name} className="flex gap-3">

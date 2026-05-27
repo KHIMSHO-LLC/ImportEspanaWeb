@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Calculator, CheckCircle, FileText, Globe } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function HowItWorksContent() {
@@ -18,45 +17,25 @@ export default function HowItWorksContent() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-[var(--surface-elevated)] p-6 rounded-2xl shadow-sm border border-[var(--surface-border)]">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-[var(--brand-blue)]">
-              <Globe size={24} />
+          {[
+            { n: 1, title: t("hiw_step1_title"), desc: t("hiw_step1_text") },
+            { n: 2, title: t("hiw_step2_title"), desc: t("hiw_step2_text") },
+            { n: 3, title: t("hiw_step3_title"), desc: t("hiw_step3_text") },
+            { n: 4, title: t("hiw_step4_title"), desc: t("hiw_step4_text") },
+          ].map((s) => (
+            <div
+              key={s.n}
+              className="bg-[var(--surface-elevated)] p-6 rounded-2xl shadow-sm border border-[var(--surface-border)]"
+            >
+              <div className="text-sm font-semibold text-[var(--brand-blue)] uppercase tracking-wider mb-2">
+                Paso {s.n}
+              </div>
+              <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
+                {s.title}
+              </h3>
+              <p className="text-[var(--text-secondary)]">{s.desc}</p>
             </div>
-            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
-              {t("hiw_step1_title")}
-            </h3>
-            <p className="text-[var(--text-secondary)]">{t("hiw_step1_text")}</p>
-          </div>
-
-          <div className="bg-[var(--surface-elevated)] p-6 rounded-2xl shadow-sm border border-[var(--surface-border)]">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-[var(--brand-blue)]">
-              <FileText size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
-              {t("hiw_step2_title")}
-            </h3>
-            <p className="text-[var(--text-secondary)]">{t("hiw_step2_text")}</p>
-          </div>
-
-          <div className="bg-[var(--surface-elevated)] p-6 rounded-2xl shadow-sm border border-[var(--surface-border)]">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-[var(--brand-blue)]">
-              <Calculator size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
-              {t("hiw_step3_title")}
-            </h3>
-            <p className="text-[var(--text-secondary)]">{t("hiw_step3_text")}</p>
-          </div>
-
-          <div className="bg-[var(--surface-elevated)] p-6 rounded-2xl shadow-sm border border-[var(--surface-border)]">
-            <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 text-[var(--brand-blue)]">
-              <CheckCircle size={24} />
-            </div>
-            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
-              {t("hiw_step4_title")}
-            </h3>
-            <p className="text-[var(--text-secondary)]">{t("hiw_step4_text")}</p>
-          </div>
+          ))}
         </div>
 
         <div className="bg-[var(--brand-blue)] rounded-2xl p-8 text-center text-white">

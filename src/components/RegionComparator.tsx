@@ -6,7 +6,6 @@ import { calculateImportCost } from "@/utils/taxCalculator";
 import type { CalculationInput } from "@/types";
 import { SPANISH_REGIONS } from "@/constants/ItpRates";
 import { formatCurrency } from "@/utils/currency";
-import { ArrowRight, Map } from "lucide-react";
 
 interface Props {
   input: CalculationInput;
@@ -41,24 +40,20 @@ export function RegionComparator({ input, current }: Props) {
 
   return (
     <div className="card p-5 md:p-6 space-y-4">
-      <div className="flex items-start gap-2">
-        <Map size={18} className="text-[var(--brand-blue)] mt-0.5 shrink-0" />
-        <div>
-          <h3 className="heading-section text-lg">
-            {t("Comparativa por comunidad", "Compare across regions")}
-          </h3>
-          <p className="text-xs text-[var(--text-tertiary)] mt-1">
-            {t(
-              "Mismo coche, distinta comunidad. Útil si puedes elegir dónde matricular.",
-              "Same car, different regions. Useful if you have flexibility about where to register.",
-            )}
-          </p>
-        </div>
+      <div>
+        <h3 className="heading-section text-lg">
+          {t("Comparativa por comunidad", "Compare across regions")}
+        </h3>
+        <p className="text-xs text-[var(--text-tertiary)] mt-1">
+          {t(
+            "Mismo coche, distinta comunidad. Útil si puedes elegir dónde matricular.",
+            "Same car, different regions. Useful if you have flexibility about where to register.",
+          )}
+        </p>
       </div>
 
       {cheapest && (
-        <div className="p-3 rounded-lg bg-emerald-500/[0.06] border border-emerald-500/30 text-sm flex items-center gap-2">
-          <ArrowRight size={14} className="text-emerald-500 shrink-0" />
+        <div className="p-3 rounded-lg bg-emerald-500/[0.06] border border-emerald-500/30 text-sm">
           <span className="text-[var(--text-primary)]">
             {t("Más barata", "Cheapest")}:{" "}
             <strong>{cheapest.label}</strong> —{" "}

@@ -28,8 +28,8 @@ export const translations = {
     calculate: "Calculate Total Cost",
     // Hints & Errors
     privateSaleWarning:
-      "⚠️ Private sales incur ITP tax (rate varies by region).",
-    evDetected: "⚡ Electric Vehicle Detected - CO2 = 0",
+      "Private sales incur ITP tax (rate varies by region).",
+    evDetected: "Electric Vehicle Detected - CO2 = 0",
     priceError: "Enter a valid price",
     co2Error: "Enter CO2 emissions",
     fiscalError: "Select vehicle or enter fiscal value",
@@ -350,8 +350,8 @@ export const translations = {
     private: "Particular",
     calculate: "Calcular Coste Total",
     privateSaleWarning:
-      "⚠️ Las ventas entre particulares están sujetas al ITP (porcentaje según comunidad).",
-    evDetected: "⚡ Vehículo eléctrico detectado - CO2 = 0",
+      "Las ventas entre particulares están sujetas al ITP (porcentaje según comunidad).",
+    evDetected: "Vehículo eléctrico detectado - CO2 = 0",
     priceError: "Introduce un precio válido",
     co2Error: "Introduce las emisiones de CO2",
     fiscalError: "Selecciona vehículo o introduce valor fiscal",
@@ -672,8 +672,8 @@ export const translations = {
     private: "Частник",
     calculate: "Рассчитать стоимость",
     privateSaleWarning:
-      "⚠️ Частные продажи облагаются налогом ITP (ставка зависит от региона).",
-    evDetected: "⚡ Электромобиль обнаружен - CO2 = 0",
+      "Частные продажи облагаются налогом ITP (ставка зависит от региона).",
+    evDetected: "Электромобиль обнаружен - CO2 = 0",
     priceError: "Введите корректную цену",
     co2Error: "Введите выбросы CO2",
     fiscalError: "Выберите авто или введите налоговую стоимость",
@@ -984,8 +984,8 @@ export const translations = {
     private: "Privat",
     calculate: "Gesamtkosten berechnen",
     privateSaleWarning:
-      "⚠️ Bei Privatverkauf fällt ITP an (Satz je nach Region).",
-    evDetected: "⚡ Elektrofahrzeug erkannt - CO2 = 0",
+      "Bei Privatverkauf fällt ITP an (Satz je nach Region).",
+    evDetected: "Elektrofahrzeug erkannt - CO2 = 0",
     priceError: "Gültigen Preis eingeben",
     co2Error: "CO2-Emissionen eingeben",
     fiscalError: "Fahrzeug wählen oder Steuerwert eingeben",
@@ -1295,8 +1295,8 @@ export const translations = {
     private: "Particulier",
     calculate: "Calculer le coût total",
     privateSaleWarning:
-      "⚠️ Les ventes privées sont soumises à la taxe ITP (taux selon la région).",
-    evDetected: "⚡ Véhicule électrique détecté - CO2 = 0",
+      "Les ventes privées sont soumises à la taxe ITP (taux selon la région).",
+    evDetected: "Véhicule électrique détecté - CO2 = 0",
     priceError: "Entrez un prix valide",
     co2Error: "Entrez les émissions de CO2",
     fiscalError: "Sélectionnez un véhicule ou entrez la valeur fiscale",

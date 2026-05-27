@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
-import { Car, ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Coches para Importar a España — Guías por Marca y Modelo",
@@ -35,20 +34,17 @@ export default function CochesPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Breadcrumb */}
-      <nav className="text-sm text-[var(--text-tertiary)] mb-8 flex items-center gap-2">
+      <nav className="text-sm text-[var(--text-tertiary)] mb-8">
         <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
           Inicio
         </Link>
-        <ChevronRight size={14} />
+        <span className="mx-2">/</span>
         <span className="text-[var(--text-primary)]">Coches</span>
       </nav>
 
-      <div className="flex items-center gap-3 mb-2">
-        <Car size={28} className="text-[var(--brand-blue)]" />
-        <h1 className="text-3xl font-bold text-[var(--text-primary)]">
-          Guías de Importación por Modelo
-        </h1>
-      </div>
+      <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">
+        Guías de Importación por Modelo
+      </h1>
       <p className="text-[var(--text-secondary)] mb-10 text-lg">
         Valor fiscal BOE, ITP estimado e impuesto de matriculación para los modelos más importados a España.
       </p>
@@ -64,15 +60,11 @@ export default function CochesPage() {
                 <Link
                   key={slug}
                   href={`/coche/${slug}`}
-                  className="flex items-center justify-between gap-2 text-sm bg-[var(--surface-elevated)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-2.5 rounded-xl transition-all group"
+                  className="block text-sm bg-[var(--surface-elevated)] border border-[var(--surface-border)] hover:border-[var(--brand-blue-light)] px-3 py-2.5 rounded-xl transition-all group"
                 >
                   <span className="font-medium text-[var(--text-primary)] group-hover:text-[var(--brand-blue)]">
                     {modelQuery}
                   </span>
-                  <ChevronRight
-                    size={14}
-                    className="text-[var(--text-tertiary)] shrink-0"
-                  />
                 </Link>
               ))}
             </div>

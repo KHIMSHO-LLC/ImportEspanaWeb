@@ -2,12 +2,6 @@
 
 import { BoeValuationTool } from "@/components/BoeValuationTool";
 import Link from "next/link";
-import {
-  ChevronRight,
-  FileSearch,
-  Calculator,
-  ShieldCheck,
-} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function BoeValuationPageContent() {
@@ -19,13 +13,13 @@ export function BoeValuationPageContent() {
       {/* Breadcrumbs */}
       <div className="max-w-4xl mx-auto px-4 pt-4">
         <nav
-          className="flex items-center gap-1 text-xs text-[var(--text-tertiary)]"
+          className="text-xs text-[var(--text-tertiary)]"
           aria-label="Breadcrumb"
         >
           <Link href="/" className="hover:text-[var(--brand-blue)] transition-colors">
             ImportEspana
           </Link>
-          <ChevronRight size={12} />
+          <span className="mx-2">/</span>
           <span className="text-[var(--text-secondary)]">
             {lang === "es"
               ? "Valoración BOE Hacienda"
@@ -37,9 +31,6 @@ export function BoeValuationPageContent() {
       <div className="max-w-4xl mx-auto px-4 pt-8 pb-16 space-y-8">
         {/* Header content */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-2">
-            <FileSearch size={32} className="text-[var(--brand-blue)]" />
-          </div>
           <h1 className="text-3xl md:text-5xl font-black text-[var(--text-primary)] tracking-tight">
             {lang === "es"
               ? "Valoración BOE Coches"
@@ -63,7 +54,6 @@ export function BoeValuationPageContent() {
         {/* Feature Explainers */}
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           <div className="bg-[var(--surface-elevated)] p-6 md:p-8 rounded-xl border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-shadow">
-            <Calculator size={28} className="text-indigo-600 mb-4" />
             <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
               {lang === "es"
                 ? "¿Para qué sirve el Valor BOE?"
@@ -88,7 +78,6 @@ export function BoeValuationPageContent() {
           </div>
 
           <div className="bg-[var(--surface-elevated)] p-6 md:p-8 rounded-xl border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-shadow">
-            <ShieldCheck size={28} className="text-green-600 mb-4" />
             <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
               {lang === "es"
                 ? "Tablas Oficiales 2026 Actualizadas"

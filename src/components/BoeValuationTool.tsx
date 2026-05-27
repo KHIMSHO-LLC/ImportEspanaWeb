@@ -3,13 +3,6 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { VehicleAutocomplete } from "@/components/VehicleAutocomplete";
 import { useState } from "react";
-import {
-  Calculator,
-  Euro,
-  Calendar as CalendarIcon,
-  Info,
-  HelpCircle,
-} from "lucide-react";
 import { MonthYearPicker } from "@/components/MonthYearPicker";
 import { getDepreciationFactor } from "@/utils/taxCalculator";
 
@@ -38,8 +31,7 @@ export function BoeValuationTool() {
   return (
     <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-lg border border-[var(--surface-border)]">
       <div className="bg-blue-600 p-6 md:p-8 text-white rounded-t-2xl">
-        <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3 mb-3">
-          <Calculator size={28} />
+        <h2 className="text-2xl md:text-3xl font-bold mb-3">
           {lang === "es"
             ? "Calculadora Valor Venal BOE"
             : "BOE Fiscal Value Calculator"}
@@ -93,8 +85,7 @@ export function BoeValuationTool() {
             </p>
 
             <div className="ml-11">
-              <label className="flex items-center text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                <CalendarIcon size={16} className="text-blue-600 mr-2" />
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
                 {lang === "es"
                   ? "Mes y Año de Matriculación"
                   : "Registration Month and Year"}
@@ -103,8 +94,7 @@ export function BoeValuationTool() {
                 value={registrationDate}
                 onChange={(val) => setRegistrationDate(val)}
               />
-              <div className="mt-4 p-3 bg-blue-50 text-blue-800 text-xs md:text-sm rounded-lg border border-blue-100 flex gap-2 items-start">
-                <HelpCircle size={16} className="shrink-0 mt-0.5" />
+              <div className="mt-4 p-3 bg-blue-50 text-blue-800 text-xs md:text-sm rounded-lg border border-blue-100">
                 <p>
                   {lang === "es"
                     ? "Nota: Si tu coche tiene más de 12 años, Hacienda le aplica por defecto un valor residual retentivo del 10% de su valor inicial en todos los casos."
@@ -134,9 +124,6 @@ export function BoeValuationTool() {
             <div className="grid md:grid-cols-3 gap-6">
               {/* Original BOE Value */}
               <div className="bg-[var(--surface-elevated)] rounded-xl p-6 text-center border-2 border-[var(--surface-border)] shadow-sm flex flex-col justify-center">
-                <div className="w-12 h-12 bg-[var(--surface-dim)] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Euro size={20} className="text-[var(--text-secondary)]" />
-                </div>
                 <div className="text-sm font-semibold text-[var(--text-tertiary)] mb-1">
                   {lang === "es"
                     ? "Paso 1: Valor BOE (Nuevo)"
@@ -154,9 +141,6 @@ export function BoeValuationTool() {
 
               {/* Depreciation Percentage */}
               <div className="bg-[var(--surface-elevated)] rounded-xl p-6 text-center border-2 border-amber-200/50 shadow-sm flex flex-col justify-center">
-                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Calculator size={20} className="text-amber-600" />
-                </div>
                 <div className="text-sm font-semibold text-amber-700 mb-1">
                   {lang === "es"
                     ? "Paso 2: Depreciación por Edad"

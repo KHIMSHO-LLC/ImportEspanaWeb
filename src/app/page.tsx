@@ -36,26 +36,6 @@ import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
 import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
 import { Country, ImportType } from "@/types";
-import {
-  AlertTriangle,
-  Anchor,
-  Calendar,
-  CheckCircle,
-  Euro,
-  FileCheck,
-  Gauge,
-  Globe,
-  Info,
-  Link2,
-  MapPin,
-  RotateCcw,
-  Truck,
-  User,
-  TrendingDown,
-  Shield,
-  Clock,
-  Star,
-} from "lucide-react";
 import { CITIES } from "@/data/cities";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -366,14 +346,12 @@ export function HomeContent({
             onClick={() => setActiveTab("manual")}
             className={`pill-option ${activeTab === "manual" ? "active" : ""}`}
           >
-            <Euro size={14} />
             {language === "es" ? "Introducir datos" : "Enter data"}
           </button>
           <button
             onClick={() => setActiveTab("url")}
             className={`pill-option ${activeTab === "url" ? "active" : ""}`}
           >
-            <Link2 size={14} />
             {language === "es" ? "Pegar enlace" : "Paste link"}
             <span className="text-[9px] font-bold bg-[var(--brand-blue)] text-white px-1.5 py-0.5 rounded-full leading-none">
               NEW
@@ -385,8 +363,7 @@ export function HomeContent({
         {activeTab === "url" && (
           <div className="space-y-3">
             <div className="space-y-2">
-              <label className="label-caps flex items-center gap-2">
-                <Link2 size={14} className="text-[var(--brand-blue)]" />
+              <label className="label-caps">
                 {language === "es"
                   ? "URL de AutoScout24"
                   : "AutoScout24 URL"}
@@ -411,14 +388,12 @@ export function HomeContent({
                 </button>
               </div>
               {urlError && (
-                <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm">
-                  <AlertTriangle size={14} />
+                <div className="text-[var(--brand-red)] text-sm">
                   {urlError}
                 </div>
               )}
               {urlSuccess && (
-                <div className="flex items-center gap-2 text-green-500 text-sm font-medium">
-                  <CheckCircle size={14} />
+                <div className="text-green-500 text-sm font-medium">
                   {urlSuccess}
                 </div>
               )}
@@ -440,7 +415,6 @@ export function HomeContent({
             }}
             className={`pill-option ${importType === "EU" ? "active" : ""}`}
           >
-            <Globe size={16} />
             {t("EU")}
           </button>
           <button
@@ -451,15 +425,13 @@ export function HomeContent({
             }}
             className={`pill-option ${importType === "NonEU" ? "active" : ""}`}
           >
-            <Anchor size={16} />
             {t("NonEU")}
           </button>
         </div>
 
         {/* Origin Country */}
         <div className="space-y-3">
-          <label className="label-caps flex items-center gap-2">
-            <MapPin size={14} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {t("originCountry")}
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -481,8 +453,7 @@ export function HomeContent({
         {/* Destination region (always shown — used for IEDMT regional overrides
             and special territories Canarias/Ceuta/Melilla, plus ITP). */}
         <div className="space-y-3">
-          <label className="label-caps flex items-center gap-2">
-            <MapPin size={14} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {language === "es"
               ? "Comunidad de matriculación"
               : language === "de"
@@ -507,8 +478,7 @@ export function HomeContent({
           {(selectedRegion === "Canarias" ||
             selectedRegion === "Ceuta" ||
             selectedRegion === "Melilla") && (
-            <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
-              <Info size={14} className="mt-0.5 shrink-0 text-blue-500" />
+            <div className="p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
               {language === "es"
                 ? "Este territorio aplica IGIC/IPSI en lugar de IVA — IEDMT e ITP al 0%."
                 : "This territory uses IGIC/IPSI instead of VAT — IEDMT and ITP at 0%."}
@@ -562,16 +532,14 @@ export function HomeContent({
           }}
         />
         {errors.fiscalValue && (
-          <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
-            <AlertTriangle size={14} />
-            <span>{errors.fiscalValue}</span>
+          <div className="text-[var(--brand-red)] text-sm font-medium">
+            {errors.fiscalValue}
           </div>
         )}
 
         {/* Car Price */}
         <div className="space-y-2">
-          <label className="label-caps flex items-center gap-2">
-            <Euro size={14} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {t("carPrice")}
           </label>
           <input
@@ -583,9 +551,8 @@ export function HomeContent({
             className={`input-field ${errors.price ? "error" : ""}`}
           />
           {errors.price && (
-            <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
-              <AlertTriangle size={14} />
-              <span>{errors.price}</span>
+            <div className="text-[var(--brand-red)] text-sm font-medium">
+              {errors.price}
             </div>
           )}
         </div>
@@ -593,8 +560,7 @@ export function HomeContent({
         {/* Registration Date & Condition */}
         <div className="space-y-4 p-5 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-dim)]">
           <div className="space-y-2">
-            <label className="label-caps flex items-center gap-2">
-              <Calendar size={14} className="text-[var(--brand-blue)]" />
+            <label className="label-caps">
               {t("registrationDateLabel")}
             </label>
             <MonthYearPicker
@@ -624,9 +590,8 @@ export function HomeContent({
         {/* Fiscal Value Depreciation */}
         {baseFiscalValue > 0 && (
           <div className="p-5 rounded-xl border border-[var(--brand-gold)]/30 bg-[var(--brand-gold)]/[0.04] animate-fadeInUp">
-            <div className="flex items-center gap-2 text-[var(--brand-gold)] font-semibold mb-2">
-              <TrendingDown size={18} />
-              <span className="text-sm">{t("fiscalValueDepreciation")}</span>
+            <div className="text-[var(--brand-gold)] font-semibold mb-2 text-sm">
+              {t("fiscalValueDepreciation")}
             </div>
             <div className="text-sm text-[var(--text-secondary)] mb-1">
               {baseFiscalValue.toLocaleString("es-ES", {
@@ -651,8 +616,7 @@ export function HomeContent({
 
         {/* CO2 */}
         <div className="space-y-2">
-          <label className="label-caps flex items-center gap-2">
-            <Gauge size={14} className="text-[var(--brand-blue)]" />
+          <label className="label-caps">
             {t("co2")}
           </label>
           {isElectric && (
@@ -673,9 +637,8 @@ export function HomeContent({
             className={`input-field ${errors.co2 ? "error" : ""}`}
           />
           {errors.co2 && (
-            <div className="flex items-center gap-2 text-[var(--brand-red)] text-sm font-medium">
-              <AlertTriangle size={14} />
-              <span>{errors.co2}</span>
+            <div className="text-[var(--brand-red)] text-sm font-medium">
+              {errors.co2}
             </div>
           )}
         </div>
@@ -683,8 +646,7 @@ export function HomeContent({
         {/* Seller Type (Only for EU) */}
         {importType === "EU" && (
           <div className="space-y-3">
-            <label className="label-caps flex items-center gap-2">
-              <User size={14} className="text-[var(--brand-blue)]" />
+            <label className="label-caps">
               {t("sellerType")}
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -692,24 +654,22 @@ export function HomeContent({
                 onClick={() => setSellerType("dealer")}
                 className={`chip text-center ${sellerType === "dealer" ? "active" : ""}`}
               >
-                🏢 {t("dealer")}
+                {t("dealer")}
               </button>
               <button
                 onClick={() => setSellerType("private")}
                 className={`chip text-center ${sellerType === "private" ? "active" : ""}`}
               >
-                👤 {t("private")}
+                {t("private")}
               </button>
             </div>
             {sellerType === "private" && (
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-[var(--brand-gold)]/[0.06] border border-[var(--brand-gold)]/20 text-sm text-[var(--warning)]">
-                <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+              <div className="p-3 rounded-lg bg-[var(--brand-gold)]/[0.06] border border-[var(--brand-gold)]/20 text-sm text-[var(--warning)]">
                 {t("privateSaleWarning")}
               </div>
             )}
             {sellerType === "private" && (
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
-                <Info size={14} className="mt-0.5 shrink-0 text-blue-500" />
+              <div className="p-3 rounded-lg bg-blue-500/[0.06] border border-blue-500/20 text-xs text-[var(--text-secondary)]">
                 {language === "es"
                   ? `ITP en ${selectedRegion}: ${((SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ?? DEFAULT_ITP_RATE) * 100).toFixed(0)}% sobre el valor fiscal.`
                   : `ITP in ${selectedRegion}: ${((SPANISH_REGIONS.find((r) => r.name === selectedRegion)?.rate ?? DEFAULT_ITP_RATE) * 100).toFixed(0)}% on the fiscal value.`}
@@ -722,8 +682,7 @@ export function HomeContent({
         {importType === "NonEU" && (
           <>
             <div className="space-y-2">
-              <label className="label-caps flex items-center gap-2">
-                <Truck size={14} className="text-[var(--brand-blue)]" />
+              <label className="label-caps">
                 {t("transportCost")}
               </label>
               <input
@@ -741,8 +700,7 @@ export function HomeContent({
             </div>
 
             <div className="space-y-2">
-              <label className="label-caps flex items-center gap-2">
-                <Shield size={14} className="text-[var(--brand-blue)]" />
+              <label className="label-caps">
                 {language === "es" ? "Seguro de transporte" : "Marine cargo insurance"}
               </label>
               <input
@@ -774,7 +732,9 @@ export function HomeContent({
                     : "border-[var(--surface-border)]"
                 }`}
               >
-                {needsHomologation && <CheckCircle size={14} color="white" />}
+                {needsHomologation && (
+                  <span className="text-white text-xs leading-none">✓</span>
+                )}
               </div>
               <div className="flex-1">
                 <p
@@ -786,7 +746,6 @@ export function HomeContent({
                   {t("homologationInfo")}
                 </p>
               </div>
-              <FileCheck size={20} className="text-[var(--text-tertiary)]" />
             </div>
           </>
         )}
@@ -805,9 +764,8 @@ export function HomeContent({
 
           <button
             onClick={resetSearch}
-            className="btn-secondary w-full flex items-center justify-center gap-2"
+            className="btn-secondary w-full"
           >
-            <RotateCcw size={15} />
             {language === "es" ? "Reiniciar búsqueda" : "Reset Search"}
           </button>
         </div>
@@ -823,15 +781,13 @@ export function HomeContent({
       {!compact && <>
       {/* Cómo funciona — 3 step visual */}
       <div className="space-y-3">
-        <h2 className="label-caps flex items-center gap-2">
-          <Star size={12} className="text-[var(--brand-blue)]" />
+        <h2 className="label-caps">
           {language === "es" ? "Cómo funciona" : "How it works"}
         </h2>
         <div className="grid grid-cols-3 gap-3">
           {[
             {
               step: "1",
-              icon: "🔍",
               title: language === "es" ? "Busca tu coche" : "Find your car",
               desc:
                 language === "es"
@@ -840,7 +796,6 @@ export function HomeContent({
             },
             {
               step: "2",
-              icon: "🧮",
               title:
                 language === "es" ? "Calcula impuestos" : "Calculate taxes",
               desc:
@@ -850,7 +805,6 @@ export function HomeContent({
             },
             {
               step: "3",
-              icon: "✅",
               title: language === "es" ? "Ve el resultado" : "See result",
               desc:
                 language === "es"
@@ -859,7 +813,9 @@ export function HomeContent({
             },
           ].map((s) => (
             <div key={s.step} className="card p-4 text-center space-y-2">
-              <div className="text-2xl">{s.icon}</div>
+              <div className="text-xs font-mono text-[var(--text-tertiary)]">
+                {s.step}.
+              </div>
               <div className="font-semibold text-[var(--text-primary)] text-sm">
                 {s.title}
               </div>
@@ -875,14 +831,12 @@ export function HomeContent({
 
       {/* Trust signals */}
       <div className="space-y-3">
-        <h2 className="label-caps flex items-center gap-2">
-          <Shield size={12} className="text-[var(--brand-blue)]" />
+        <h2 className="label-caps">
           {language === "es" ? "Por qué ImportEspana" : "Why ImportEspana"}
         </h2>
         <div className="grid grid-cols-2 gap-3">
           {[
             {
-              icon: <CheckCircle size={16} className="text-emerald-500" />,
               title:
                 language === "es" ? "Datos oficiales BOE" : "Official BOE data",
               desc:
@@ -891,7 +845,6 @@ export function HomeContent({
                   : "Tables updated January 2026",
             },
             {
-              icon: <Clock size={16} className="text-[var(--brand-blue)]" />,
               title:
                 language === "es"
                   ? "Resultado en segundos"
@@ -902,7 +855,6 @@ export function HomeContent({
                   : "No signup, no waiting",
             },
             {
-              icon: <Globe size={16} className="text-purple-500" />,
               title: language === "es" ? "17 comunidades" : "17 regions",
               desc:
                 language === "es"
@@ -910,21 +862,17 @@ export function HomeContent({
                   : "Exact ITP per region",
             },
             {
-              icon: <Shield size={16} className="text-amber-500" />,
               title: language === "es" ? "Gratuito siempre" : "Always free",
               desc:
                 language === "es" ? "Sin anuncios ocultos" : "No hidden fees",
             },
           ].map((item, i) => (
-            <div key={i} className="card p-4 flex gap-3 items-start">
-              <div className="shrink-0 mt-0.5">{item.icon}</div>
-              <div>
-                <div className="font-semibold text-[var(--text-primary)] text-sm">
-                  {item.title}
-                </div>
-                <div className="text-xs text-[var(--text-tertiary)] mt-0.5">
-                  {item.desc}
-                </div>
+            <div key={i} className="card p-4">
+              <div className="font-semibold text-[var(--text-primary)] text-sm">
+                {item.title}
+              </div>
+              <div className="text-xs text-[var(--text-tertiary)] mt-0.5">
+                {item.desc}
               </div>
             </div>
           ))}
@@ -943,8 +891,7 @@ export function HomeContent({
       {/* Internal Links — SEO */}
       <div className="mt-12 space-y-8">
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <MapPin size={12} className="text-[var(--brand-blue)]" />
+          <h3 className="label-caps mb-3">
             {language === "es"
               ? "Importar coches por comunidad autónoma"
               : "Import cars by region"}
@@ -963,8 +910,7 @@ export function HomeContent({
         </div>
 
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <Globe size={12} className="text-[var(--success)]" />
+          <h3 className="label-caps mb-3">
             {language === "es"
               ? "Importar desde otros países"
               : "Import from other countries"}
@@ -984,8 +930,7 @@ export function HomeContent({
 
         {/* City pages grid */}
         <div>
-          <h3 className="label-caps mb-3 flex items-center gap-1.5">
-            <MapPin size={12} className="text-[var(--brand-blue)]" />
+          <h3 className="label-caps mb-3">
             {language === "es" ? "Importar por ciudad" : "Import by city"}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">

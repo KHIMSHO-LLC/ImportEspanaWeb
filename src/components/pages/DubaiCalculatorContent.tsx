@@ -6,27 +6,7 @@ import { HomeContent } from "@/app/page";
 import SeoSchema from "@/components/SeoSchema";
 import { useLanguage } from "@/context/LanguageContext";
 import { DUBAI_CONTENT } from "@/i18n/dubai";
-import {
-  AlertTriangle,
-  ChevronDown,
-  ChevronUp,
-  Ship,
-  FileCheck,
-  ClipboardList,
-  CheckCircle,
-  Car,
-  Clock,
-  ArrowRight,
-  Info,
-} from "lucide-react";
-
-const STEP_ICONS = [
-  <Car key="car" size={20} className="text-[var(--brand-blue)]" />,
-  <Ship key="ship" size={20} className="text-[var(--brand-blue)]" />,
-  <ClipboardList key="clip" size={20} className="text-[var(--brand-blue)]" />,
-  <FileCheck key="check" size={20} className="text-[var(--brand-blue)]" />,
-  <CheckCircle key="done" size={20} className="text-[var(--brand-blue)]" />,
-];
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const BUILDUP_BARS = [
   { bar: 56, color: "bg-[var(--brand-blue)]" },
@@ -94,7 +74,7 @@ export default function DubaiCalculatorContent() {
               {c.guideBadge}
             </div>
             <div className="flex items-center gap-3 text-3xl">
-              🇦🇪 <ArrowRight size={20} className="text-white/50" /> 🇪🇸
+              🇦🇪 <span className="text-white/50 text-xl">→</span> 🇪🇸
             </div>
             <h1 className="heading-display text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
               {c.heroTitle}
@@ -128,8 +108,7 @@ export default function DubaiCalculatorContent() {
         </div>
 
         {/* Warning callout */}
-        <div className="flex items-start gap-3 p-4 rounded-xl border border-amber-200 bg-amber-50">
-          <AlertTriangle size={18} className="text-amber-600 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl border border-amber-200 bg-amber-50">
           <div className="text-sm">
             <span className="font-semibold text-amber-800">{c.warningTitle}</span>{" "}
             <span className="text-amber-700">{c.warningText}</span>
@@ -162,10 +141,7 @@ export default function DubaiCalculatorContent() {
 
         {/* Cost build-up */}
         <div className="card p-6 space-y-4">
-          <div className="flex items-center gap-2">
-            <Info size={16} className="text-[var(--brand-blue)] shrink-0" />
-            <h3 className="font-bold text-[var(--text-primary)]">{c.costBuildupHeading}</h3>
-          </div>
+          <h3 className="font-bold text-[var(--text-primary)]">{c.costBuildupHeading}</h3>
           <div className="space-y-2 text-sm">
             {c.costBuildupRows.map((row, i) => (
               <div key={row.label}>
@@ -194,21 +170,17 @@ export default function DubaiCalculatorContent() {
           <div className="space-y-3">
             {c.processSteps.map((s, i) => (
               <div key={i} className="card p-5 flex gap-4 items-start">
-                <div className="w-9 h-9 rounded-full bg-[rgba(29,78,216,0.08)] flex items-center justify-center shrink-0">
-                  {STEP_ICONS[i]}
+                <div className="w-9 h-9 rounded-full bg-[var(--brand-blue)] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                  {i + 1}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <div className="font-semibold text-[var(--text-primary)] text-sm">{s.title}</div>
-                    <div className="flex items-center gap-1 text-xs text-[var(--text-tertiary)] shrink-0">
-                      <Clock size={11} />
+                    <div className="text-xs text-[var(--text-tertiary)] shrink-0">
                       {s.time}
                     </div>
                   </div>
                   <div className="text-sm text-[var(--text-secondary)] mt-1 leading-relaxed">{s.desc}</div>
-                </div>
-                <div className="w-6 h-6 rounded-full bg-[var(--brand-blue)] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                  {i + 1}
                 </div>
               </div>
             ))}
@@ -249,7 +221,7 @@ export default function DubaiCalculatorContent() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {c.popularModels.map((m) => (
               <div key={m.name} className="card p-4 space-y-1.5">
-                <div className="text-2xl">{m.emoji}</div>
+                {m.emoji && <div className="text-2xl">{m.emoji}</div>}
                 <div className="font-semibold text-[var(--text-primary)] text-sm leading-tight">{m.name}</div>
                 <div className="text-xs text-[var(--brand-blue)] font-medium">{m.note}</div>
               </div>
@@ -259,8 +231,7 @@ export default function DubaiCalculatorContent() {
 
         {/* Watch out */}
         <div className="card p-6 border-l-4 border-l-[var(--brand-gold)] space-y-3">
-          <h3 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
-            <AlertTriangle size={16} className="text-[var(--brand-gold)]" />
+          <h3 className="font-bold text-[var(--text-primary)]">
             {c.watchOutHeading}
           </h3>
           <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
@@ -289,15 +260,12 @@ export default function DubaiCalculatorContent() {
         <div className="grid sm:grid-cols-2 gap-3">
           <Link
             href="/blog/como-importar-coche-dubai-espana-2026"
-            className="card p-4 flex items-center gap-3 hover:border-[var(--brand-blue-light)] transition-all group"
+            className="card p-4 hover:border-[var(--brand-blue-light)] transition-all group"
           >
-            <span className="text-2xl shrink-0">📖</span>
-            <div>
-              <div className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors">
-                {c.linkBlogTitle}
-              </div>
-              <div className="text-xs text-[var(--text-tertiary)] mt-0.5">{c.linkBlogDesc}</div>
+            <div className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors">
+              {c.linkBlogTitle}
             </div>
+            <div className="text-xs text-[var(--text-tertiary)] mt-0.5">{c.linkBlogDesc}</div>
           </Link>
           <Link
             href="/importar-desde/uae"

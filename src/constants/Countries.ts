@@ -391,7 +391,7 @@ export const COUNTRIES: CountryData[] = [
         desc: "Los portales más grandes del Reino Unido.",
       },
       {
-        title: "⚠️ Verifica si tiene volante a la derecha (RHD)",
+        title: "Verifica si tiene volante a la derecha (RHD)",
         desc: "Los coches británicos tienen el volante a la derecha. Para España se necesita conversión o homologación especial.",
       },
       {
@@ -413,7 +413,7 @@ export const COUNTRIES: CountryData[] = [
         desc: "The largest UK car portals.",
       },
       {
-        title: "⚠️ Check if right-hand drive (RHD)",
+        title: "Check if right-hand drive (RHD)",
         desc: "UK cars are right-hand drive. For Spain, conversion or special type approval is needed.",
       },
       {
@@ -430,14 +430,14 @@ export const COUNTRIES: CountryData[] = [
       },
     ],
     tipsEs: [
-      "⚠️ Post-Brexit: arancel 6.5% + IVA 21% se aplica a la importación",
+      "Post-Brexit: arancel 6.5% + IVA 21% se aplica a la importación",
       "Los coches RHD (volante derecha) necesitan homologación individual que cuesta €1,000–€3,000",
       "Los ferries Bilbao–Portsmouth son la opción más directa",
       "Los precios en libras pueden ser atractivos pero calcula TODOS los costes extra",
       "Range Rover y Jaguar son significativamente más baratos en UK",
     ],
     tipsEn: [
-      "⚠️ Post-Brexit: 6.5% tariff + 21% VAT applies to imports",
+      "Post-Brexit: 6.5% tariff + 21% VAT applies to imports",
       "RHD (right-hand drive) cars need individual type approval costing €1,000–€3,000",
       "Bilbao–Portsmouth ferries are the most direct option",
       "Prices in pounds may look attractive but calculate ALL extra costs",

@@ -387,13 +387,13 @@ export const REGIONS: RegionData[] = [
     descriptionEn:
       "Cantabria stands out for having the highest ITP in Spain (8%). This can influence the decision to import a second-hand car. Santander port receives ferries from the United Kingdom.",
     tipsEs: [
-      "⚠️ El ITP más alto de España: 8% — calcula bien el coste total",
+      "El ITP más alto de España: 8% — calcula bien el coste total",
       "El ferry Santander-Plymouth permite traer coches desde el Reino Unido",
       "Considera si compensa registrar el coche en otra comunidad",
       "Solo hay una jefatura de tráfico en Santander",
     ],
     tipsEn: [
-      "⚠️ The highest ITP in Spain: 8% — calculate total costs carefully",
+      "The highest ITP in Spain: 8% — calculate total costs carefully",
       "The Santander-Plymouth ferry allows bringing cars from the UK",
       "Consider whether registering the car in another region is better",
       "There's only one traffic office in Santander",

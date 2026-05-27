@@ -23,14 +23,14 @@ const heroText = {
     title: "El coste real de importar tu coche",
     subtitle:
       "Impuestos, tasas y transporte — calculados en segundos con datos oficiales del BOE.",
-    badges: ["✅ 100% Gratis", "📋 BOE oficial 2026", "⚡ Resultado inmediato", "🇪🇸 17 comunidades"],
+    badges: ["100% Gratis", "BOE oficial 2026", "Resultado inmediato", "🇪🇸 17 comunidades"],
   },
   en: {
     eyebrow: "Free calculator 2026",
     title: "The real cost of importing your car",
     subtitle:
       "Taxes, fees and transport — calculated in seconds with official BOE data.",
-    badges: ["✅ 100% Free", "📋 Official BOE 2026", "⚡ Instant result", "🇪🇸 17 regions"],
+    badges: ["100% Free", "Official BOE 2026", "Instant result", "🇪🇸 17 regions"],
   },
 };
 

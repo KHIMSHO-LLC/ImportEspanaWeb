@@ -8,10 +8,10 @@ import SeoSchema from "@/components/SeoSchema";
 import { useLanguage } from "@/context/LanguageContext";
 
 const CATEGORIES = [
-  { id: "costes", titleKey: "faqCategoryCosts", icon: "💶", range: [0, 6] },
-  { id: "proceso", titleKey: "faqCategoryProcess", icon: "📋", range: [6, 12] },
-  { id: "vehiculos", titleKey: "faqCategoryVehicles", icon: "🚗", range: [12, 17] },
-  { id: "comparativas", titleKey: "faqCategoryRegional", icon: "🗺️", range: [17, 21] },
+  { id: "costes", titleKey: "faqCategoryCosts", icon: null, range: [0, 6] },
+  { id: "proceso", titleKey: "faqCategoryProcess", icon: null, range: [6, 12] },
+  { id: "vehiculos", titleKey: "faqCategoryVehicles", icon: null, range: [12, 17] },
+  { id: "comparativas", titleKey: "faqCategoryRegional", icon: null, range: [17, 21] },
   { id: "dubai", titleKey: "faqCategoryDubai", icon: "🇦🇪", range: [21, 28] },
 ] as const;
 
@@ -91,7 +91,7 @@ export default function FaqPageContent() {
             return (
               <section key={cat.id}>
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{cat.icon}</span>
+                  {cat.icon && <span className="text-2xl">{cat.icon}</span>}
                   <h2 className="text-xl font-bold text-[var(--text-primary)]">
                     {t(cat.titleKey)}
                   </h2>

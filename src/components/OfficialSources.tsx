@@ -1,7 +1,6 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { ArrowUpRight } from "lucide-react";
 
 const sources = {
   es: {
@@ -75,15 +74,9 @@ export const OfficialSources = () => {
             rel="noopener noreferrer"
             className="group block p-4 rounded-xl border border-[var(--surface-border)] hover:border-[var(--brand-blue)]/30 bg-[var(--surface-elevated)] hover:shadow-md transition-all duration-200"
           >
-            <div className="flex items-start justify-between gap-2">
-              <span className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors duration-200">
-                {item.name}
-              </span>
-              <ArrowUpRight
-                size={14}
-                className="shrink-0 mt-0.5 text-[var(--text-tertiary)] group-hover:text-[var(--brand-blue)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </div>
+            <span className="block text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--brand-blue)] transition-colors duration-200">
+              {item.name}
+            </span>
             <p className="text-xs text-[var(--text-tertiary)] mt-1.5 leading-relaxed">{item.desc}</p>
           </a>
         ))}

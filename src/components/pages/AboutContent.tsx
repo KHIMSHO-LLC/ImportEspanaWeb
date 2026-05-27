@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, RefreshCw, Database, Calendar } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutContent() {
@@ -21,8 +20,7 @@ export default function AboutContent() {
 
           {/* Who built it */}
           <div className="p-4 bg-[var(--surface-dim)] rounded-xl border border-[var(--surface-border)] space-y-2">
-            <h2 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
-              <Calendar size={16} className="text-[var(--brand-blue)]" />
+            <h2 className="text-base font-bold text-[var(--text-primary)]">
               Sobre el proyecto
             </h2>
             <p className="text-sm">
@@ -32,8 +30,7 @@ export default function AboutContent() {
 
           {/* Data sources */}
           <div className="p-4 bg-[var(--surface-dim)] rounded-xl border border-[var(--surface-border)] space-y-2">
-            <h2 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
-              <Database size={16} className="text-[var(--brand-blue)]" />
+            <h2 className="text-base font-bold text-[var(--text-primary)]">
               Fuentes de datos
             </h2>
             <ul className="text-sm space-y-1">
@@ -46,8 +43,7 @@ export default function AboutContent() {
           </div>
 
           {/* Update frequency */}
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-full">
-            <RefreshCw size={12} />
+          <div className="inline-block bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-semibold px-3 py-2 rounded-full">
             Tablas actualizadas: Enero 2026 — Fuente: BOE
           </div>
 
@@ -55,15 +51,12 @@ export default function AboutContent() {
             {t("privacy_contact_title")}
           </h2>
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <Mail className="text-[var(--brand-blue)]" size={20} />
-              <a
-                href="mailto:info@importespana.com"
-                className="hover:underline"
-              >
-                info@importespana.com
-              </a>
-            </div>
+            <a
+              href="mailto:info@importespana.com"
+              className="hover:underline"
+            >
+              info@importespana.com
+            </a>
           </div>
         </div>
 

@@ -2,7 +2,6 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS } from "@/constants/ItpRates";
-import { MapPin, Info, Calculator, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const texts = {
@@ -73,8 +72,7 @@ export default function ItpContent() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
-          <MapPin size={14} />
+        <div className="inline-block bg-[var(--brand-blue)]/5 text-[var(--brand-blue)] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
           {sorted.length} {lang === "es" ? "regiones" : "regions"}
         </div>
         <h1 className="text-3xl font-extrabold text-[var(--text-primary)] mb-3">
@@ -150,9 +148,9 @@ export default function ItpContent() {
             href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-26357"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:text-[var(--brand-blue)] flex items-center gap-1"
+            className="text-blue-500 hover:text-[var(--brand-blue)]"
           >
-            {t.boeLink} <ExternalLink size={12} />
+            {t.boeLink}
           </a>
         </div>
       </div>
@@ -160,8 +158,7 @@ export default function ItpContent() {
       {/* Info Cards */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] p-6">
-          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <Info size={18} className="text-[var(--brand-blue)]" />
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3">
             {t.whatIsItp}
           </h2>
           <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
@@ -170,8 +167,7 @@ export default function ItpContent() {
         </div>
 
         <div className="bg-[var(--surface-elevated)] rounded-2xl shadow-sm border border-[var(--surface-border)] p-6">
-          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <Calculator size={18} className="text-[var(--brand-blue)]" />
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-3">
             {t.howCalc}
           </h2>
           <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
@@ -189,19 +185,8 @@ export default function ItpContent() {
           {t.whenAppliesItems.map((item, i) => (
             <li
               key={i}
-              className="flex items-start gap-3 text-sm text-[var(--text-secondary)]"
+              className="text-sm text-[var(--text-secondary)] pl-4 border-l-2 border-[var(--surface-border)]"
             >
-              <svg
-                className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
               {item}
             </li>
           ))}
@@ -227,8 +212,7 @@ export default function ItpContent() {
       {/* City pages internal links */}
       {lang === "es" && (
         <div className="mt-8">
-          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-            <MapPin size={18} className="text-[var(--brand-blue)]" />
+          <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4">
             ITP por ciudad
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
