@@ -35,6 +35,7 @@ export function Footer() {
               { href: "/privacy", label: t("footer_privacy") },
               { href: "/terms", label: t("footer_terms") },
               { href: "/about", label: t("footer_about") },
+              { href: "/contact", label: t("footer_contact") },
               { href: "/how-it-works", label: t("footer_howItWorks") },
               { href: "/blog", label: "Blog" },
               { href: "/itp", label: "ITP" },

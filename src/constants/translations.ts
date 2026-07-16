@@ -83,6 +83,12 @@ export const translations = {
     footer_terms: "Terms of Use",
     footer_about: "About Us",
     footer_howItWorks: "How It Works",
+    footer_contact: "Contact",
+    contact_title: "Contact Us",
+    contact_intro:
+      "Have a question, found an error in our data, or want to report an issue? We'd love to hear from you.",
+    contact_email_label: "Email us at",
+    contact_response: "We usually reply within 1–2 business days.",
     footer_rights: "All rights reserved.",
     // Privacy Policy
     privacy_title: "Privacy Policy",
@@ -406,6 +412,12 @@ export const translations = {
     footer_terms: "Términos de Uso",
     footer_about: "Sobre Nosotros",
     footer_howItWorks: "Cómo Funciona",
+    footer_contact: "Contacto",
+    contact_title: "Contacto",
+    contact_intro:
+      "¿Tienes una pregunta, encontraste un error en nuestros datos o quieres reportar un problema? Nos encantaría saber de ti.",
+    contact_email_label: "Escríbenos a",
+    contact_response: "Normalmente respondemos en 1–2 días laborables.",
     footer_rights: "Todos los derechos reservados.",
     // Privacy Policy
     privacy_title: "Política de Privacidad",
@@ -725,6 +737,12 @@ export const translations = {
     footer_terms: "Условия использования",
     footer_about: "О нас",
     footer_howItWorks: "Как это работает",
+    footer_contact: "Контакты",
+    contact_title: "Свяжитесь с нами",
+    contact_intro:
+      "Есть вопрос, нашли ошибку в данных или хотите сообщить о проблеме? Будем рады вашему сообщению.",
+    contact_email_label: "Напишите нам на",
+    contact_response: "Обычно отвечаем в течение 1–2 рабочих дней.",
     footer_rights: "Все права защищены.",
     // Privacy Policy
     privacy_title: "Политика конфиденциальности",
@@ -1037,6 +1055,12 @@ export const translations = {
     footer_terms: "Nutzungsbedingungen",
     footer_about: "Über uns",
     footer_howItWorks: "Wie es funktioniert",
+    footer_contact: "Kontakt",
+    contact_title: "Kontakt",
+    contact_intro:
+      "Haben Sie eine Frage, einen Fehler in unseren Daten gefunden oder möchten ein Problem melden? Wir freuen uns, von Ihnen zu hören.",
+    contact_email_label: "Schreiben Sie uns an",
+    contact_response: "Wir antworten in der Regel innerhalb von 1–2 Werktagen.",
     footer_rights: "Alle Rechte vorbehalten.",
     // Privacy Policy
     privacy_title: "Datenschutzerklärung",
@@ -1348,6 +1372,12 @@ export const translations = {
     footer_terms: "Conditions d'utilisation",
     footer_about: "À propos",
     footer_howItWorks: "Comment ça marche",
+    footer_contact: "Contact",
+    contact_title: "Contact",
+    contact_intro:
+      "Vous avez une question, trouvé une erreur dans nos données ou souhaitez signaler un problème ? Nous serions ravis de vous lire.",
+    contact_email_label: "Écrivez-nous à",
+    contact_response: "Nous répondons généralement sous 1 à 2 jours ouvrés.",
     footer_rights: "Tous droits réservés.",
     // Privacy Policy
     privacy_title: "Politique de Confidentialité",
