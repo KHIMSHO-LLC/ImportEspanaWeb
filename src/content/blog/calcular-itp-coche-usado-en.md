@@ -66,11 +66,11 @@ Here's a table illustrating *example* ITP rates in some Autonomous Communities. 
 
 | Autonomous Community | Common ITP Rate (Used Cars) |
 | :------------------- | :-------------------------- |
-| Andalusia             | 4% - 8% (sliding scale)     |
+| Andalusia             | 4%                          |
 | Aragon               | 4%                          |
-| Asturias             | 4%                          |
-| Balearic Islands     | 4% - 8% (sliding scale)     |
-| Canary Islands       | 5.5% (IGIC is applied)      |
+| Asturias             | 8%                          |
+| Balearic Islands     | 4%                          |
+| Canary Islands       | IGIC (not ITP)              |
 | Cantabria            | 8%                          |
 | Castilla-La Mancha   | 6%                          |
 | Castilla y León      | 5%                          |

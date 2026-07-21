@@ -88,14 +88,14 @@ Este impuesto se calcula sobre el valor neto del vehículo (valor de mercado o v
 *   **Ejemplo:** Un BMW con 150 gr/km de CO2 pagará el 4,75%. Si su valor de mercado es de 30.000€ y tiene 3 años (coeficiente del 59% según tablas), la base imponible sería 30.000€ * 0,59 = 17.700€. El impuesto sería 17.700€ * 4,75% = 840,75€.
 
 #### c) Impuesto de Transmisiones Patrimoniales (ITP)
-Este impuesto solo se aplica a vehículos de segunda mano comprados a **particulares**. Si compras a un profesional, no pagas ITP. El porcentaje varía según la Comunidad Autónoma y el valor del vehículo.
+Este impuesto solo se aplica a vehículos de segunda mano comprados a **particulares**. Si compras a un profesional, no pagas ITP. El porcentaje varía según la Comunidad Autónoma.
 
 | Comunidad Autónoma | Tipo Impositivo (orientativo) |
 | :----------------- | :---------------------------- |
-| Andalucía          | 4% - 8%                       |
+| Andalucía          | 4%                            |
 | Cataluña           | 5%                            |
 | Madrid             | 4%                            |
-| C. Valenciana      | 6% - 8%                       |
+| C. Valenciana      | 6%                            |
 
 *   Se calcula sobre el valor fiscal del vehículo, que se determina según las tablas de Hacienda (valor venal) y la antigüedad.
 

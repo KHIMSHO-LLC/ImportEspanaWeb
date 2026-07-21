@@ -1,6 +1,6 @@
 "use client";
 
-import { REGIONS, getRegionBySlug } from "@/constants/Regions";
+import { REGIONS, getRegionBySlug, type RegionData } from "@/constants/Regions";
 import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
 
@@ -83,38 +83,11 @@ const texts = {
   },
 };
 
-function buildSteps(
-  t: (typeof texts)["es"],
-  regionName: string,
-  itpRate: number,
-  capital: string,
-  nearestPort?: string,
-) {
-  return [
-    { title: t.step1Title, desc: t.step1Desc },
-    {
-      title: t.step2Title,
-      desc: nearestPort
-        ? `${t.step2DescPort} ${nearestPort}.`
-        : t.step2DescNoPort,
-    },
-    { title: t.step3Title, desc: t.step3Desc },
-    { title: t.step4Title, desc: t.step4Desc },
-    {
-      title: `${t.step5Title} (${itpRate}%)`,
-      desc:
-        t === texts.es
-          ? `El ITP en ${regionName} es del ${itpRate}% sobre el valor fiscal del BOE.`
-          : `The ITP in ${regionName} is ${itpRate}% on the fiscal value from the BOE.`,
-    },
-    {
-      title: t.step6Title,
-      desc:
-        t === texts.es
-          ? `Pide cita previa en la DGT de ${capital} y lleva toda la documentación.`
-          : `Book an appointment at the DGT in ${capital} and bring all documentation.`,
-    },
-  ];
+// Steps come from per-region data in Regions.ts rather than shared template
+// strings. The previous version emitted 4 byte-identical steps on all 17 region
+// pages, which made them read as duplicate/doorway content to crawlers.
+function buildSteps(region: RegionData, lang: "es" | "en") {
+  return lang === "es" ? region.stepsEs : region.stepsEn;
 }
 
 export default function RegionContent({ slug }: { slug: string }) {
@@ -137,13 +110,7 @@ export default function RegionContent({ slug }: { slug: string }) {
   const tips = lang === "es" ? region.tipsEs : region.tipsEn;
   const regionName = lang === "es" ? region.nameEs : region.name;
 
-  const importSteps = buildSteps(
-    t,
-    regionName,
-    region.itpRate,
-    region.capital,
-    region.nearestPort,
-  );
+  const importSteps = buildSteps(region, lang);
 
   return (
     <div className="bg-[var(--surface-dim)] min-h-screen">

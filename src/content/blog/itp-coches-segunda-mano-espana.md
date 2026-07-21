@@ -27,14 +27,16 @@ El tipo impositivo del ITP varía según la **comunidad autónoma** donde se mat
 | Castilla y León      | **5%**   |
 | Castilla-La Mancha   | **6%**   |
 | Aragón               | **4%**   |
-| Murcia               | **5%**   |
+| Murcia               | **4%**   |
 | Baleares             | **4%**   |
-| Canarias             | **5,5%** |
-| Asturias             | **4%**   |
+| Canarias             | **IGIC** |
+| Asturias             | **8%**   |
 | Navarra              | **4%**   |
 | Extremadura          | **6%**   |
 | Cantabria            | **8%**   |
 | La Rioja             | **4%**   |
+
+*Nota: Canarias no aplica ITP en las transmisiones de vehículos; en su lugar rige el IGIC (Impuesto General Indirecto Canario), con su propio régimen.*
 
 Como puedes ver, la diferencia es significativa. Comprar un coche en **Galicia o Cantabria (8%)** puede costarte el **doble en ITP** que comprarlo en **Madrid o Aragón (4%)**.
 

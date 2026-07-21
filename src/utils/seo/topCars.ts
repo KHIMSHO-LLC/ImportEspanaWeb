@@ -10,7 +10,19 @@ import boePrices from "@/data/boe_prices.json";
 // mostly German premium/mid-range cars + a few high-search niche models.
 // Fewer URLs with stronger unique content > many thin pages (better for
 // Google's crawl budget and quality classifier on a new domain).
-export const TOP_SEO_MODELS = [
+type SeoModel = {
+  brand: string;
+  modelQuery: string;
+  /**
+   * Overrides modelQuery when searching BOE data, for models the BOE names
+   * differently than buyers do (nobody searches "Mercedes A 200", but the BOE
+   * has no "Clase A"). Matched as a prefix, not a substring, so a short query
+   * like "A " can't match mid-word in unrelated models.
+   */
+  boeQuery?: string;
+};
+
+export const TOP_SEO_MODELS: SeoModel[] = [
   // Volkswagen — top imports
   { brand: "Volkswagen", modelQuery: "Golf" },
   { brand: "Volkswagen", modelQuery: "Polo" },
@@ -22,9 +34,9 @@ export const TOP_SEO_MODELS = [
   { brand: "BMW", modelQuery: "X3" },
   { brand: "BMW", modelQuery: "X5" },
   // Mercedes-Benz
-  { brand: "Mercedes-Benz", modelQuery: "Clase A" },
-  { brand: "Mercedes-Benz", modelQuery: "Clase C" },
-  { brand: "Mercedes-Benz", modelQuery: "Clase E" },
+  { brand: "Mercedes-Benz", modelQuery: "Clase A", boeQuery: "A " },
+  { brand: "Mercedes-Benz", modelQuery: "Clase C", boeQuery: "C " },
+  { brand: "Mercedes-Benz", modelQuery: "Clase E", boeQuery: "E " },
   { brand: "Mercedes-Benz", modelQuery: "GLC" },
   // Audi
   { brand: "Audi", modelQuery: "A3" },
@@ -82,14 +94,17 @@ function normalizeText(text: string): string {
 export function getHeroCarForModel(
   brand: string,
   modelQuery: string,
+  boeQuery?: string,
 ): Vehicle | null {
   const normalizedBrand = normalizeBrand(brand);
-  const normalizedQuery = normalizeText(modelQuery);
+  const normalizedQuery = normalizeText(boeQuery ?? modelQuery);
 
   const matches = (boePrices as unknown as Vehicle[]).filter(
     (v) =>
       normalizeBrand(v.brand) === normalizedBrand &&
-      normalizeText(v.model).includes(normalizedQuery),
+      (boeQuery
+        ? normalizeText(v.model).startsWith(normalizedQuery)
+        : normalizeText(v.model).includes(normalizedQuery)),
   );
 
   if (matches.length === 0) return null;

@@ -37,7 +37,8 @@ import { SPANISH_REGIONS, DEFAULT_ITP_RATE } from "@/constants/ItpRates";
 import { DEPRECIATION_TABLE } from "@/utils/taxCalculator";
 import { Country, ImportType } from "@/types";
 import { CITIES } from "@/data/cities";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { SearchParamsPrefill } from "./SearchParamsPrefill";
 import { Suspense, useEffect, useState } from "react";
 
 export function HomeContent({
@@ -58,7 +59,6 @@ export function HomeContent({
 }) {
   const { t, language } = useLanguage();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const [importType, setImportType] = useState<ImportType>(
     prefilledImportType || "EU",
@@ -206,8 +206,9 @@ export function HomeContent({
     !validateCO2(co2Emissions) &&
     !validateFiscalValue(fiscalValue);
 
-  // Initialize from URL params
-  useEffect(() => {
+  // Initialize from URL params. Invoked by <SearchParamsPrefill> rather than
+  // read here directly, so this component stays server-renderable.
+  const applyUrlParams = (searchParams: URLSearchParams) => {
     if (searchParams.size > 0) {
       const pImportType = searchParams.get("importType") as ImportType;
       if (pImportType) setImportType(pImportType);
@@ -262,7 +263,7 @@ export function HomeContent({
         });
       }
     }
-  }, [searchParams]);
+  };
 
   const calculate = () => {
     setTouched({ price: true, co2: true, fiscalValue: true });
@@ -336,6 +337,10 @@ export function HomeContent({
 
   return (
     <div className="w-full space-y-8">
+      <Suspense fallback={null}>
+        <SearchParamsPrefill onParams={applyUrlParams} />
+      </Suspense>
+
       {!compact && <HeroStats />}
 
       {/* Calculator — the instrument */}
@@ -980,17 +985,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-4 md:px-8 pt-6 pb-20">
-        <Suspense
-          fallback={
-            <div className="space-y-6 py-12">
-              <div className="skeleton h-12 w-3/4" />
-              <div className="skeleton h-6 w-1/2" />
-              <div className="skeleton h-64 w-full" />
-            </div>
-          }
-        >
-          <HomeContent />
-        </Suspense>
+        <HomeContent />
       </div>
     </div>
   );

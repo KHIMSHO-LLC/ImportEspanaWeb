@@ -67,11 +67,11 @@ Las Comunidades Autónomas suelen aplicar un tipo general, pero algunas establec
 
 | Comunidad Autónoma | Tipo Impositivo General ITP (%) | Notas Relevantes                                                                               |
 | :----------------- | :------------------------------ | :--------------------------------------------------------------------------------------------- |
-| Andalucía          | 4% - 8%                         | Varía según la potencia fiscal o valor del vehículo. Hasta 15 CVF 4%, más de 15 CVF o valor superior a 20.000€ 8%. |
+| Andalucía          | 4%                              | Tipo general.                                                                                  |
 | Aragón             | 4%                              | Tipo general para turismos.                                                                    |
-| Asturias           | 4%                              | Tipo general.                                                                                  |
-| Baleares           | 4% - 8%                         | Varía según valor (ej. 4% hasta 15.000€, 8% para valores superiores).                          |
-| Canarias           | 5,5% - 6,5%                     | Aplican IGIC en lugar de IVA para vehículos nuevos. ITP sobre usados.                          |
+| Asturias           | 8%                              | Tipo general.                                                                                  |
+| Baleares           | 4%                              | Tipo general.                                                                                  |
+| Canarias           | IGIC                            | No aplica ITP; las transmisiones de vehículos tributan por el IGIC en lugar del ITP.           |
 | Cantabria          | 8%                              | Tipo general.                                                                                  |
 | Castilla y León    | 5%                              | Tipo general.                                                                                  |
 | Castilla-La Mancha | 6%                              | Tipo general.                                                                                  |

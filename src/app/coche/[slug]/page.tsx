@@ -28,7 +28,11 @@ export async function generateMetadata({
 
   if (!carMatch) return {};
 
-  const heroCar = getHeroCarForModel(carMatch.brand, carMatch.modelQuery);
+  const heroCar = getHeroCarForModel(
+    carMatch.brand,
+    carMatch.modelQuery,
+    carMatch.boeQuery,
+  );
   const displayName = heroCar
     ? `${heroCar.brand} ${heroCar.model}`
     : `${carMatch.brand} ${carMatch.modelQuery}`;
@@ -71,7 +75,11 @@ export default async function CarModelPage({
 
   if (!carMatch) notFound();
 
-  const heroCar = getHeroCarForModel(carMatch.brand, carMatch.modelQuery);
+  const heroCar = getHeroCarForModel(
+    carMatch.brand,
+    carMatch.modelQuery,
+    carMatch.boeQuery,
+  );
   if (!heroCar) notFound();
 
   const content = getCarContent(slug);

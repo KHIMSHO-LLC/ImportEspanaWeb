@@ -20,7 +20,6 @@ El ITP se aplica cuando compras un coche de segunda mano **directamente a un par
 
 | Comunidad Autónoma | Tipo ITP | Capital |
 |--------------------|---------|---------|
-| Galicia | **3%** | Santiago de Compostela |
 | Madrid | **4%** | Madrid |
 | Andalucía | **4%** | Sevilla |
 | País Vasco | **4%** | Vitoria-Gasteiz |
@@ -28,17 +27,20 @@ El ITP se aplica cuando compras un coche de segunda mano **directamente a un par
 | Aragón | **4%** | Zaragoza |
 | Murcia | **4%** | Murcia |
 | Islas Baleares | **4%** | Palma |
-| Cantabria | **4%** | Santander |
+| La Rioja | **4%** | Logroño |
 | Cataluña | **5%** | Barcelona |
 | Castilla y León | **5%** | Valladolid |
-| Asturias | **5,5%** | Oviedo |
 | Comunidad Valenciana | **6%** | Valencia |
-| La Rioja | **6%** | Logroño |
-| Canarias | **6,5%** | Las Palmas / S.C. Tenerife |
 | Castilla-La Mancha | **6%** | Toledo |
-| Extremadura | **8%** | Mérida |
+| Extremadura | **6%** | Mérida |
+| Asturias | **8%** | Oviedo |
+| Cantabria | **8%** | Santander |
+| Galicia | **8%** | Santiago de Compostela |
+| Canarias | **IGIC** | Las Palmas / S.C. Tenerife |
 
 > Nota: Navarra y País Vasco tienen regímenes forales propios. Los tipos pueden variar según el valor del vehículo o condiciones especiales.
+>
+> Canarias no aplica ITP en la modalidad estatal: las transmisiones tributan por el IGIC (Impuesto General Indirecto Canario), con su propio régimen. Ceuta y Melilla también tienen regímenes específicos.
 
 ## Impacto Real en Euros
 
@@ -46,13 +48,12 @@ Para un coche con valor fiscal de **25.000 €**:
 
 | Comunidad | ITP | Diferencia vs Madrid |
 |-----------|-----|---------------------|
-| Galicia (3%) | 750 € | -250 € |
 | Madrid (4%) | 1.000 € | — |
 | Cataluña (5%) | 1.250 € | +250 € |
 | C. Valenciana (6%) | 1.500 € | +500 € |
-| Extremadura (8%) | 2.000 € | +1.000 € |
+| Galicia (8%) | 2.000 € | +1.000 € |
 
-Para un coche de **50.000 €** la diferencia entre Galicia y Extremadura sería de **2.500 €**.
+Para un coche de **50.000 €**, la diferencia entre una comunidad al 4% (Madrid) y una al 8% (Galicia, Asturias o Cantabria) sería de **2.000 €**.
 
 ## ¿Puedo Elegir la Comunidad para Pagar Menos ITP?
 

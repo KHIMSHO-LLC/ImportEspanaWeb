@@ -24,9 +24,7 @@ test.describe("URL Parsing Feature - Real World Tests", () => {
     await page.click("button:has-text('Fetch')");
 
     // Wait for loading to complete
-    await page.waitForSelector("button:has-text('Fetch')", {
-      state: "enabled",
-    });
+    await expect(page.locator("button:has-text('Fetch')")).toBeEnabled();
 
     // Check if data was extracted - should show success feedback
     const urlError = await page.locator("text=/error|error|Error/i").first();
@@ -52,9 +50,7 @@ test.describe("URL Parsing Feature - Real World Tests", () => {
     await page.click("button:has-text('Fetch')");
 
     // Wait for loading to complete
-    await page.waitForSelector("button:has-text('Fetch')", {
-      state: "enabled",
-    });
+    await expect(page.locator("button:has-text('Fetch')")).toBeEnabled();
 
     const urlError = await page.locator("text=/error|Error/i").first();
     const hasError = await urlError.isVisible().catch(() => false);
@@ -71,8 +67,7 @@ test.describe("URL Parsing Feature - Real World Tests", () => {
     await page.click("button:has-text('Fetch')");
 
     // Wait for loading to complete (with longer timeout for mobile.de)
-    await page.waitForSelector("button:has-text('Fetch')", {
-      state: "enabled",
+    await expect(page.locator("button:has-text('Fetch')")).toBeEnabled({
       timeout: 30000,
     });
 
@@ -91,8 +86,7 @@ test.describe("URL Parsing Feature - Real World Tests", () => {
     await page.click("button:has-text('Fetch')");
 
     // Wait for loading to complete
-    await page.waitForSelector("button:has-text('Fetch')", {
-      state: "enabled",
+    await expect(page.locator("button:has-text('Fetch')")).toBeEnabled({
       timeout: 30000,
     });
 

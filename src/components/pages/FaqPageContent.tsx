@@ -41,11 +41,19 @@ function AccordionItem({
           <ChevronDown size={18} className="text-[var(--text-tertiary)] shrink-0" />
         )}
       </button>
-      {isOpen && (
-        <div className="px-5 pb-5 pt-3 bg-[var(--surface-dim)] text-sm text-[var(--text-secondary)] leading-relaxed">
-          {answer}
+      {/* Kept in the DOM when collapsed — unmounting it hides the answer text
+          from crawlers and leaves the page looking like thin content. */}
+      <div
+        className={`grid transition-[grid-template-rows] duration-200 ${
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5 pt-3 bg-[var(--surface-dim)] text-sm text-[var(--text-secondary)] leading-relaxed">
+            {answer}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

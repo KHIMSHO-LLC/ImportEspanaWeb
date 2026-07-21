@@ -80,11 +80,11 @@ Es importante señalar que estos tipos son orientativos y pueden cambiar. Se rec
 | Galicia                 | 8%                   | 3% para vehículos de más de 10 años y menos de 15 CVF |
 | Canarias (IGIC - no ITP)| 0% (si la venta no está sujeta a IGIC) | No aplica ITP, sino IGIC en ventas profesionales |
 | País Vasco              | 4%                   | Sin tipos reducidos específicos para coches |
-| Asturias                | 4%                   | |
+| Asturias                | 8%                   | |
 | Castilla y León         | 5%                   | |
 | Castilla-La Mancha      | 6%                   | |
 | Extremadura             | 6%                   | |
-| Islas Baleares          | 4% a 8% (escalado por valor) | |
+| Islas Baleares          | 4%                   | |
 | Murcia                  | 4%                   | |
 | Cantabria               | 8%                   | |
 | La Rioja                | 4%                   | |

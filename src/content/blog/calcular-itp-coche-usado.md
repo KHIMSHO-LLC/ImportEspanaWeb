@@ -72,9 +72,9 @@ A modo de ejemplo, te mostramos algunos tipos impositivos generales para la tran
 | :----------------- | :----------------------------------------- |
 | Andalucía          | 4%                                         |
 | Aragón             | 4%                                         |
-| Asturias           | 4%                                         |
+| Asturias           | 8%                                         |
 | Baleares           | 4%                                         |
-| Canarias           | 5,5% (para turismos y todoterrenos)        |
+| Canarias           | IGIC (no aplica ITP)                       |
 | Cantabria          | 8%                                         |
 | Castilla-La Mancha | 6%                                         |
 | Castilla y León    | 5%                                         |

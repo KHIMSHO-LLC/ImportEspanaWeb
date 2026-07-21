@@ -76,9 +76,9 @@ Let's illustrate how the fiscal value translates into potential tax costs.
 
 | Tax Type                 | Calculation Basis                                            | Example (Car Fiscal Value: €15,000) |
 | :----------------------- | :----------------------------------------------------------- | :---------------------------------- |
-| **ITP (Transfer Tax)**   | Fiscal Value x Regional Rate (e.g., 6% in Andalucía)         | €15,000 x 6% = **€900**             |
+| **ITP (Transfer Tax)**   | Fiscal Value x Regional Rate (e.g., 4% in Andalucía)         | €15,000 x 4% = **€600**             |
 | **Impuesto de Matriculación** (Used Import) | Fiscal Value (depreciated) x CO2 Rate (e.g., 9.75%) | €15,000 (depreciated to €7,500) x 9.75% = **€731.25** |
-| **Total Illustrative Tax** | | **€1,631.25** |
+| **Total Illustrative Tax** | | **€1,331.25** |
 
 *Note: This is a simplified example. Actual calculations will depend on specific regional rates, vehicle age for depreciation, and CO2 emissions.*
 

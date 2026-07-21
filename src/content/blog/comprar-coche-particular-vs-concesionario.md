@@ -35,8 +35,8 @@ El ITP es el impuesto estrella en las compraventas entre particulares. Grava la 
 | :----------------- | :------------------- | :---- |
 | Andalucía          | 4%                   |       |
 | Aragón             | 4%                   |       |
-| Asturias           | 4%                   |       |
-| Canarias           | 5,5%                 | IGIC en lugar de IVA |
+| Asturias           | 8%                   |       |
+| Canarias           | IGIC                 | No aplica ITP |
 | Cantabria          | 8%                   |       |
 | Castilla-La Mancha | 6%                   |       |
 | Castilla y León    | 5%                   |       |

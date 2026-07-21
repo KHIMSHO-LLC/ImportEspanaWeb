@@ -30,11 +30,10 @@ Solo se aplica si compras el coche **a un particular** (no a un concesionario). 
 
 | Comunidad | Tipo ITP |
 |-----------|---------|
-| Galicia | 3% |
 | Madrid, Andalucía, País Vasco, Aragón, Murcia, Baleares | 4% |
 | Cataluña, Castilla y León | 5% |
-| Comunidad Valenciana | 6% |
-| Extremadura | 8% |
+| Comunidad Valenciana, Extremadura | 6% |
+| Galicia | 8% |
 
 **Ejemplo:** BMW 320d comprado a particular, valor fiscal 28.000 € en Madrid.
 ITP Madrid: 28.000 × 4% = **1.120 €**
