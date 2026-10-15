@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { TOP_SEO_MODELS, slugify } from "@/utils/seo/topCars";
 
 export const metadata: Metadata = {

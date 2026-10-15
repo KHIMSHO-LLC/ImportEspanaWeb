@@ -6,7 +6,7 @@ import {
   isEnglishSlug,
 } from "@/lib/blog-data";
 import { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { notFound } from "next/navigation";
 
 const BASE = "https://importespana.com";

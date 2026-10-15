@@ -2,7 +2,7 @@
 
 import { REGIONS, getRegionBySlug, type RegionData } from "@/constants/Regions";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const texts = {
   es: {

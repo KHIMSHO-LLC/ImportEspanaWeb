@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { FAQ_DATA } from "@/constants/FaqData";
 import SeoSchema from "@/components/SeoSchema";

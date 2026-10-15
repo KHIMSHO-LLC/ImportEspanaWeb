@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getAllPosts } from "@/lib/blog-data";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 export const metadata: Metadata = {
   title: "Blog - Guías de Importación de Coches en España",

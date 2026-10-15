@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const resources = {
   es: {

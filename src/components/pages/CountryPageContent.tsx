@@ -2,7 +2,7 @@
 
 import { COUNTRIES, getCountryBySlug } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const texts = {
   es: {

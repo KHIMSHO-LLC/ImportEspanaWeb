@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { CITIES, CityData } from "@/data/cities";

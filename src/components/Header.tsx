@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/components/ThemeProvider";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { usePathname } from "next/navigation";
 
 function trackAppClick(source: string) {

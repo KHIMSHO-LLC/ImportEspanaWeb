@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { Suspense, useState } from "react";
 import { HomeContent } from "@/app/page";
 import SeoSchema from "@/components/SeoSchema";

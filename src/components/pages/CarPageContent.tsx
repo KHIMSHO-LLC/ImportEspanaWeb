@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Vehicle } from "@/types";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { getCarContent } from "@/data/cars";

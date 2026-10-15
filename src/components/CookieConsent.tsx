@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 export const CookieConsent = () => {
   const { t } = useLanguage();

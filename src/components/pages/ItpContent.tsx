@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { SPANISH_REGIONS } from "@/constants/ItpRates";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 const texts = {
   es: {

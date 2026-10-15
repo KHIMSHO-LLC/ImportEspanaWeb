@@ -29,7 +29,7 @@ const LiveMarketData = dynamic(
 import { SeoContent } from "@/components/SeoContent";
 import SeoSchema from "@/components/SeoSchema";
 import { AppCallout } from "@/components/AppCallout";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { REGIONS } from "@/constants/Regions";
 import { COUNTRIES } from "@/constants/Countries";
 import { useLanguage } from "@/context/LanguageContext";
